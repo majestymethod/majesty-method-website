@@ -4,7 +4,7 @@ import Database from 'better-sqlite3';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const dataDir = path.resolve(process.env.DATA_DIR || './data');
+const dataDir = path.resolve(process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || './data');
 const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
 const dest = path.join(dataDir, 'backups', stamp);
 fs.mkdirSync(dest, { recursive: true });

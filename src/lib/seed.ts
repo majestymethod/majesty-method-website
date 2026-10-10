@@ -9,7 +9,7 @@ const SEED_MEDIA = path.resolve(process.cwd(), 'seed/media');
 
 export function ensureSeeded(db: Database.Database) {
   const ts = new Date().toISOString();
-  const mediaDir = path.join(path.resolve(process.env.DATA_DIR || './data'), 'media');
+  const mediaDir = path.join(path.resolve(process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || './data'), 'media');
 
   // Content documents: insert any that don't exist yet (new docs added in later releases seed automatically).
   const insDoc = db.prepare('INSERT OR IGNORE INTO content (key, draft, published, updated_at, published_at, updated_by) VALUES (?,?,?,?,?,?)');

@@ -6,6 +6,7 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p ${PORT:-3000}",
+    "start:railway": "node scripts/bootstrap-admin.mjs && next start -p ${PORT:-3000}",
     "typecheck": "tsc --noEmit",
     "admin:create": "node scripts/create-admin.mjs",
     "db:backup": "node scripts/backup.mjs",

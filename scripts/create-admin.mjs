@@ -31,7 +31,7 @@ if (!process.env.ADMIN_PASSWORD) {
   if (again !== password) { console.error('Passwords do not match.'); process.exit(1); }
 }
 
-const dataDir = path.resolve(process.env.DATA_DIR || './data');
+const dataDir = path.resolve(process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || './data');
 fs.mkdirSync(dataDir, { recursive: true });
 const db = new Database(path.join(dataDir, 'site.db'));
 db.exec(`CREATE TABLE IF NOT EXISTS users (

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { ensureSeeded } from './seed';
 
-export const DATA_DIR = path.resolve(process.env.DATA_DIR || './data');
+export const DATA_DIR = path.resolve(process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || './data');
 export const MEDIA_DIR = path.join(DATA_DIR, 'media');
 export const PRIVATE_DIR = path.join(DATA_DIR, 'private');
 export const BACKUP_DIR = path.join(DATA_DIR, 'backups');
