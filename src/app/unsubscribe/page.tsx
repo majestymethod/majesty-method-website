@@ -12,7 +12,7 @@ export default async function Unsubscribe({ searchParams }: { searchParams: Prom
     <BrandShell brand="majesty">
       <section className="section">
         <div className="container narrow stack">
-          <h1 style={{ fontSize: 'var(--t-2xl)', fontWeight: 450 }}>Email preferences</h1>
+          <h1 style={{ fontSize: 'var(--t-2xl)' }}>Email preferences</h1>
           {sp.done === '1' ? (
             <p className="alert alert--success" role="status">You’ve been unsubscribed from marketing emails. You may still receive messages about a programme or request you’re part of.</p>
           ) : valid ? (

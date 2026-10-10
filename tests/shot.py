@@ -4,7 +4,7 @@ from playwright.async_api import async_playwright
 path = sys.argv[1]; width = int(sys.argv[2]) if len(sys.argv) > 2 else 1440
 mode = sys.argv[3] if len(sys.argv) > 3 else 'fold'
 name = sys.argv[4] if len(sys.argv) > 4 else (path.strip('/').replace('/', '_') or 'entry') + f'-{width}'
-base = 'http://localhost:3000'
+base = __import__('os').environ.get('BASE','http://localhost:3000')
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch()

@@ -25,7 +25,7 @@ function CookieTable() {
     rows.push(['_ga, _ga_*', 'Analytics (only with your consent)', 'Distinguishes visitors to produce anonymous usage statistics', 'Up to 2 years', 'Google Analytics']);
   }
   return (
-    <table className="cookie-table">
+    <div className="cookie-wrap"><table className="cookie-table">
       <caption className="visually-hidden">Cookies currently used on this website</caption>
       <thead><tr><th scope="col">Name</th><th scope="col">Category</th><th scope="col">Purpose</th><th scope="col">Duration</th><th scope="col">Set by</th></tr></thead>
       <tbody>
@@ -35,7 +35,7 @@ function CookieTable() {
           </tr>
         ))}
       </tbody>
-    </table>
+    </table></div>
   );
 }
 
@@ -55,7 +55,7 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
     <BrandShell brand="majesty">
       <article className="legal">
         <div className="container">
-          <h1 style={{ fontSize: 'var(--t-2xl)', fontWeight: 450 }}>{c.title}</h1>
+          <h1 style={{ fontSize: 'var(--t-2xl)' }}>{c.title}</h1>
           <p className="muted" style={{ marginTop: 'var(--s-3)' }}>Last updated: {c.lastUpdated}</p>
           {c.reviewStatus !== 'Reviewed' && (
             <p className="note legal-draft">This page is a draft and is awaiting review. Some details are still to be confirmed.</p>

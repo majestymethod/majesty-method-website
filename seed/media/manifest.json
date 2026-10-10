@@ -53,5 +53,180 @@
       }
     ],
     "alt": ""
+  },
+  {
+    "id": "seed-entry-architecture",
+    "original_name": "entry-architecture.jpg",
+    "mime": "image/webp",
+    "width": 2061,
+    "height": 2576,
+    "variants": [
+      {
+        "w": 640,
+        "file": "seed-entry-architecture-640.webp",
+        "h": 800
+      },
+      {
+        "w": 1080,
+        "file": "seed-entry-architecture-1080.webp",
+        "h": 1350
+      },
+      {
+        "w": 1600,
+        "file": "seed-entry-architecture-1600.webp",
+        "h": 2000
+      },
+      {
+        "w": 2061,
+        "file": "seed-entry-architecture-2061.webp",
+        "h": 2576
+      }
+    ],
+    "alt": "Curved white balconies of a modern building, in black and white"
+  },
+  {
+    "id": "seed-founder",
+    "original_name": "founder-adelade-nyarirangwe.png",
+    "mime": "image/webp",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-founder-480.webp",
+        "h": 600
+      },
+      {
+        "w": 800,
+        "file": "seed-founder-800.webp",
+        "h": 1000
+      },
+      {
+        "w": 1122,
+        "file": "seed-founder-1122.webp",
+        "h": 1402
+      }
+    ],
+    "alt": "Adelade Nyarirangwe, founder of Majesty Method, in an emerald suit"
+  },
+  {
+    "id": "seed-bootcamp",
+    "original_name": "bootcamp-think-bigger.jpg",
+    "mime": "image/webp",
+    "width": 736,
+    "height": 1308,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-bootcamp-480.webp",
+        "h": 853
+      },
+      {
+        "w": 736,
+        "file": "seed-bootcamp-736.webp",
+        "h": 1308
+      }
+    ],
+    "alt": "A person in a dark suit holding up a newspaper that reads “Think bigger”"
+  },
+  {
+    "id": "seed-acceleration",
+    "original_name": "acceleration-team-strategy.jpg",
+    "mime": "image/webp",
+    "width": 2576,
+    "height": 1932,
+    "variants": [
+      {
+        "w": 640,
+        "file": "seed-acceleration-640.webp",
+        "h": 480
+      },
+      {
+        "w": 1080,
+        "file": "seed-acceleration-1080.webp",
+        "h": 810
+      },
+      {
+        "w": 1600,
+        "file": "seed-acceleration-1600.webp",
+        "h": 1200
+      }
+    ],
+    "alt": "A team working through marketing strategy documents around a table"
+  },
+  {
+    "id": "seed-webinars",
+    "original_name": "webinars-portrait.png",
+    "mime": "image/webp",
+    "width": 1122,
+    "height": 1402,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-webinars-480.webp",
+        "h": 600
+      },
+      {
+        "w": 800,
+        "file": "seed-webinars-800.webp",
+        "h": 1000
+      },
+      {
+        "w": 1122,
+        "file": "seed-webinars-1122.webp",
+        "h": 1402
+      }
+    ],
+    "alt": "A smiling woman in a cream dress seated in a studio"
+  },
+  {
+    "id": "seed-courses",
+    "original_name": "courses-social-apps.jpg",
+    "mime": "image/webp",
+    "width": 2576,
+    "height": 1554,
+    "variants": [
+      {
+        "w": 640,
+        "file": "seed-courses-640.webp",
+        "h": 386
+      },
+      {
+        "w": 1080,
+        "file": "seed-courses-1080.webp",
+        "h": 652
+      },
+      {
+        "w": 1600,
+        "file": "seed-courses-1600.webp",
+        "h": 965
+      }
+    ],
+    "alt": "A phone screen showing a folder of social media apps"
+  },
+  {
+    "id": "seed-resources",
+    "original_name": "resources-break-the-internet.jpg",
+    "mime": "image/webp",
+    "width": 1717,
+    "height": 2576,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-resources-480.webp",
+        "h": 721
+      },
+      {
+        "w": 800,
+        "file": "seed-resources-800.webp",
+        "h": 1200
+      },
+      {
+        "w": 1200,
+        "file": "seed-resources-1200.webp",
+        "h": 1800
+      }
+    ],
+    "alt": "A hand holding a phone with letter tiles spelling “Break the internet”"
   }
 ]

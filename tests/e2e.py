@@ -93,10 +93,10 @@ async def main():
         check('entry → TenderIQ', page.url.endswith('/tenderiq'))
         # TenderIQ uses purple, Majesty uses emerald
         btn = await page.evaluate("getComputedStyle(document.querySelector('.btn')).backgroundColor")
-        check('TenderIQ primary button is royal purple', btn == 'rgb(75, 40, 125)', btn)
+        check('TenderIQ primary button is royal purple', btn == 'rgb(72, 36, 111)', btn)
         await page.goto(BASE + '/majesty-method')
         btn = await page.evaluate("getComputedStyle(document.querySelector('main .btn')).backgroundColor")
-        check('Majesty Method primary button is emerald', btn == 'rgb(7, 91, 70)', btn)
+        check('Majesty Method primary button is emerald', btn == 'rgb(6, 77, 59)', btn)
 
         # All internal links resolve
         hrefs = set()
@@ -114,6 +114,44 @@ async def main():
         for path, anchor in [('/majesty-method', 'philosophy'), ('/majesty-method', 'paths'), ('/tenderiq', 'why'), ('/tenderiq', 'how-it-works'), ('/tenderiq', 'register'), ('/majesty-method/bootcamp', 'register')]:
             await page.goto(BASE + path)
             check(f'anchor #{anchor} exists on {path}', await page.locator(f'#{anchor}').count() == 1)
+
+
+        # ---------------------------------------------------------------- Refinement brief checks
+        await page.goto(BASE + '/')
+        ff = await page.evaluate("getComputedStyle(document.querySelector('h1')).fontFamily")
+        check('Poppins used for headings', ff.startswith('Poppins') or ff.startswith('"Poppins"'), ff)
+        check('entry: two rectangular destination blocks', await page.locator('.door').count() == 2 and 'MAJESTY METHOD' in await page.locator('.door--mm').inner_text() and 'TENDERIQ' in await page.locator('.door--tiq').inner_text())
+        check('entry: building photo is black and white', 'grayscale' in await page.evaluate("getComputedStyle(document.querySelector('.entry-hero__media')).filter"))
+        align = await page.evaluate("getComputedStyle(document.querySelector('.entry-hero__inner')).textAlign")
+        check('entry: logo and text centred', align == 'center', align)
+        await page.goto(BASE + '/majesty-method')
+        body = await page.locator('main').inner_text()
+        check('MM home: founder caption exact', 'Majesty Method Founder: Adelade Nyarirangwe' in body)
+        check('MM home: arch and transformation section removed', await page.locator('.arch').count() == 0 and 'From activity to a marketing system' not in body)
+        bg = await page.evaluate("getComputedStyle(document.body, '::before').backgroundImage")
+        check('white stone texture applied site-wide', 'white-stone' in bg, bg)
+        await page.goto(BASE + '/majesty-method/bootcamp')
+        body = await page.locator('main').inner_text()
+        check('bootcamp: How to Get Started with 3 steps', 'How to Get Started' in body and await page.locator('.steps3 > li').count() == 3)
+        check('bootcamp: removed sections and no price', 'Who it isn’t for' not in body and 'What you’ll work through' not in body and 'CONFIRM' not in body and 'What does it cost' not in body)
+        await page.goto(BASE + '/majesty-method/acceleration')
+        check('acceleration: photo + dark green highlighted block', await page.locator('.split-hero__media img').count() == 1 and await page.locator('.block--emerald').count() >= 1)
+        await page.goto(BASE + '/tenderiq')
+        check('TenderIQ: 7 purple problem blocks + 7 charcoal outcome blocks', await page.locator('.tiles--purple .tile').count() == 7 and await page.locator('.tiles--charcoal .tile').count() == 7)
+        ta = await page.evaluate("getComputedStyle(document.querySelector('#problem-title')).textAlign")
+        check('TenderIQ: problem heading centred', ta == 'center', ta)
+        check('TenderIQ: disclaimer + trust in purple blocks', await page.locator('.scenario__label.block--purple').count() == 1 and await page.locator('#trust-title').evaluate("e => e.closest('.block--purple') !== null"))
+        check('TenderIQ: exactly three industry slots', await page.locator('.industry').count() == 3)
+        bg = await page.evaluate("getComputedStyle(document.querySelector('.tiles--purple .tile')).borderRadius")
+        check('blocks have rounded corners', bg not in ('0px', ''), bg)
+        for path in ['/', '/majesty-method', '/majesty-method/bootcamp', '/tenderiq', '/majesty-method/acceleration']:
+            await page.goto(BASE + path)
+            lds = await page.eval_on_selector_all('script[type="application/ld+json"]', 'els => els.map(e => e.textContent)')
+            ok_json = all(json.loads(x) is not None for x in lds)
+            h1 = await page.locator('h1').count()
+            check(f'{path}: one H1 and valid JSON-LD', h1 == 1 and ok_json and len(lds) >= 1, f'h1={h1} ld={len(lds)}')
+        r = await page.request.get(BASE + '/llms.txt')
+        check('llms.txt served', r.ok and 'TenderIQ' in await r.text())
 
         # ---------------------------------------------------------------- Bootcamp form
         await page.goto(BASE + '/majesty-method/bootcamp')

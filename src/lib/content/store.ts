@@ -62,7 +62,7 @@ export function resetDocToDefault(key: string, userId: string) {
 // --- Settings ---------------------------------------------------------------
 
 export interface Settings {
-  brandName: string; descriptor: string; motto: string;
+  brandName: string; descriptor: string; motto: string; tagline: string;
   logo: ImageRef | null; tenderiqLogo: ImageRef | null;
   registeredName: string; legalStatus: string; registrationNumber: string; vatNumber: string;
   physicalAddress: string; postalAddress: string; location: string;

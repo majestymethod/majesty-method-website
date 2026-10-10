@@ -7,3 +7,4 @@ data/
 data-test/
 *.tsbuildinfo
 tests/__pycache__/
+data-preview/

@@ -29,9 +29,7 @@ export function SiteFooter({ brand }: { brand: 'majesty' | 'tenderiq' }) {
       <div className="container">
         <div className="site-footer__grid">
           <div className="site-footer__brand">
-            <p style={{ marginTop: 0, color: '#fff', fontFamily: tiq ? 'var(--sans)' : 'var(--serif)', fontSize: '1.375rem', fontWeight: tiq ? 700 : 400 }}>
-              {tiq ? 'TenderIQ' : s.brandName}
-            </p>
+            <p className={tiq ? 'site-footer__name site-footer__name--tiq' : 'site-footer__name'}>{tiq ? 'TenderIQ' : s.brandName}</p>
             <p>{tiq ? 'Find and assess tender opportunities with more time to prepare.' : s.descriptor}</p>
             {!tiq && <p className="site-footer__motto">{s.motto}</p>}
           </div>

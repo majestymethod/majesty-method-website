@@ -73,9 +73,9 @@ export const DEFAULT_FORMS: Record<FormKey, FormDef> = {
     description: 'Mirrors the “OCTOBER 26 VISIBILITY BOOTCAMP REGISTRATION FORM” Google Form and writes to its response sheet.',
     submitLabel: 'Register for the Bootcamp',
     successTitle: 'Your registration has been received',
-    successMessage: 'Thank you. The Majesty Method team will contact you on WhatsApp or email with cohort dates and next steps.',
+    successMessage: 'Thank you. We’ll share the details of the next free Friday webinar on WhatsApp or email. Registering doesn’t confirm a place in the programme.',
     acknowledgementSubject: 'Your Founder Bootcamp registration',
-    acknowledgementBody: 'Hi {{name}},\n\nThank you for registering for the Majesty Method Founder Bootcamp. We have received your details and will be in touch with cohort dates and next steps.\n\nMajesty Method',
+    acknowledgementBody: 'Hi {{name}},\n\nThank you for registering for the Majesty Method Founder Bootcamp. We’ll share the details of the next free Friday webinar, where we explain the programme and next steps.\n\nMajesty Method',
     sheets: { enabled: true, sheetName: 'Form responses 1', timestampColumn: 'Timestamp', respondentEmailColumn: 'Email address' },
     fields: [
       { key: 'name', label: 'Name and surname', type: 'text', required: true, enabled: true, locked: true, autocomplete: 'name', maxLength: 120, sheetColumn: 'NAME AND SURNAME' },

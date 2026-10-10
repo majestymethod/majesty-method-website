@@ -6,7 +6,7 @@ export function ContactStrip({ title = 'Have a question?', body = 'Ask us anythi
   if (brand) q.set('brand', brand);
   return (
     <section className="container" aria-labelledby="contact-strip-title">
-      <div className="contact-strip">
+      <div className="contact-strip block">
         <div>
           <h2 id="contact-strip-title">{title}</h2>
           <p>{body}</p>

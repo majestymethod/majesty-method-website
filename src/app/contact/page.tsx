@@ -25,9 +25,9 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   return (
     <BrandShell brand={brand}>
       <PageHero title={c.title} lead={c.intro} />
-      <section className="section">
+      <section className="section section--tight">
         <div className="container form-section">
-          <div className="form-section__intro">
+          <div className="form-section__intro block">
             <h2 className="h2--sm">Other ways to reach us</h2>
             <dl className="stack">
               {email && <div><dt className="muted">Email</dt><dd style={{ margin: 0 }}><a href={`mailto:${email}`}>{email}</a></dd></div>}

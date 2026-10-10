@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import '@fontsource-variable/bodoni-moda/opsz.css';
-import '@fontsource-variable/hanken-grotesk/index.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
 import './globals.css';
 import { getSettings } from '@/lib/content/store';
 import { CookieConsent } from '@/components/CookieConsent';
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { themeColor: '#f8f5ee', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#ffffff', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const s = getSettings();

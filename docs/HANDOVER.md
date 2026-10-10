@@ -101,3 +101,45 @@ positioning (graduate placement), and whether a PAIA manual is required.
   (shown on the dashboard when anything is waiting).
 - Real-device testing (iPhone Safari, Android Chrome on a slow connection) is still worth doing before launch;
   testing here used Chromium at the five target widths.
+
+---
+
+## Version 2 refinements (10 October 2026)
+
+**Design**: one white-stone background on every page (no beige), Poppins throughout, new Majesty Method palette
+(deep emerald, forest green, dark turquoise, gold, onyx) and TenderIQ palette (royal purple, dark purple, onyx, gold).
+Panels, cards, forms, buttons and images now have rounded corners and a subtle gloss. Colours, radii and the gloss
+are central tokens at the top of `src/app/globals.css`; the texture is `public/textures/white-stone.webp`.
+
+**Photographs used** (all editable in the page editor):
+
+| Photo you supplied | Where |
+|---|---|
+| Curved building | Entry page background, shown in black and white |
+| You in the emerald suit (selfie) | Majesty Method homepage, captioned "Majesty Method Founder: Adelade Nyarirangwe" |
+| "Think bigger" newspaper | Founder Bootcamp |
+| Team around the strategy table | Business Acceleration |
+| Woman in the cream dress | Webinars page |
+| Social apps on a phone | Courses page |
+| "Break the internet" phone | Free resources page |
+| Poster and brand board | Reference for look and feel (palette, tagline "Strategy. Power. Elevation.") |
+
+**Still needed from you**
+- **Three TenderIQ industry photographs** (construction/infrastructure, supply and delivery, logistics/commercial
+  services). Photo libraries are blocked from my workspace, so the page shows three clearly labelled
+  "Photograph to come" panels. Upload them in Pages → TenderIQ homepage → Industry photographs.
+- Please **confirm the founder photo** is the one you want, and that you have permission to use the photo of the
+  woman in the cream dress on the webinars page (if she isn't you).
+- Optional: the logo lockup as a transparent PNG/SVG file. The entry page currently pairs your monogram with the name
+  and tagline set in Poppins.
+
+**Content decisions**
+- TenderIQ's "What TenderIQ is designed to help you do" now has seven blocks. Five are the original outcomes; the two
+  added ones ("Spend less time screening", "Focus on stronger submissions") restate the positioning in your original brief
+  and don't claim new features. Edit or remove them if you prefer five.
+- The Bootcamp page no longer mentions cost anywhere. The "How to Get Started" steps say payment details are shared
+  after the webinar, and that registering doesn't confirm a place.
+- Keyword brief received and applied — see docs/SEO.md.
+
+**If you already used version 1 locally**: page copy is stored in the database, so pages you'd edited keep your text.
+To pick up the new default copy for a page, open it in the editor and use **Reset to default**, then **Publish**.

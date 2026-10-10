@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { getDoc, listItems, type ImageRef } from '@/lib/content/store';
 import { isPreview } from '@/lib/auth';
 import { pageMetadata } from '@/lib/seo';
-import { PageHero } from '@/components/PageHero';
+import { MediaHero } from '@/components/MediaHero';
 import { Picture } from '@/components/Picture';
 import { ContactStrip } from '@/components/ContactStrip';
 import { lines } from '@/components/Lines';
 
-interface Page { title: string; intro: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
+interface Page { image: ImageRef | null; title: string; intro: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
 interface Course { title: string; summary: string; audience: string; outcomes: string; topics: string; format: string; duration: string; price: string; image: ImageRef | null; ctaLabel: string; ctaUrl: string }
 
 export async function generateMetadata() {
@@ -21,11 +21,11 @@ export default async function CoursesPage() {
   const withMedia = courses.some((x) => x.data.image);
   return (
     <>
-      <PageHero crumb={{ href: '/majesty-method#paths', label: 'Programmes and services' }} title={c.title} lead={c.intro} />
-      <section className="section" aria-label="Course catalogue">
+      <MediaHero crumb={{ href: '/majesty-method#paths', label: 'Programmes and services' }} title={c.title} lead={c.intro} image={c.image} />
+      <section className="section section--tight" aria-label="Course catalogue">
         <div className="container">
           {courses.length === 0 ? (
-            <div className="empty">
+            <div className="empty block">
               <h2>{c.emptyTitle}</h2>
               <p>{c.emptyBody}</p>
               <div className="btn-row" style={{ marginTop: 'var(--s-3)' }}>
@@ -41,11 +41,11 @@ export default async function CoursesPage() {
                 const href = d.ctaUrl || `/contact?type=Courses&course=${encodeURIComponent(d.title)}`;
                 const outcomes = lines(d.outcomes), topics = lines(d.topics);
                 return (
-                  <li key={x.id}>
+                  <li key={x.id} className="block">
                     {withMedia && (d.image ? <Picture image={d.image} className="listing__media" sizes="(max-width: 760px) 100vw, 168px" /> : <span className="listing__media" aria-hidden="true" />)}
                     <div>
                       <p className="listing__meta">{[d.format, d.duration].filter(Boolean).join(' · ')}{x.status === 'draft' ? ' · DRAFT (preview only)' : ''}</p>
-                      <h2 className="serif" style={{ fontSize: 'var(--t-xl)', fontWeight: 500 }}>{d.title}</h2>
+                      <h2>{d.title}</h2>
                       <p className="listing__body">{d.summary}</p>
                       {(d.audience || outcomes.length > 0 || topics.length > 0) && (
                         <details>

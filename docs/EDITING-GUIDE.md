@@ -22,9 +22,11 @@ across every page.
 
 | You want to change… | Go to |
 |---|---|
-| The entry page headline, hero image, the two destination labels | Pages → Entry page |
+| The entry page statement, background photograph (black-and-white switch), the two block labels | Pages → Entry page |
+| Founder photograph and caption, who we help, beliefs, ways to work | Pages → Majesty Method homepage |
+| TenderIQ industry photographs (three) | Pages → TenderIQ homepage → Industry photographs |
 | Majesty Method homepage sections (hero, philosophy, transformation, paths, webinars band, Teach/Build/Strategise, closing) | Pages → Majesty Method homepage |
-| Bootcamp copy, programme facts (duration, format, next cohort), curriculum, who it's for, FAQs | Pages → Founder Bootcamp |
+| Bootcamp photo, copy, facts, curriculum, who should join, How to Get Started steps, FAQs | Pages → Founder Bootcamp |
 | Acceleration Programme copy, steps, suitability, terms note | Pages → Business Acceleration Programme |
 | TenderIQ copy, problems, outcomes, example, steps, trust statements | Pages → TenderIQ homepage |
 | Menu links and menu buttons for both brands | Pages → Navigation menus |

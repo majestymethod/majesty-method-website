@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { getDoc, listItems, type ImageRef } from '@/lib/content/store';
 import { isPreview } from '@/lib/auth';
 import { pageMetadata } from '@/lib/seo';
-import { PageHero } from '@/components/PageHero';
+import { MediaHero } from '@/components/MediaHero';
 import { Picture } from '@/components/Picture';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
 import { Download } from '@/components/Icons';
 import { getFile } from '@/lib/media';
 
-interface Page { title: string; intro: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
+interface Page { image: ImageRef | null; title: string; intro: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
 interface Resource { title: string; type: string; description: string; thumbnail: ImageRef | null; file: { id: string } | null; externalUrl: string; requiresRegistration: boolean }
 
 const fmtSize = (n: number) => (n > 1024 * 1024 ? `${(n / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
@@ -25,11 +25,11 @@ export default async function ResourcesPage() {
   const withMedia = items.some((r) => r.data.thumbnail);
   return (
     <>
-      <PageHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} title={c.title} lead={c.intro} />
-      <section className="section" aria-label="Resource library">
+      <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} title={c.title} lead={c.intro} image={c.image} />
+      <section className="section section--tight" aria-label="Resource library">
         <div className="container">
           {items.length === 0 ? (
-            <div className="empty">
+            <div className="empty block">
               <h2>{c.emptyTitle}</h2>
               <p>{c.emptyBody}</p>
               <p style={{ marginTop: 'var(--s-3)' }}><Link className="btn" href="/majesty-method/webinars">See free webinars</Link></p>
@@ -41,11 +41,11 @@ export default async function ResourcesPage() {
                 const file = getFile(d.file?.id);
                 const ext = file ? file.original_name.split('.').pop()?.toUpperCase() : null;
                 return (
-                  <li key={r.id}>
+                  <li key={r.id} id={r.id} className="block">
                     {withMedia && (d.thumbnail ? <Picture image={d.thumbnail} className="listing__media" sizes="(max-width: 760px) 100vw, 168px" /> : <span className="listing__media" aria-hidden="true" />)}
                     <div>
                       <p className="listing__meta">{d.type}{file ? ` · ${ext} · ${fmtSize(file.size)}` : ''}{r.status === 'draft' ? ' · DRAFT (preview only)' : ''}</p>
-                      <h2 className="serif" style={{ fontSize: 'var(--t-xl)', fontWeight: 500 }}>{d.title}</h2>
+                      <h2>{d.title}</h2>
                       <p className="listing__body">{d.description}</p>
                       {file && d.requiresRegistration && (
                         <details>

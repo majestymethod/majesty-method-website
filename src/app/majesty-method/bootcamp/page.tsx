@@ -1,16 +1,19 @@
 import Link from 'next/link';
-import { getDoc } from '@/lib/content/store';
+import { getDoc, type ImageRef } from '@/lib/content/store';
 import { isPreview } from '@/lib/auth';
 import { pageMetadata } from '@/lib/seo';
-import { PageHero, Facts, Faqs } from '@/components/PageHero';
+import { Facts, Faqs } from '@/components/PageHero';
+import { Picture } from '@/components/Picture';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
+import { JsonLd } from '@/components/JsonLd';
 import { lines } from '@/components/Lines';
+import { breadcrumbLd, courseLd, faqLd } from '@/lib/structured-data';
 
 interface Bootcamp {
-  title: string; headline: string; intro: string; facts: { label: string; value: string }[]; audience: string;
-  problem: { title: string; body: string }; outcomes: { title: string; items: string };
-  curriculum: { week: string; title: string; topics: string }[]; whoFor: string; notFor: string;
+  image: ImageRef | null; headline: string; intro: string; value: string; facts: { label: string; value: string }[];
+  curriculumTitle: string; curriculum: { week: string; title: string; topics: string }[];
+  whoForTitle: string; whoFor: string; start: { title: string; steps: { title: string; body: string }[] };
   register: { title: string; body: string }; faqs: { q: string; a: string }[];
   seo: { title: string; description: string };
 }
@@ -23,37 +26,33 @@ export default async function BootcampPage() {
   const c = getDoc<Bootcamp>('bootcamp', await isPreview());
   return (
     <>
-      <PageHero crumb={{ href: '/majesty-method#paths', label: 'Programmes and services' }} kicker={c.title} title={c.headline} lead={c.intro}>
-        <div className="btn-row">
-          <Link className="btn" href="#register">Register for the Bootcamp</Link>
-          <Link className="btn btn--secondary" href="#curriculum">See the curriculum</Link>
-        </div>
-        <Facts items={c.facts} />
-      </PageHero>
-
-      <section className="section" aria-labelledby="problem-title">
-        <div className="container split">
-          <h2 id="problem-title" className="h2--sm serif">{c.problem.title}</h2>
-          <div className="stack">
-            <p className="lead" style={{ color: 'var(--ink)' }}>{c.audience}</p>
-            <p className="muted">{c.problem.body}</p>
+      <section className="split-hero" aria-labelledby="bootcamp-title">
+        <div className="container split-hero__grid split-hero__grid--media-first split-hero__grid--text-first-mobile">
+          {c.image && (
+            <div className="media split-hero__media">
+              <Picture image={c.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
+            </div>
+          )}
+          <div>
+            <p className="crumb"><Link href="/majesty-method#paths">Programmes and services</Link></p>
+            <h1 id="bootcamp-title" style={{ fontSize: 'var(--t-2xl)' }}>{c.headline}</h1>
+            <p className="lead">{c.intro}</p>
+            {lines(c.value).length > 0 && <ul className="ticks" style={{ marginTop: 'var(--s-5)' }}>{lines(c.value).map((v) => <li key={v}>{v}</li>)}</ul>}
+            <div className="btn-row">
+              <Link className="btn" href="#register">Register for the Bootcamp</Link>
+              <Link className="btn btn--secondary" href="#get-started">How to get started</Link>
+            </div>
+            <Facts items={c.facts} />
           </div>
         </div>
       </section>
 
-      <section className="section section--white" aria-labelledby="outcomes-title">
-        <div className="container split">
-          <h2 id="outcomes-title" className="h2--sm serif">{c.outcomes.title}</h2>
-          <ul className="ticks">{lines(c.outcomes.items).map((o) => <li key={o}>{o}</li>)}</ul>
-        </div>
-      </section>
-
-      <section id="curriculum" className="section" aria-labelledby="curriculum-title">
+      <section className="section section--tight" aria-labelledby="curriculum-title">
         <div className="container">
-          <div className="section-head"><h2 id="curriculum-title" className="h2">The four weeks</h2></div>
+          <div className="section-head"><h2 id="curriculum-title" className="h2">{c.curriculumTitle}</h2></div>
           <ol className="curriculum">
             {c.curriculum.map((w) => (
-              <li key={w.title}>
+              <li key={w.title} className="block">
                 <p className="curriculum__week">{w.week}</p>
                 <div>
                   <h3>{w.title}</h3>
@@ -65,23 +64,32 @@ export default async function BootcampPage() {
         </div>
       </section>
 
-      <section className="section section--white" aria-label="Who the programme is for">
-        <div className="container columns-2">
-          <div className="stack">
-            <h2 className="h2--sm serif">Who should join</h2>
-            <ul className="ticks">{lines(c.whoFor).map((o) => <li key={o}>{o}</li>)}</ul>
+      {lines(c.whoFor).length > 0 && (
+        <section className="section section--tight" aria-labelledby="who-title">
+          <div className="container">
+            <div className="block block--dark block--emerald">
+              <h2 id="who-title" className="h2--sm" style={{ marginBottom: 'var(--s-4)' }}>{c.whoForTitle}</h2>
+              <ul className="ticks grid grid--2">{lines(c.whoFor).map((o) => <li key={o}>{o}</li>)}</ul>
+            </div>
           </div>
-          <div className="stack">
-            <h2 className="h2--sm serif">Who it isn’t for</h2>
-            <ul className="ticks ticks--x">{lines(c.notFor).map((o) => <li key={o}>{o}</li>)}</ul>
-          </div>
+        </section>
+      )}
+
+      <section id="get-started" className="section section--tight" aria-labelledby="start-title">
+        <div className="container">
+          <div className="section-head"><h2 id="start-title" className="h2">{c.start.title}</h2></div>
+          <ol className="steps3">
+            {c.start.steps.map((s) => (
+              <li key={s.title} className="block"><h3>{s.title}</h3><p>{s.body}</p></li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section id="register" className="section" aria-labelledby="register-title">
+      <section id="register" className="section section--tight" aria-labelledby="register-title">
         <div className="container form-section">
           <div className="form-section__intro">
-            <h2 id="register-title" className="h2--sm serif">{c.register.title}</h2>
+            <h2 id="register-title" className="h2--sm">{c.register.title}</h2>
             <p className="muted">{c.register.body}</p>
           </div>
           <SiteForm formKey="bootcamp" />
@@ -89,15 +97,20 @@ export default async function BootcampPage() {
       </section>
 
       {c.faqs.length > 0 && (
-        <section className="section section--white" aria-labelledby="faq-title">
-          <div className="container split">
-            <h2 id="faq-title" className="h2--sm serif">Questions</h2>
+        <section className="section section--tight" aria-labelledby="faq-title">
+          <div className="container narrow">
+            <div className="section-head"><h2 id="faq-title" className="h2--sm">Frequently asked questions</h2></div>
             <Faqs items={c.faqs} />
           </div>
         </section>
       )}
 
       <ContactStrip body="Ask us anything about the Founder Bootcamp before you register." type="Founder Bootcamp" />
+      <JsonLd data={[
+        courseLd('Founder Bootcamp', '/majesty-method/bootcamp', c.intro),
+        faqLd(c.faqs),
+        breadcrumbLd([{ name: 'Majesty Method', path: '/majesty-method' }, { name: 'Founder Bootcamp', path: '/majesty-method/bootcamp' }]),
+      ]} />
     </>
   );
 }

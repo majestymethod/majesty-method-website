@@ -58,6 +58,7 @@ export const DOCS: DocDef[] = [
       { key: 'brandName', label: 'Brand name', type: 'text' },
       { key: 'descriptor', label: 'Descriptor', type: 'text' },
       { key: 'motto', label: 'Motto', type: 'text' },
+      { key: 'tagline', label: 'Logo tagline', type: 'text', help: 'Shown under the logo on the entry page.' },
       { key: 'logo', label: 'Majesty Method logo', type: 'image', help: 'Transparent PNG or SVG works best.' },
       { key: 'tenderiqLogo', label: 'TenderIQ logo', type: 'image', help: 'Leave empty to use the TenderIQ wordmark.' },
       { key: 'registeredName', label: 'Registered business name', type: 'text', help: PLACEHOLDER_NOTE },
@@ -95,6 +96,7 @@ export const DOCS: DocDef[] = [
       brandName: 'Majesty Method',
       descriptor: 'AI • Marketing • Brand Strategy',
       motto: 'Maximum value. Minimum unnecessary effort.',
+      tagline: 'Strategy. Power. Elevation.',
       logo: { id: 'seed-logo-mark', alt: 'Majesty Method monogram' },
       tenderiqLogo: null,
       registeredName: '[REGISTERED BUSINESS NAME]',
@@ -170,28 +172,30 @@ export const DOCS: DocDef[] = [
     group: 'Site',
     route: '/',
     fields: [
-      { key: 'headline', label: 'Headline', type: 'text' },
-      { key: 'supporting', label: 'Supporting line', type: 'textarea' },
-      { key: 'heroImage', label: 'Hero image', type: 'image', help: 'Full-width, at least 2000px wide. Keep the left side calm so the headline stays readable.' },
-      { key: 'choicePrompt', label: 'Choice prompt', type: 'text' },
-      { key: 'majesty', label: 'Majesty Method destination', type: 'group', fields: [
+      { key: 'headline', label: 'Brand statement', type: 'text' },
+      { key: 'supporting', label: 'Supporting line (optional)', type: 'textarea' },
+      { key: 'heroImage', label: 'Background photograph', type: 'image', help: 'Shown edge to edge in black and white. Use a large photo (2000px+). A dark overlay keeps the text readable.' },
+      { key: 'monochrome', label: 'Show the photograph in black and white', type: 'boolean' },
+      { key: 'choicePrompt', label: 'Choice prompt (for screen readers)', type: 'text' },
+      { key: 'majesty', label: 'Majesty Method block', type: 'group', fields: [
         { key: 'label', label: 'Title', type: 'text' },
-        { key: 'description', label: 'Description', type: 'text' },
+        { key: 'description', label: 'Descriptor', type: 'text' },
       ] },
-      { key: 'tenderiq', label: 'TenderIQ destination', type: 'group', fields: [
+      { key: 'tenderiq', label: 'TenderIQ block', type: 'group', fields: [
         { key: 'label', label: 'Title', type: 'text' },
-        { key: 'description', label: 'Description', type: 'text' },
+        { key: 'description', label: 'Descriptor', type: 'text' },
       ] },
       seo('', ''),
     ],
     defaults: {
       headline: 'Strategy that moves business forward.',
-      supporting: 'Marketing, technology and intelligent systems for businesses ready to operate with greater clarity.',
-      heroImage: { id: 'seed-hero-entry', alt: '' },
+      supporting: 'Marketing, AI and tender intelligence for South African businesses.',
+      heroImage: { id: 'seed-entry-architecture', alt: '' },
+      monochrome: true,
       choicePrompt: 'Choose where you’d like to go',
-      majesty: { label: 'Majesty Method', description: 'Marketing, strategy, AI and business growth for founders.' },
-      tenderiq: { label: 'TenderIQ', description: 'Find tender opportunities worth pursuing.' },
-      seo: seoDefault('Majesty Method & TenderIQ', 'Majesty Method helps founders build marketing strategy, systems and AI capability. TenderIQ helps businesses find and assess tender opportunities.'),
+      majesty: { label: 'MAJESTY METHOD', description: 'Founders’ Solutions' },
+      tenderiq: { label: 'TENDERIQ', description: 'Tender Intelligence' },
+      seo: seoDefault('Majesty Method & TenderIQ | Marketing and Tenders, South Africa', 'Majesty Method helps South African founders with marketing strategy, AI implementation and training. TenderIQ helps businesses find and assess tender opportunities.'),
     },
   },
 
@@ -203,13 +207,23 @@ export const DOCS: DocDef[] = [
     route: '/majesty-method',
     fields: [
       { key: 'hero', label: 'Hero', type: 'group', fields: [
+        { key: 'kicker', label: 'Line above the headline', type: 'text' },
         { key: 'headline', label: 'Headline', type: 'text' },
         { key: 'body', label: 'Supporting copy', type: 'textarea' },
         cta('primary'), cta('secondary'),
-        { key: 'image', label: 'Arch image', type: 'image', help: 'Shown inside the arch beside the headline. A calm texture works best; the logo sits on top.' },
-        { key: 'showMark', label: 'Show the logo on the arch image', type: 'boolean' },
       ] },
-      { key: 'philosophy', label: 'Our philosophy', type: 'group', fields: [
+      { key: 'founder', label: 'Founder photograph', type: 'group', fields: [
+        { key: 'image', label: 'Photograph', type: 'image' },
+        { key: 'caption', label: 'Caption', type: 'text' },
+      ] },
+      { key: 'who', label: 'Who we help', type: 'group', fields: [
+        { key: 'title', label: 'Heading', type: 'text' },
+        { key: 'items', label: 'Audiences', type: 'list', itemLabelKey: 'title', fields: [
+          { key: 'title', label: 'Who', type: 'text' },
+          { key: 'body', label: 'Short description', type: 'textarea' },
+        ] },
+      ] },
+      { key: 'philosophy', label: 'What we believe', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'intro', label: 'Introduction', type: 'textarea' },
         { key: 'principles', label: 'Principles', type: 'list', itemLabelKey: 'title', fields: [
@@ -217,17 +231,14 @@ export const DOCS: DocDef[] = [
           { key: 'body', label: 'Explanation', type: 'textarea' },
         ] },
       ] },
-      { key: 'transformation', label: 'The transformation', type: 'group', fields: [
-        { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'items', label: 'From → to', type: 'list', itemLabelKey: 'from', fields: [
-          { key: 'from', label: 'From', type: 'text' },
-          { key: 'to', label: 'To', type: 'text' },
-        ] },
-      ] },
-      { key: 'paths', label: 'Choose your path', type: 'group', fields: [
+      { key: 'paths', label: 'Ways to work with us', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'intro', label: 'Introduction', type: 'textarea' },
-        { key: 'items', label: 'Services', type: 'list', itemLabelKey: 'title', fields: [
+        { key: 'pillars', label: 'Teach / Build / Strategise', type: 'list', itemLabelKey: 'title', fields: [
+          { key: 'title', label: 'Title', type: 'text' },
+          { key: 'body', label: 'Text', type: 'textarea' },
+        ] },
+        { key: 'items', label: 'Programmes and services', type: 'list', itemLabelKey: 'title', fields: [
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'body', label: 'Description', type: 'textarea' },
           { key: 'ctaLabel', label: 'Button text', type: 'text' },
@@ -244,14 +255,6 @@ export const DOCS: DocDef[] = [
         { key: 'body', label: 'Text', type: 'textarea' },
         { key: 'ctaLabel', label: 'Button text', type: 'text' },
       ] },
-      { key: 'approach', label: 'Teach. Build. Strategise.', type: 'group', fields: [
-        { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'intro', label: 'Introduction', type: 'textarea' },
-        { key: 'pillars', label: 'Pillars', type: 'list', itemLabelKey: 'title', fields: [
-          { key: 'title', label: 'Title', type: 'text' },
-          { key: 'body', label: 'Text', type: 'textarea' },
-        ] },
-      ] },
       { key: 'finalCta', label: 'Closing section', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'body', label: 'Text', type: 'textarea' },
@@ -261,68 +264,62 @@ export const DOCS: DocDef[] = [
     ],
     defaults: {
       hero: {
-        headline: 'Marketing should move your business forward.',
-        body: 'We help founders build the strategy, systems and practical marketing capabilities their businesses need to attract customers, convert demand and grow with greater intention.',
+        kicker: 'Marketing strategy and AI for South African businesses',
+        headline: 'Your marketing is too important to be left to chance.',
+        body: 'A founder-led approach to understanding your customers, building your strategy, and turning attention into sales.',
         primary: { label: 'Explore our programmes', href: '#paths' },
-        secondary: { label: 'Discover our philosophy', href: '#philosophy' },
-        image: { id: 'seed-hero-entry', alt: '' },
-        showMark: true,
+        secondary: { label: 'Join a free webinar', href: '/majesty-method/webinars' },
+      },
+      founder: { image: { id: 'seed-founder', alt: 'Adelade Nyarirangwe, founder of Majesty Method' }, caption: 'Majesty Method Founder: Adelade Nyarirangwe' },
+      who: {
+        title: 'Who we help',
+        items: [
+          { title: 'Founders doing their own marketing', body: 'You want a clear plan instead of guessing what to post next.' },
+          { title: 'Small businesses ready to grow', body: 'You have customers and want a dependable way to find more.' },
+          { title: 'Teams adopting AI', body: 'You want practical AI workflows that save time, not more tools.' },
+          { title: 'Businesses building in-house capability', body: 'You’d rather develop your own team than outsource everything.' },
+        ],
       },
       philosophy: {
         title: 'What we believe',
-        intro: 'Most businesses don’t need more marketing activity. They need marketing that is connected to how the business actually makes money.',
+        intro: 'Marketing is the heartbeat of a business. It deserves strategy, structure and the right tools.',
         principles: [
-          { title: 'Marketing is the heartbeat of a business', body: 'It is how customers find you, understand you and decide to buy. It deserves the attention of any other core business function.' },
-          { title: 'Strategy comes before tools', body: 'Platforms and software change every year. A clear strategy tells you which ones deserve your time.' },
-          { title: 'Customer understanding comes before content', body: 'Content works when it answers the questions your customers are already asking.' },
-          { title: 'Every activity should serve an objective', body: 'If a post, campaign or tool can’t be connected to a business goal, question whether it is worth doing.' },
-          { title: 'AI should reduce effort and amplify strategy', body: 'Used well, AI removes repetitive work so good thinking goes further. Used without strategy, it produces more noise, faster.' },
-          { title: 'Systems make good work repeatable', body: 'What works once should be documented, simplified and repeated — not reinvented every week.' },
-          { title: 'Founders should make informed decisions', body: 'You don’t have to do all the marketing yourself. You should understand it well enough to direct it.' },
-        ],
-      },
-      transformation: {
-        title: 'From activity to a marketing system',
-        items: [
-          { from: 'Random activity', to: 'Strategic execution' },
-          { from: 'Vanity metrics', to: 'Commercially useful insight' },
-          { from: 'Manual repetition', to: 'Intelligent workflows' },
-          { from: 'Blind outsourcing', to: 'Informed collaboration' },
-          { from: 'Disconnected tasks', to: 'A functioning marketing system' },
+          { title: 'Strategy before tools', body: 'A clear strategy tells you which platforms and software deserve your time.' },
+          { title: 'Customers before content', body: 'Content works when it answers the questions your customers already ask.' },
+          { title: 'Every activity has a purpose', body: 'If it can’t be linked to a business goal, question whether it’s worth doing.' },
+          { title: 'AI amplifies good thinking', body: 'Use AI to remove repetitive work so your strategy goes further.' },
+          { title: 'Systems make it repeatable', body: 'What works once should be documented and repeated, not reinvented.' },
+          { title: 'Founders stay in control', body: 'Understand marketing well enough to direct it, even when others do the work.' },
         ],
       },
       paths: {
-        title: 'Choose your path',
+        title: 'Ways to work with us',
         intro: 'Start where your business is today. Not every business needs every programme.',
+        pillars: [
+          { title: 'Teach', body: 'Learn the methods so you can make better marketing decisions yourself.' },
+          { title: 'Build', body: 'Implement systems, workflows and campaigns inside your business.' },
+          { title: 'Strategise', body: 'Decide what to focus on, what to stop and what to build next.' },
+        ],
         items: [
-          { title: 'Founder Bootcamp', body: 'Four practical weeks to understand your customers, create content that converts, generate leads and set up simple marketing systems. You learn it, then you build it.', ctaLabel: 'Explore the Bootcamp', href: '/majesty-method/bootcamp' },
-          { title: 'Business Acceleration Programme', body: 'Build marketing, sales and AI capacity inside your business by bringing in a graduate, supported by hands-on training and implementation.', ctaLabel: 'Explore Acceleration', href: '/majesty-method/acceleration' },
-          { title: 'Courses and learning', body: 'Focused learning on specific marketing, sales and AI skills, for when you need depth on one topic.', ctaLabel: 'Browse courses', href: '/majesty-method/courses' },
-          { title: 'Free digital resources', body: 'Templates, guides and checklists you can put to work in your business straight away.', ctaLabel: 'Access free resources', href: '/majesty-method/resources' },
+          { title: 'Founder Bootcamp', body: 'Four practical weeks of marketing and AI training for entrepreneurs. You learn it, then you build it.', ctaLabel: 'Explore the Bootcamp', href: '/majesty-method/bootcamp' },
+          { title: 'Business Acceleration', body: 'Build marketing, sales and AI capacity inside your business with a trained graduate.', ctaLabel: 'Explore Acceleration', href: '/majesty-method/acceleration' },
+          { title: 'Courses', body: 'Focused digital marketing training on one skill at a time.', ctaLabel: 'Browse courses', href: '/majesty-method/courses' },
+          { title: 'Free resources', body: 'Templates, guides and checklists you can use straight away.', ctaLabel: 'Access free resources', href: '/majesty-method/resources' },
         ],
         tenderiq: { title: 'Looking for tenders?', body: 'TenderIQ is our separate product for finding and assessing tender opportunities.', ctaLabel: 'Visit TenderIQ' },
       },
       webinars: {
         title: 'Free Friday webinars',
-        body: 'Each Friday we teach one practical marketing, AI, sales or business growth topic you can apply the following week. Join a session and get access to free Majesty Method resources.',
+        body: 'Each Friday we teach one practical marketing, AI, sales or growth topic. Join a session and get access to free Majesty Method resources.',
         ctaLabel: 'Register for a webinar',
-      },
-      approach: {
-        title: 'Teach. Build. Strategise.',
-        intro: 'Three ways to work with us, depending on what your business needs right now.',
-        pillars: [
-          { title: 'Teach', body: 'Learn the principles and methods so you can make better marketing decisions yourself.' },
-          { title: 'Build', body: 'Put the work into practice: implement systems, workflows and campaigns inside your business, and develop the people who run them.' },
-          { title: 'Strategise', body: 'Get strategic support to decide what to focus on, what to stop, and what to build next.' },
-        ],
       },
       finalCta: {
         title: 'Not sure where to start?',
-        body: 'Tell us where your business is today and we’ll point you to the most useful next step — even if that’s a free resource.',
+        body: 'Tell us where your business is today and we’ll point you to the most useful next step.',
         primary: { label: 'Contact us', href: '/contact' },
         secondary: { label: 'Join a free webinar', href: '/majesty-method/webinars' },
       },
-      seo: seoDefault('Majesty Method — AI, Marketing & Brand Strategy', 'Majesty Method helps founders build the marketing strategy, systems and AI capability their businesses need to attract customers and grow.'),
+      seo: seoDefault('Marketing Strategy & AI for SA Businesses | Majesty Method', 'Majesty Method helps South African founders build marketing strategy, lead generation and practical AI automation through training, implementation and strategic support.'),
     },
   },
 
@@ -333,29 +330,29 @@ export const DOCS: DocDef[] = [
     group: 'Majesty Method',
     route: '/majesty-method/bootcamp',
     fields: [
-      { key: 'title', label: 'Programme name', type: 'text' },
-      { key: 'headline', label: 'Headline', type: 'text' },
-      { key: 'intro', label: 'Introduction', type: 'textarea' },
-      { key: 'facts', label: 'Programme facts (optional)', type: 'list', itemLabelKey: 'label', help: 'e.g. Duration / Four weeks; Format / Online; Next cohort / 2 February 2027. Only shown when filled in.', fields: [
+      { key: 'image', label: 'Photograph', type: 'image' },
+      { key: 'headline', label: 'Heading', type: 'text' },
+      { key: 'intro', label: 'Short description', type: 'textarea' },
+      { key: 'value', label: 'What you’ll be able to do (one per line, keep to 3)', type: 'lines' },
+      { key: 'facts', label: 'Programme facts (optional)', type: 'list', itemLabelKey: 'label', help: 'e.g. Duration / Four weeks; Format / Online. Only shown when filled in. Don’t add the price here.', fields: [
         { key: 'label', label: 'Label', type: 'text' },
         { key: 'value', label: 'Value', type: 'text' },
       ] },
-      { key: 'audience', label: 'Who it’s for (short)', type: 'textarea' },
-      { key: 'problem', label: 'The problem it addresses', type: 'group', fields: [
-        { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'body', label: 'Text', type: 'textarea' },
-      ] },
-      { key: 'outcomes', label: 'Outcomes', type: 'group', fields: [
-        { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'items', label: 'Outcomes (one per line)', type: 'lines' },
-      ] },
+      { key: 'curriculumTitle', label: 'Curriculum heading', type: 'text' },
       { key: 'curriculum', label: 'Curriculum', type: 'list', itemLabelKey: 'title', fields: [
         { key: 'week', label: 'Week label', type: 'text' },
         { key: 'title', label: 'Title', type: 'text' },
         { key: 'topics', label: 'Topics (one per line)', type: 'lines' },
       ] },
+      { key: 'whoForTitle', label: '“Who should join” heading', type: 'text' },
       { key: 'whoFor', label: 'Who should join (one per line)', type: 'lines' },
-      { key: 'notFor', label: 'Who it isn’t for (one per line)', type: 'lines' },
+      { key: 'start', label: 'How to Get Started', type: 'group', fields: [
+        { key: 'title', label: 'Heading', type: 'text' },
+        { key: 'steps', label: 'Steps', type: 'list', itemLabelKey: 'title', fields: [
+          { key: 'title', label: 'Step', type: 'text' },
+          { key: 'body', label: 'Description', type: 'textarea' },
+        ] },
+      ] },
       { key: 'register', label: 'Registration section', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'body', label: 'Text', type: 'textarea' },
@@ -367,38 +364,39 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      title: 'Founder Bootcamp',
-      headline: 'Four weeks to build marketing that works for your business.',
-      intro: 'A practical, hands-on programme for founders who want to understand their customers, create content that converts, generate leads and build simple marketing systems. You learn it, then you build it — inside your own business.',
+      image: { id: 'seed-bootcamp', alt: 'A person in a dark suit holding up a newspaper that reads “Think bigger”' },
+      headline: 'Founder Bootcamp: marketing and AI training for entrepreneurs',
+      intro: 'Four practical weeks. Each week you learn one part of a working marketing system, then build it in your own business.',
+      value: 'Understand your customers and what makes them buy\nCreate content and outreach that bring in enquiries\nUse AI and simple systems to save time every week',
       facts: [{ label: 'Duration', value: 'Four weeks' }],
-      audience: 'For founders and small-business owners who do their own marketing, or direct someone who does, and want a clearer, more structured approach.',
-      problem: {
-        title: 'Busy isn’t the same as effective',
-        body: 'Many founders post regularly, try a few ads and experiment with AI tools, yet can’t connect that effort to enquiries and sales. The bootcamp replaces scattered activity with a simple system: know who you’re selling to, say what they need to hear, reach the right people, and make the work repeatable.',
-      },
-      outcomes: {
-        title: 'What you’ll work through',
-        items: 'A clear picture of your customers, their questions and their objections\nA content plan built around what your customers need to hear\nA practical approach to outreach and lead generation\nA working understanding of paid advertising and when it makes sense\nAI workflows and simple systems that reduce repetitive work',
-      },
+      curriculumTitle: 'What the four weeks cover',
       curriculum: [
-        { week: 'Week 1', title: 'Know your market', topics: 'Customer intelligence\nCustomer interviews and segmentation\nCompetitor analysis\nUnderstanding customer questions, objections and buying behaviour\nUsing research to make better marketing decisions' },
-        { week: 'Week 2', title: 'Content that converts', topics: 'Content strategy\nContent aligned with customer needs\nMessaging and positioning\nTurning attention into meaningful enquiries' },
-        { week: 'Week 3', title: 'Outreach, lead generation and paid advertising', topics: 'Practical outreach\nLead generation approaches\nUnderstanding paid advertising\nConnecting acquisition activity to business objectives' },
-        { week: 'Week 4', title: 'AI, funnels and marketing systems', topics: 'Useful AI workflows\nMarketing automation\nBasic funnel design\nRepeatable marketing processes\nUsing technology to reduce unnecessary manual work' },
+        { week: 'Week 1', title: 'Know your market', topics: 'Customer research and segmentation\nCompetitor analysis\nCustomer questions, objections and buying behaviour' },
+        { week: 'Week 2', title: 'Content that converts', topics: 'Content strategy\nMessaging and positioning\nTurning attention into enquiries' },
+        { week: 'Week 3', title: 'Outreach, leads and paid ads', topics: 'Practical outreach\nLead generation\nWhen paid advertising makes sense' },
+        { week: 'Week 4', title: 'AI, funnels and systems', topics: 'Useful AI workflows\nMarketing automation and simple funnels\nRepeatable marketing processes' },
       ],
-      whoFor: 'Founders who are ready to implement each week, not just attend\nBusinesses that sell a product or service and want more qualified enquiries\nOwners who want to understand marketing well enough to direct it\nTeams who want to use AI practically, not experimentally',
-      notFor: 'Anyone looking for a done-for-you marketing service\nAnyone expecting results without doing the work\nBusinesses that want to hand over their thinking entirely',
+      whoForTitle: 'Who should join',
+      whoFor: 'Founders and small-business owners ready to implement each week\nBusinesses that want more qualified enquiries\nOwners who want to understand marketing well enough to direct it\nTeams who want to use AI practically',
+      start: {
+        title: 'How to Get Started',
+        steps: [
+          { title: 'Complete the registration form', body: 'Register your interest through the form on this page.' },
+          { title: 'Attend the free Friday webinar', body: 'Learn about the programme, its value and how it works.' },
+          { title: 'Complete payment and join', body: 'Once you’ve received the programme details and payment instructions, complete payment to join.' },
+        ],
+      },
       register: {
         title: 'Register for the Bootcamp',
-        body: 'Tell us about you and your business. We’ll contact you with cohort dates and next steps.',
+        body: 'Complete the form and we’ll share the details of the next free Friday webinar. Registering doesn’t commit you to pay or confirm a place.',
       },
       faqs: [
-        { q: 'Do I need marketing experience?', a: 'No. The programme starts with fundamentals and builds from there. You do need to be willing to apply each week’s work to your own business.' },
-        { q: 'How much time will it take each week?', a: 'Plan time each week to implement what you learn — the programme is built around doing the work. The schedule is shared when you register.' },
-        { q: 'Can someone from my team join?', a: 'Yes. If an employee handles your marketing, tell us when you register and include their email address.' },
-        { q: 'What does it cost?', a: '[CONFIRM: programme fee and payment terms]' },
+        { q: 'Do I need marketing experience?', a: 'No. The programme starts with fundamentals. You do need to apply each week’s work to your own business.' },
+        { q: 'How much time will it take each week?', a: 'Plan time each week to put what you learn into practice. The schedule is shared at the webinar.' },
+        { q: 'Can someone from my team join?', a: 'Yes. If an employee handles your marketing, include their email address when you register.' },
+        { q: 'What happens after I register?', a: 'You’ll receive the details of the next free Friday webinar, where we explain the programme and the next steps.' },
       ],
-      seo: seoDefault('Founder Bootcamp — Majesty Method', 'A practical four-week programme for founders: customer intelligence, content that converts, lead generation, paid advertising, AI workflows and marketing systems.'),
+      seo: seoDefault('Marketing & AI Training for Entrepreneurs | Founder Bootcamp', 'A four-week, hands-on marketing and AI training programme for South African entrepreneurs: customer research, content, lead generation and AI workflows.'),
     },
   },
 
@@ -409,6 +407,7 @@ export const DOCS: DocDef[] = [
     group: 'Majesty Method',
     route: '/majesty-method/webinars',
     fields: [
+      { key: 'image', label: 'Photograph', type: 'image' },
       { key: 'title', label: 'Heading', type: 'text' },
       { key: 'intro', label: 'Introduction', type: 'textarea' },
       { key: 'value', label: 'What you get (one per line)', type: 'lines' },
@@ -418,13 +417,14 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      title: 'Free Friday webinars',
-      intro: 'One practical topic each Friday — marketing, AI, sales or business growth — taught so you can apply it the following week.',
-      value: 'Practical methods you can use straight away\nTime for questions from founders\nAccess to free Majesty Method resources when you join',
+      image: { id: 'seed-webinars', alt: 'A smiling woman in a cream dress seated in a studio' },
+      title: 'Free Friday webinars on marketing and AI',
+      intro: 'One practical topic each Friday, taught so you can apply it the following week.',
+      value: 'Practical methods you can use straight away\nTime for questions from founders\nAccess to free Majesty Method resources',
       resourcesNote: 'Everyone who joins a webinar gets access to free Majesty Method digital resources.',
       emptyTitle: 'The next sessions are being scheduled',
       emptyBody: 'Leave your details and we’ll let you know when registration opens.',
-      seo: seoDefault('Free Friday Webinars — Majesty Method', 'Free weekly webinars on practical marketing, AI, sales and business growth for founders, with access to free Majesty Method resources.'),
+      seo: seoDefault('Free Marketing & AI Webinars for Founders | Majesty Method', 'Free Friday webinars on practical marketing, AI, sales and business growth for South African founders, with access to free Majesty Method resources.'),
     },
   },
 
@@ -435,10 +435,11 @@ export const DOCS: DocDef[] = [
     group: 'Majesty Method',
     route: '/majesty-method/acceleration',
     fields: [
+      { key: 'image', label: 'Photograph', type: 'image' },
       { key: 'title', label: 'Programme name', type: 'text' },
       { key: 'headline', label: 'Headline', type: 'text' },
       { key: 'intro', label: 'Explanation', type: 'textarea' },
-      { key: 'challenge', label: 'The business challenge', type: 'group', fields: [
+      { key: 'challenge', label: 'The business challenge (dark green block)', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'body', label: 'Text', type: 'textarea' },
       ] },
@@ -458,15 +459,16 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
+      image: { id: 'seed-acceleration', alt: 'A team working through marketing strategy documents around a table' },
       title: 'Business Acceleration Programme',
-      headline: 'Build marketing capacity inside your business.',
-      intro: 'The Business Acceleration Programme helps you bring a graduate into your team as a developing marketing, sales and AI resource — supported by hands-on training and practical implementation from Majesty Method. Your business builds internal capability, and a South African graduate gains valuable work experience.',
+      headline: 'Build marketing, sales and AI capacity inside your business',
+      intro: 'Bring a graduate into your team as a developing marketing, sales and AI resource, supported by hands-on training and implementation from Majesty Method. Your business builds capability, and a South African graduate gains valuable work experience.',
       challenge: {
         title: 'The challenge',
-        body: 'Many growing businesses need more marketing and sales capacity but aren’t ready for a senior hire or an ongoing agency retainer. The work falls back on the founder, or it doesn’t get done.',
+        body: 'Many growing businesses need more marketing and sales support but aren’t ready for a senior hire or an ongoing agency retainer. The work falls back on the founder, or it doesn’t get done.',
       },
-      graduateHelps: 'Day-to-day marketing activity and content\nSales and lead-generation support\nSetting up useful AI workflows and automation\nBasic data and performance reporting\nDocumenting and improving internal processes\nBuilding a more structured marketing function over time',
-      graduateNote: 'A graduate is an early-career team member, not a senior marketer. The programme is designed to develop their skills alongside your business, with training and support from Majesty Method.',
+      graduateHelps: 'Day-to-day marketing and content\nSales and lead-generation support\nUseful AI workflows and automation\nBasic data and performance reporting\nDocumenting and improving processes',
+      graduateNote: 'A graduate is an early-career team member, not a senior marketer. The programme develops their skills alongside your business.',
       provides: 'Hands-on training in practical marketing, sales and AI skills\nSupport to apply that training in your business\nA structured approach to building your marketing function',
       steps: [
         { title: 'Discovery call', body: 'We learn about your business, your goals and how marketing works today.' },
@@ -474,13 +476,13 @@ export const DOCS: DocDef[] = [
         { title: 'Agree the engagement', body: 'Scope, responsibilities and terms are set out in writing before anything starts.' },
         { title: 'Train and implement', body: 'The graduate is trained and starts applying the work in your business.' },
       ],
-      suitability: 'You sell a product or service and want more consistent marketing and sales activity\nSomeone in the business can supervise and support a graduate day to day\nYou can give the graduate access to the information and tools they need\nYou want to build capability in-house over time',
-      termsNote: 'Placements depend on suitability and availability. Costs and commercial terms are confirmed in writing before you commit.',
+      suitability: 'You sell a product or service and want more consistent marketing and sales\nSomeone can supervise and support a graduate day to day\nYou can give the graduate the information and tools they need\nYou want to build capability in-house over time',
+      termsNote: 'Placements depend on suitability and availability. Costs and terms are confirmed in writing before you commit.',
       enquiry: {
         title: 'Book a discovery call',
         body: 'Tell us a little about your business. We’ll get back to you to arrange a call.',
       },
-      seo: seoDefault('Business Acceleration Programme — Majesty Method', 'Build in-house marketing, sales and AI capacity by bringing a graduate into your team, supported by hands-on training from Majesty Method.'),
+      seo: seoDefault('Marketing Support & AI Automation for Small Businesses | Majesty Method', 'Build in-house marketing, sales and AI capability with a trained graduate and hands-on support from Majesty Method. For small businesses in South Africa.'),
     },
   },
 
@@ -491,6 +493,7 @@ export const DOCS: DocDef[] = [
     group: 'Majesty Method',
     route: '/majesty-method/courses',
     fields: [
+      { key: 'image', label: 'Photograph', type: 'image' },
       { key: 'title', label: 'Heading', type: 'text' },
       { key: 'intro', label: 'Introduction', type: 'textarea' },
       { key: 'emptyTitle', label: 'No courses — heading', type: 'text' },
@@ -498,11 +501,12 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      title: 'Courses',
-      intro: 'Focused learning on specific marketing, sales and AI skills.',
+      image: { id: 'seed-courses', alt: 'A phone screen showing a folder of social media apps' },
+      title: 'Digital marketing and AI courses',
+      intro: 'Focused learning on one marketing, sales or AI skill at a time.',
       emptyTitle: 'New courses are in preparation',
       emptyBody: 'In the meantime, join a free Friday webinar or put one of our free resources to work.',
-      seo: seoDefault('Courses — Majesty Method', 'Focused courses on practical marketing, sales and AI skills for founders and their teams.'),
+      seo: seoDefault('Digital Marketing Training Courses | Majesty Method', 'Focused digital marketing, sales and AI courses for South African founders and their teams.'),
     },
   },
 
@@ -512,6 +516,7 @@ export const DOCS: DocDef[] = [
     group: 'Majesty Method',
     route: '/majesty-method/resources',
     fields: [
+      { key: 'image', label: 'Photograph', type: 'image' },
       { key: 'title', label: 'Heading', type: 'text' },
       { key: 'intro', label: 'Introduction', type: 'textarea' },
       { key: 'emptyTitle', label: 'No resources — heading', type: 'text' },
@@ -519,11 +524,12 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      title: 'Free resources',
+      image: { id: 'seed-resources', alt: 'A hand holding a phone with letter tiles spelling “Break the internet”' },
+      title: 'Free marketing and AI resources',
       intro: 'Templates, guides and checklists from Majesty Method, free to use in your business.',
       emptyTitle: 'Resources are being prepared',
       emptyBody: 'Join a Friday webinar to get access as soon as they’re available.',
-      seo: seoDefault('Free Resources — Majesty Method', 'Free marketing, AI and business growth templates, guides and checklists from Majesty Method.'),
+      seo: seoDefault('Free Marketing & AI Templates and Guides | Majesty Method', 'Free marketing, lead generation and AI templates, guides and checklists for small businesses in South Africa.'),
     },
   },
 
@@ -535,25 +541,36 @@ export const DOCS: DocDef[] = [
     route: '/tenderiq',
     fields: [
       { key: 'hero', label: 'Hero', type: 'group', fields: [
+        { key: 'kicker', label: 'Line above the headline', type: 'text' },
         { key: 'headline', label: 'Headline', type: 'text' },
         { key: 'body', label: 'Supporting copy', type: 'textarea' },
         cta('primary'), cta('secondary'),
       ] },
-      { key: 'problem', label: 'The problem', type: 'group', fields: [
+      { key: 'problem', label: 'The problem (purple blocks)', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'intro', label: 'Introduction', type: 'textarea' },
-        { key: 'items', label: 'Frustrations (one per line)', type: 'lines' },
+        { key: 'items', label: 'Frustrations (one per line; seven fill the grid best)', type: 'lines' },
       ] },
-      { key: 'outcomes', label: 'Value proposition', type: 'group', fields: [
+      { key: 'outcomes', label: 'What TenderIQ is designed to help you do (charcoal blocks)', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'items', label: 'Outcomes', type: 'list', itemLabelKey: 'title', fields: [
+        { key: 'items', label: 'Outcomes (seven fill the grid best)', type: 'list', itemLabelKey: 'title', fields: [
           { key: 'title', label: 'Title', type: 'text' },
           { key: 'body', label: 'Text', type: 'textarea' },
         ] },
       ] },
+      { key: 'industries', label: 'Industry photographs', type: 'group', fields: [
+        { key: 'title', label: 'Heading', type: 'text' },
+        { key: 'intro', label: 'Introduction', type: 'textarea' },
+        { key: 'items', label: 'Industries (three)', type: 'list', itemLabelKey: 'label', fields: [
+          { key: 'label', label: 'Industry', type: 'text' },
+          { key: 'description', label: 'Short description', type: 'text' },
+          { key: 'image', label: 'Photograph', type: 'image', help: 'Until a photo is chosen, a labelled placeholder is shown.' },
+        ] },
+        { key: 'note', label: 'Note under the photographs', type: 'text' },
+      ] },
       { key: 'example', label: 'Illustrative example', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'disclaimer', label: 'Disclaimer', type: 'text' },
+        { key: 'disclaimer', label: 'Disclaimer (purple block)', type: 'text' },
         { key: 'steps', label: 'Story (one step per line)', type: 'lines' },
       ] },
       { key: 'how', label: 'How it works', type: 'group', fields: [
@@ -563,9 +580,13 @@ export const DOCS: DocDef[] = [
           { key: 'body', label: 'Description', type: 'textarea' },
         ] },
       ] },
-      { key: 'trust', label: 'Trust and transparency', type: 'group', fields: [
+      { key: 'trust', label: 'What TenderIQ does and doesn’t do (purple block)', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'items', label: 'Statements (one per line)', type: 'lines' },
+      ] },
+      { key: 'faqs', label: 'Frequently asked questions', type: 'list', itemLabelKey: 'q', fields: [
+        { key: 'q', label: 'Question', type: 'text' },
+        { key: 'a', label: 'Answer', type: 'textarea' },
       ] },
       { key: 'register', label: 'Registration section', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
@@ -575,25 +596,38 @@ export const DOCS: DocDef[] = [
     ],
     defaults: {
       hero: {
+        kicker: 'Tender opportunities for South African businesses',
         headline: 'Stop searching blindly. Start pursuing tenders that fit.',
-        body: 'TenderIQ is designed to help businesses identify relevant tender opportunities, understand what each one requires, and make more informed decisions about which tenders are worth pursuing.',
+        body: 'TenderIQ is designed to help businesses find relevant tender opportunities, understand what each one requires, and decide which tenders are worth pursuing.',
         primary: { label: 'Register your interest', href: '#register' },
         secondary: { label: 'See how it works', href: '#how-it-works' },
       },
       problem: {
         title: 'Tendering takes more time than it should',
-        intro: 'Hours can disappear into a tender document before you find a requirement you can’t meet. Meanwhile, other opportunities close.',
+        intro: 'Hours can disappear into a tender document before you find a requirement you can’t meet.',
         items: 'Suitable opportunities are found too late to respond properly\nLong documents have to be reviewed manually, one by one\nMandatory requirements are easy to miss in the detail\nMissing documents surface days before the deadline\nSubmissions are prepared under unnecessary time pressure\nOpportunities outside your usual province go unnoticed\nTime goes into screening instead of preparing a stronger bid',
       },
       outcomes: {
         title: 'What TenderIQ is designed to help you do',
         items: [
-          { title: 'Find more relevant opportunities', body: 'Focus on tenders that are closer to your capabilities, business profile and eligibility.' },
-          { title: 'Screen opportunities earlier', body: 'Identify key qualification requirements before committing substantial time to a full submission.' },
+          { title: 'Find more relevant opportunities', body: 'Focus on tenders closer to your capabilities, business profile and eligibility.' },
+          { title: 'Screen opportunities earlier', body: 'Identify key qualification requirements before committing time to a full submission.' },
           { title: 'Understand what is required', body: 'See the relevant requirements in a structured, readable format.' },
-          { title: 'Identify what is missing', body: 'Compare what a tender asks for with the documents and capabilities you have available.' },
-          { title: 'Prepare with more time', body: 'Find suitable opportunities early enough to assess them, plan the work and prepare without a last-minute rush.' },
+          { title: 'Identify what is missing', body: 'Compare what a tender asks for with the documents and capabilities you have.' },
+          { title: 'Prepare with more time', body: 'Find suitable opportunities early enough to plan the work without a last-minute rush.' },
+          { title: 'Spend less time screening', body: 'Spend less time reading lengthy documents that turn out not to fit.' },
+          { title: 'Focus on stronger submissions', body: 'Put your effort into the opportunities worth pursuing, and submit on time.' },
         ],
+      },
+      industries: {
+        title: 'Built for businesses that tender across sectors',
+        intro: 'From construction to supply and delivery, many kinds of South African businesses pursue tenders.',
+        items: [
+          { label: 'Construction and infrastructure', description: 'Building, civil works and maintenance', image: null },
+          { label: 'Supply and delivery', description: 'Equipment, materials and business supplies', image: null },
+          { label: 'Logistics and commercial services', description: 'Transport, operations and facility services', image: null },
+        ],
+        note: 'Photographs show example sectors. They don’t depict TenderIQ customers or tender projects.',
       },
       example: {
         title: 'A tender in another province',
@@ -615,11 +649,17 @@ export const DOCS: DocDef[] = [
         title: 'What TenderIQ does — and doesn’t — do',
         items: 'TenderIQ supports finding and assessing opportunities. It does not replace the issuer’s official tender documents.\nYou remain responsible for checking every requirement in the official documentation and submitting through the prescribed channel.\nTenderIQ cannot guarantee that you will qualify for, or be awarded, any tender, or that every available tender will be found.',
       },
+      faqs: [
+        { q: 'Does TenderIQ guarantee that I’ll win a tender?', a: 'No. TenderIQ is designed to help you find and assess opportunities. Whether you qualify and win depends on the tender, your submission and the issuer’s evaluation.' },
+        { q: 'Does TenderIQ replace the official tender documents?', a: 'No. Always read the issuer’s official documents. Requirements vary from tender to tender, and the official documents take precedence.' },
+        { q: 'How do I know if my business qualifies for a tender?', a: 'Check the mandatory requirements in the official tender documents. These often include registration and compliance documents, and sometimes an industry grading, but they differ for every tender. TenderIQ is designed to help you spot these requirements earlier.' },
+        { q: 'Who is TenderIQ for?', a: 'South African businesses that pursue, or want to start pursuing, public and private tender opportunities.' },
+      ],
       register: {
         title: 'Register your interest',
-        body: 'Tell us about your business and how you tender today. The TenderIQ team will use this to understand your needs and contact you about next steps.',
+        body: 'Tell us about your business and how you tender today. The TenderIQ team will contact you about next steps.',
       },
-      seo: seoDefault('TenderIQ — Find tenders worth pursuing', 'TenderIQ helps South African businesses find relevant tender opportunities, understand their requirements early, and decide which tenders are worth pursuing.'),
+      seo: seoDefault('TenderIQ | Find Tender Opportunities in South Africa', 'TenderIQ helps South African businesses find relevant tender opportunities, check eligibility requirements early, and decide which tenders are worth pursuing.'),
     },
   },
 
@@ -637,7 +677,7 @@ export const DOCS: DocDef[] = [
     defaults: {
       title: 'Contact us',
       intro: 'Ask a question, find out which programme suits your business, or reach the TenderIQ team. Choose an enquiry type so your message reaches the right person.',
-      seo: seoDefault('Contact — Majesty Method & TenderIQ', 'Get in touch with Majesty Method about programmes, webinars and resources, or with the TenderIQ team.'),
+      seo: seoDefault('Contact Majesty Method & TenderIQ', 'Contact Majesty Method about marketing programmes, webinars and resources, or reach the TenderIQ team. Based in Johannesburg, working across South Africa.'),
     },
   },
 

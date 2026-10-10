@@ -1,14 +1,16 @@
 import Link from 'next/link';
-import { getDoc, getSettings } from '@/lib/content/store';
+import { getDoc, getSettings, type ImageRef } from '@/lib/content/store';
 import { isPreview } from '@/lib/auth';
 import { pageMetadata } from '@/lib/seo';
-import { PageHero } from '@/components/PageHero';
+import { Picture } from '@/components/Picture';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
+import { JsonLd } from '@/components/JsonLd';
 import { lines } from '@/components/Lines';
+import { breadcrumbLd, serviceLd } from '@/lib/structured-data';
 
 interface Acc {
-  title: string; headline: string; intro: string; challenge: { title: string; body: string };
+  image: ImageRef | null; title: string; headline: string; intro: string; challenge: { title: string; body: string };
   graduateHelps: string; graduateNote: string; provides: string; steps: { title: string; body: string }[];
   suitability: string; termsNote: string; enquiry: { title: string; body: string }; seo: { title: string; description: string };
 }
@@ -22,56 +24,75 @@ export default async function AccelerationPage() {
   const booking = getSettings().bookingUrl;
   return (
     <>
-      <PageHero crumb={{ href: '/majesty-method#paths', label: 'Programmes and services' }} kicker={c.title} title={c.headline} lead={c.intro}>
-        <div className="btn-row">
-          <Link className="btn" href="#enquire">Book a discovery call</Link>
-          <Link className="btn btn--secondary" href="#how">How it works</Link>
-        </div>
-      </PageHero>
-
-      <section className="section" aria-labelledby="challenge-title">
-        <div className="container split">
-          <h2 id="challenge-title" className="h2--sm">{c.challenge.title}</h2>
-          <p className="lead" style={{ color: 'var(--ink)' }}>{c.challenge.body}</p>
+      <section className="split-hero" aria-labelledby="acc-title">
+        <div className="container split-hero__grid">
+          <div>
+            <p className="crumb"><Link href="/majesty-method#paths">Programmes and services</Link></p>
+            <p className="kicker">{c.title}</p>
+            <h1 id="acc-title" style={{ fontSize: 'var(--t-2xl)', marginTop: 'var(--s-2)' }}>{c.headline}</h1>
+            <p className="lead">{c.intro}</p>
+            <div className="btn-row">
+              <Link className="btn" href="#enquire">Book a discovery call</Link>
+              <Link className="btn btn--secondary" href="#how">How it works</Link>
+            </div>
+          </div>
+          {c.image && (
+            <div className="media split-hero__media split-hero__media--land">
+              <Picture image={c.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="section section--white" aria-label="What the programme involves">
-        <div className="container columns-2">
-          <div className="stack">
-            <h2 className="h2--sm">What the graduate can help with</h2>
-            <ul className="ticks">{lines(c.graduateHelps).map((x) => <li key={x}>{x}</li>)}</ul>
-            <p className="note">{c.graduateNote}</p>
-          </div>
-          <div className="stack">
-            <h2 className="h2--sm">What Majesty Method provides</h2>
-            <ul className="ticks">{lines(c.provides).map((x) => <li key={x}>{x}</li>)}</ul>
+      <section className="section section--tight" aria-labelledby="challenge-title">
+        <div className="container">
+          <div className="block block--dark block--emerald" style={{ padding: 'clamp(28px, 4vw, 48px)' }}>
+            <div className="rule-gold" aria-hidden="true" style={{ marginBottom: 'var(--s-4)' }} />
+            <h2 id="challenge-title" className="h2--sm">{c.challenge.title}</h2>
+            <p style={{ marginTop: 'var(--s-3)', fontSize: 'var(--t-md)', maxWidth: '70ch' }}>{c.challenge.body}</p>
           </div>
         </div>
       </section>
 
-      <section id="how" className="section" aria-labelledby="how-title">
-        <div className="container split">
-          <div className="stack">
+      <section className="section section--tight" aria-labelledby="helps-title">
+        <div className="container">
+          <div className="section-head"><h2 id="helps-title" className="h2--sm">What the graduate can help with</h2></div>
+          <div className="block">
+            <ul className="ticks grid grid--2">{lines(c.graduateHelps).map((x) => <li key={x}>{x}</li>)}</ul>
+            {c.graduateNote && <p className="muted" style={{ marginTop: 'var(--s-5)', paddingTop: 'var(--s-4)', borderTop: '1px solid var(--line)' }}>{c.graduateNote}</p>}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--tight" aria-labelledby="provides-title">
+        <div className="container">
+          <div className="section-head"><h2 id="provides-title" className="h2--sm">What Majesty Method provides</h2></div>
+          <ul className="grid grid--3" style={{ listStyle: 'none' }}>
+            {lines(c.provides).map((x) => <li key={x} className="block card"><span className="card__mark" aria-hidden="true" /><p style={{ color: 'var(--ink)', fontWeight: 500 }}>{x}</p></li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section id="how" className="section section--tight" aria-labelledby="how-title">
+        <div className="container">
+          <div className="section-head">
             <h2 id="how-title" className="h2--sm">How the engagement works</h2>
             <p className="muted">{c.termsNote}</p>
           </div>
-          <ol className="steps">
-            {c.steps.map((s) => (
-              <li key={s.title}><div><h3>{s.title}</h3><p>{s.body}</p></div></li>
-            ))}
+          <ol className="steps block">
+            {c.steps.map((s) => <li key={s.title}><div><h3>{s.title}</h3><p>{s.body}</p></div></li>)}
           </ol>
         </div>
       </section>
 
-      <section className="section section--white" aria-labelledby="fit-title">
-        <div className="container split">
-          <h2 id="fit-title" className="h2--sm">It’s a good fit if</h2>
-          <ul className="ticks">{lines(c.suitability).map((x) => <li key={x}>{x}</li>)}</ul>
+      <section className="section section--tight" aria-labelledby="fit-title">
+        <div className="container">
+          <div className="section-head"><h2 id="fit-title" className="h2--sm">It’s a good fit if</h2></div>
+          <div className="block"><ul className="ticks grid grid--2">{lines(c.suitability).map((x) => <li key={x}>{x}</li>)}</ul></div>
         </div>
       </section>
 
-      <section id="enquire" className="section" aria-labelledby="enquire-title">
+      <section id="enquire" className="section section--tight" aria-labelledby="enquire-title">
         <div className="container form-section">
           <div className="form-section__intro">
             <h2 id="enquire-title" className="h2--sm">{c.enquiry.title}</h2>
@@ -88,7 +109,11 @@ export default async function AccelerationPage() {
         </div>
       </section>
 
-      <ContactStrip title="Not sure this is the right fit?" body="Ask a question first — there’s no obligation." type="Business Acceleration" />
+      <ContactStrip title="Not sure this is the right fit?" body="Ask a question first. There’s no obligation." type="Business Acceleration" />
+      <JsonLd data={[
+        serviceLd(c.title, '/majesty-method/acceleration', c.intro, 'Marketing support and AI implementation for small businesses'),
+        breadcrumbLd([{ name: 'Majesty Method', path: '/majesty-method' }, { name: c.title, path: '/majesty-method/acceleration' }]),
+      ]} />
     </>
   );
 }

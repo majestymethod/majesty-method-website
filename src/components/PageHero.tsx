@@ -4,7 +4,7 @@ export function PageHero({ crumb, kicker, title, lead, children }: { crumb?: { h
   return (
     <section className="page-hero">
       <div className="container">
-        {crumb && <p className="page-hero__crumb"><Link href={crumb.href}>{crumb.label}</Link></p>}
+        {crumb && <p className="crumb"><Link href={crumb.href}>{crumb.label}</Link></p>}
         {kicker && <p className="page-hero__title">{kicker}</p>}
         <h1>{title}</h1>
         {lead && <p className="lead">{lead}</p>}

@@ -1,13 +1,14 @@
 import { getDoc, listItems } from '@/lib/content/store';
 import { isPreview } from '@/lib/auth';
 import { pageMetadata } from '@/lib/seo';
-import { PageHero } from '@/components/PageHero';
+import { MediaHero } from '@/components/MediaHero';
+import type { ImageRef } from '@/lib/content/store';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
 import { lines } from '@/components/Lines';
 import { formatSast, parseSast } from '@/lib/dates';
 
-interface Page { title: string; intro: string; value: string; resourcesNote: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
+interface Page { image: ImageRef | null; title: string; intro: string; value: string; resourcesNote: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
 interface Webinar { title: string; topic: string; description: string; startsAt: string; durationMinutes: number; delivery: string; registrationMode: 'internal' | 'external'; registrationUrl: string; recordingUrl: string }
 
 export async function generateMetadata() {
@@ -26,11 +27,11 @@ export default async function WebinarsPage() {
 
   return (
     <>
-      <PageHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} title={c.title} lead={c.intro}>
+      <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} title={c.title} lead={c.intro} image={c.image}>
         <ul className="ticks" style={{ marginTop: 'var(--s-6)' }}>{lines(c.value).map((v) => <li key={v}>{v}</li>)}</ul>
-      </PageHero>
+      </MediaHero>
 
-      <section className="section" aria-labelledby="upcoming-title">
+      <section className="section section--tight" aria-labelledby="upcoming-title">
         <div className="container">
           <div className="section-head">
             <h2 id="upcoming-title" className="h2">Upcoming sessions</h2>
@@ -39,8 +40,8 @@ export default async function WebinarsPage() {
 
           {upcoming.length === 0 ? (
             <div className="form-section">
-              <div className="empty" style={{ borderTop: 0, paddingTop: 0 }}>
-                <h3 className="serif" style={{ fontSize: 'var(--t-xl)', fontWeight: 500 }}>{c.emptyTitle}</h3>
+              <div className="empty">
+                <h3 style={{ fontSize: 'var(--t-xl)' }}>{c.emptyTitle}</h3>
                 <p>{c.emptyBody}</p>
               </div>
               <SiteForm formKey="webinar" submitLabel="Notify me" />
@@ -50,7 +51,7 @@ export default async function WebinarsPage() {
               {upcoming.map((w) => {
                 const f = formatSast(w.start!);
                 return (
-                  <li key={w.id} id={`webinar-${w.id}`}>
+                  <li key={w.id} id={`webinar-${w.id}`} className="block">
                     <div>
                       <p className="listing__meta">
                         {f.date} · {f.time}{w.data.durationMinutes ? ` · ${w.data.durationMinutes} min` : ''}{w.status === 'draft' ? ' · DRAFT (preview only)' : ''}
@@ -85,12 +86,12 @@ export default async function WebinarsPage() {
       </section>
 
       {past.length > 0 && (
-        <section className="section section--white" aria-labelledby="past-title">
+        <section className="section section--tight" aria-labelledby="past-title">
           <div className="container">
-            <div className="section-head"><h2 id="past-title" className="h2--sm serif">Recordings</h2></div>
+            <div className="section-head"><h2 id="past-title" className="h2--sm">Recordings</h2></div>
             <ul className="listing">
               {past.map((w) => (
-                <li key={w.id}>
+                <li key={w.id} className="block">
                   <div>
                     <p className="listing__meta">{formatSast(w.start!).date}</p>
                     <h3>{w.data.title}</h3>
