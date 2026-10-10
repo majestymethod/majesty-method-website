@@ -143,3 +143,20 @@ are central tokens at the top of `src/app/globals.css`; the texture is `public/t
 
 **If you already used version 1 locally**: page copy is stored in the database, so pages you'd edited keep your text.
 To pick up the new default copy for a page, open it in the editor and use **Reset to default**, then **Publish**.
+
+---
+
+## Grand Entrance (entry page)
+
+The entry page uses your "Welcome to Majesty Method" artwork (`seed/entrance/grand-entrance-original.png`).
+`scripts/prepare-entrance.py` cuts it into layers in `public/entrance/` (the lit interior behind the doors,
+two door leaves, two ribbon halves and the seal) and records their positions in
+`src/components/entrance-layout.json`. Closed, the layers recompose your original picture; tapping the ribbon
+(or pressing Enter on it) lifts the seal, parts the ribbon, slides the doors open and reveals the two portals.
+
+- Visitors who prefer reduced motion, or use "Skip to the choices", get the open entrance instantly.
+- Returning to the page in the same browser session shows the open entrance straight away.
+- Without JavaScript, the portals are shown immediately.
+- Text you can edit: Pages → Entry page (Grand Entrance): the ribbon prompt, the heading above the portals,
+  the portal names and labels, and the page heading read by screen readers and search engines.
+- Replacing the artwork itself needs a developer: the ribbon, seal and door outlines are traced for this image.

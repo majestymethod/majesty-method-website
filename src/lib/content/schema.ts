@@ -168,33 +168,29 @@ export const DOCS: DocDef[] = [
   // -------------------------------------------------------------------------
   {
     key: 'entry',
-    title: 'Entry page',
+    title: 'Entry page (Grand Entrance)',
     group: 'Site',
     route: '/',
     fields: [
-      { key: 'headline', label: 'Brand statement', type: 'text' },
-      { key: 'supporting', label: 'Supporting line (optional)', type: 'textarea' },
-      { key: 'heroImage', label: 'Background photograph', type: 'image', help: 'Shown edge to edge in black and white. Use a large photo (2000px+). A dark overlay keeps the text readable.' },
-      { key: 'monochrome', label: 'Show the photograph in black and white', type: 'boolean' },
-      { key: 'choicePrompt', label: 'Choice prompt (for screen readers)', type: 'text' },
-      { key: 'majesty', label: 'Majesty Method block', type: 'group', fields: [
+      { key: 'headline', label: 'Page heading (read by screen readers and search engines)', type: 'text', help: 'The welcome text and logo are part of the entrance artwork itself.' },
+      { key: 'cue', label: 'Ribbon prompt', type: 'text', help: 'Shown under the seal, e.g. “Tap to enter”.' },
+      { key: 'choicePrompt', label: 'Heading above the two destinations', type: 'text' },
+      { key: 'majesty', label: 'Majesty Method portal', type: 'group', fields: [
         { key: 'label', label: 'Title', type: 'text' },
-        { key: 'description', label: 'Descriptor', type: 'text' },
+        { key: 'description', label: 'Supporting label', type: 'text' },
       ] },
-      { key: 'tenderiq', label: 'TenderIQ block', type: 'group', fields: [
+      { key: 'tenderiq', label: 'TenderIQ portal', type: 'group', fields: [
         { key: 'label', label: 'Title', type: 'text' },
-        { key: 'description', label: 'Descriptor', type: 'text' },
+        { key: 'description', label: 'Supporting label', type: 'text' },
       ] },
       seo('', ''),
     ],
     defaults: {
-      headline: 'Strategy that moves business forward.',
-      supporting: 'Marketing, AI and tender intelligence for South African businesses.',
-      heroImage: { id: 'seed-entry-architecture', alt: '' },
-      monochrome: true,
-      choicePrompt: 'Choose where you’d like to go',
+      headline: 'Welcome to Majesty Method',
+      cue: 'Tap to enter',
+      choicePrompt: 'Choose your destination',
       majesty: { label: 'MAJESTY METHOD', description: 'Founders’ Solutions' },
-      tenderiq: { label: 'TENDERIQ', description: 'Tender Intelligence' },
+      tenderiq: { label: 'TENDERIQ', description: 'Tender Opportunities & Intelligence' },
       seo: seoDefault('Majesty Method & TenderIQ | Marketing and Tenders, South Africa', 'Majesty Method helps South African founders with marketing strategy, AI implementation and training. TenderIQ helps businesses find and assess tender opportunities.'),
     },
   },

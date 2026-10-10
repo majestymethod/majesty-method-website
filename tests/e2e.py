@@ -82,15 +82,55 @@ async def main():
         check('mobile menu closes on Escape, focus returns to toggle', await toggle.get_attribute('aria-expanded') == 'false' and await page.evaluate("document.activeElement.classList.contains('nav__toggle')"))
         await page.set_viewport_size({'width': 1280, 'height': 900})
 
-        # ---------------------------------------------------------------- Entry navigation & links
-        await page.goto(BASE + '/')
-        await page.get_by_role('link', name='Majesty Method').first.click()
+        # ---------------------------------------------------------------- Entry: Grand Entrance
+        await page.goto(BASE + '/', wait_until='networkidle')
+        check('entrance: base artwork loaded', await page.evaluate("(() => { const i = document.querySelector('.gx-base'); return i.complete && i.naturalWidth > 1000; })()"))
+        check('entrance: choices hidden and inert before opening', await page.evaluate("document.querySelector('.gx-choices').inert === true && getComputedStyle(document.querySelector('.gx-choices')).visibility === 'hidden'"))
+        check('entrance: accessible heading', ((await page.locator('h1').text_content()) or '').strip().lower() == 'welcome to majesty method', await page.locator('h1').text_content())
+        await page.locator('.gx-ribbon-btn').click()
+        await page.wait_for_timeout(250)
+        check('entrance: ribbon click starts opening', await page.get_attribute('.gx', 'data-state') == 'opening')
+        await page.wait_for_timeout(1700)
+        check('entrance: opens and reveals both portals', await page.get_attribute('.gx', 'data-state') == 'open' and await page.locator('.gx-portal').count() == 2 and await page.evaluate("getComputedStyle(document.querySelector('.gx-choices')).opacity") == '1')
+        lt = await page.evaluate("getComputedStyle(document.querySelector('.gx-leaf--l')).transform")
+        check('entrance: door leaves slid open', lt not in ('none', ''), lt)
+        await page.get_by_role('link', name='MAJESTY METHOD').click()
         await page.wait_for_url('**/majesty-method')
         check('entry → Majesty Method', page.url.endswith('/majesty-method'))
         await page.goto(BASE + '/')
-        await page.get_by_role('link', name='TenderIQ').first.click()
+        check('entrance: returning in same session opens instantly', await page.get_attribute('.gx', 'data-state') == 'open')
+        await page.get_by_role('link', name='TENDERIQ').click()
         await page.wait_for_url('**/tenderiq')
         check('entry → TenderIQ', page.url.endswith('/tenderiq'))
+        # Keyboard: fresh session, Tab to the ribbon, press Enter
+        kctx = await browser.new_context(viewport={'width': 1280, 'height': 800}); kp = await kctx.new_page()
+        await kp.goto(BASE + '/', wait_until='networkidle')
+        for _ in range(4):
+            await kp.keyboard.press('Tab')
+            if await kp.evaluate("document.activeElement.classList.contains('gx-ribbon-btn')"): break
+        check('entrance: ribbon reachable by keyboard', await kp.evaluate("document.activeElement.classList.contains('gx-ribbon-btn')"))
+        await kp.keyboard.press('Enter')
+        await kp.wait_for_timeout(1800)
+        check('entrance: keyboard open moves focus to first destination', 'MAJESTY' in (await kp.evaluate("document.activeElement.textContent")))
+        await kctx.close()
+        # Reduced motion: opens instantly
+        rctx = await browser.new_context(viewport={'width': 390, 'height': 844}, reduced_motion='reduce'); rp = await rctx.new_page()
+        await rp.goto(BASE + '/', wait_until='networkidle')
+        await rp.locator('.gx-ribbon-btn').click()
+        await rp.wait_for_timeout(120)
+        check('entrance: reduced motion opens instantly on mobile', await rp.get_attribute('.gx', 'data-state') == 'open' and await rp.evaluate("getComputedStyle(document.querySelector('.gx-choices')).opacity") == '1')
+        box = await rp.locator('.gx-portal--tiq').bounding_box()
+        check('entrance: portals fit the phone screen', box and box['x'] >= 0 and box['x'] + box['width'] <= 390, str(box))
+        await rctx.close()
+        # Skip link opens directly
+        sctx = await browser.new_context(); sp = await sctx.new_page()
+        await sp.goto(BASE + '/', wait_until='networkidle')
+        await sp.keyboard.press('Tab')
+        await sp.keyboard.press('Enter')
+        await sp.wait_for_timeout(150)
+        check('entrance: skip link opens choices', await sp.get_attribute('.gx', 'data-state') == 'open')
+        await sctx.close()
+        await page.goto(BASE + '/tenderiq')
         # TenderIQ uses purple, Majesty uses emerald
         btn = await page.evaluate("getComputedStyle(document.querySelector('.btn')).backgroundColor")
         check('TenderIQ primary button is royal purple', btn == 'rgb(72, 36, 111)', btn)
@@ -117,13 +157,9 @@ async def main():
 
 
         # ---------------------------------------------------------------- Refinement brief checks
-        await page.goto(BASE + '/')
+        await page.goto(BASE + '/majesty-method')
         ff = await page.evaluate("getComputedStyle(document.querySelector('h1')).fontFamily")
         check('Poppins used for headings', ff.startswith('Poppins') or ff.startswith('"Poppins"'), ff)
-        check('entry: two rectangular destination blocks', await page.locator('.door').count() == 2 and 'MAJESTY METHOD' in await page.locator('.door--mm').inner_text() and 'TENDERIQ' in await page.locator('.door--tiq').inner_text())
-        check('entry: building photo is black and white', 'grayscale' in await page.evaluate("getComputedStyle(document.querySelector('.entry-hero__media')).filter"))
-        align = await page.evaluate("getComputedStyle(document.querySelector('.entry-hero__inner')).textAlign")
-        check('entry: logo and text centred', align == 'center', align)
         await page.goto(BASE + '/majesty-method')
         body = await page.locator('main').inner_text()
         check('MM home: founder caption exact', 'Majesty Method Founder: Adelade Nyarirangwe' in body)
@@ -306,7 +342,7 @@ async def main():
         pub = await (await page.request.get(BASE + '/')).text()
         check('published change is live after refresh', 'E2E draft headline' in pub)
         await ap.screenshot(path=str(SHOTS / 'admin-editor.png'))
-        await ap.fill('#f-headline', 'Strategy that moves business forward.')
+        await ap.fill('#f-headline', 'Welcome to Majesty Method')
         await ap.get_by_role('button', name='Publish').click()
         await ap.wait_for_selector('text=Published. The live page')
 
