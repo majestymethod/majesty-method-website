@@ -6,7 +6,8 @@ Google Sheets integration for Bootcamp registrations, and South African privacy 
 | Start here | |
 |---|---|
 | **Editing the site yourself** | [docs/EDITING-GUIDE.md](docs/EDITING-GUIDE.md) |
-| **Putting it online** | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) |
+| **Putting it online (step by step: Render + Squarespace)** | [docs/DEPLOY-RENDER.md](docs/DEPLOY-RENDER.md) |
+| Other hosting options | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) |
 | **What's done, what's pending, what you need to supply** | [docs/HANDOVER.md](docs/HANDOVER.md) |
 | **POPIA / cookies / ECTA / CPA / PAIA checklist** | [docs/COMPLIANCE-REPORT.md](docs/COMPLIANCE-REPORT.md) |
 | **Connecting Google Sheets** | [integrations/google-apps-script/README.md](integrations/google-apps-script/README.md) |
