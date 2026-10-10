@@ -1,0 +1,57 @@
+[
+  {
+    "id": "seed-logo-mark",
+    "original_name": "logo-mark.png",
+    "mime": "image/webp",
+    "width": 722,
+    "height": 711,
+    "variants": [
+      {
+        "w": 160,
+        "file": "seed-logo-mark-160.webp",
+        "h": 158
+      },
+      {
+        "w": 320,
+        "file": "seed-logo-mark-320.webp",
+        "h": 315
+      },
+      {
+        "w": 722,
+        "file": "seed-logo-mark-722.webp",
+        "h": 711
+      }
+    ],
+    "alt": "Majesty Method monogram"
+  },
+  {
+    "id": "seed-hero-entry",
+    "original_name": "hero-entry.jpg",
+    "mime": "image/webp",
+    "width": 2400,
+    "height": 1500,
+    "variants": [
+      {
+        "w": 640,
+        "file": "seed-hero-entry-640.webp",
+        "h": 400
+      },
+      {
+        "w": 1080,
+        "file": "seed-hero-entry-1080.webp",
+        "h": 675
+      },
+      {
+        "w": 1600,
+        "file": "seed-hero-entry-1600.webp",
+        "h": 1000
+      },
+      {
+        "w": 2400,
+        "file": "seed-hero-entry-2400.webp",
+        "h": 1500
+      }
+    ],
+    "alt": ""
+  }
+]

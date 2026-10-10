@@ -1,0 +1,9 @@
+node_modules
+.next
+data/
+.env
+.env.local
+*.log
+data-test/
+*.tsbuildinfo
+tests/__pycache__/

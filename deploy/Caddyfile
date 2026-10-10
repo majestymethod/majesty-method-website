@@ -1,0 +1,9 @@
+www.majestymethod.com {
+	reverse_proxy web:3000
+	request_body {
+		max_size 30MB
+	}
+}
+majestymethod.com {
+	redir https://www.majestymethod.com{uri} permanent
+}

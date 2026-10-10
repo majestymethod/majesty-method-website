@@ -1,0 +1,38 @@
+{
+  "name": "majesty-method-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p ${PORT:-3000}",
+    "typecheck": "tsc --noEmit",
+    "admin:create": "node scripts/create-admin.mjs",
+    "db:backup": "node scripts/backup.mjs",
+    "test:e2e": "python3 tests/e2e.py"
+  },
+  "dependencies": {
+    "@fontsource-variable/bodoni-moda": "^5.3.0",
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "better-sqlite3": "^13.0.3",
+    "marked": "^18.1.0",
+    "next": "^15.5.27",
+    "nodemailer": "^10.1.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sanitize-html": "^2.18.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.5",
+    "@types/nodemailer": "^8.0.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/sanitize-html": "^2.16.2",
+    "axe-core": "^4.14.0",
+    "typescript": "^6.0.3"
+  }
+}
