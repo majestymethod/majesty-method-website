@@ -12,6 +12,5 @@ ENV NODE_ENV=production DATA_DIR=/data PORT=3000
 COPY --from=build /app /app
 RUN mkdir -p /data && chown -R node:node /data /app
 USER node
-VOLUME ["/data"]
 EXPOSE 3000
-CMD ["npx", "next", "start", "-p", "3000"]
+CMD ["sh", "-c", "node scripts/bootstrap-admin.mjs && exec npx next start -p ${PORT:-3000}"]
