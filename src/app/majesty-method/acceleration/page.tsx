@@ -24,7 +24,7 @@ export default async function AccelerationPage() {
   const booking = getSettings().bookingUrl;
   return (
     <>
-      <section className="split-hero" aria-labelledby="acc-title">
+      <section className="split-hero hero-marble" aria-labelledby="acc-title">
         <div className="container split-hero__grid">
           <div>
             <p className="crumb"><Link href="/majesty-method#paths">Programmes and services</Link></p>
@@ -37,7 +37,7 @@ export default async function AccelerationPage() {
             </div>
           </div>
           {c.image && (
-            <div className="media split-hero__media split-hero__media--land">
+            <div className="media media--framed split-hero__media split-hero__media--land">
               <Picture image={c.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
             </div>
           )}
@@ -64,7 +64,7 @@ export default async function AccelerationPage() {
         </div>
       </section>
 
-      <section className="section section--tight" aria-labelledby="provides-title">
+      <section className="section surface--onyx" aria-labelledby="provides-title">
         <div className="container">
           <div className="section-head"><h2 id="provides-title" className="h2--sm">What Majesty Method provides</h2></div>
           <ul className="grid grid--3" style={{ listStyle: 'none' }}>
@@ -92,7 +92,7 @@ export default async function AccelerationPage() {
         </div>
       </section>
 
-      <section id="enquire" className="section section--tight" aria-labelledby="enquire-title">
+      <section id="enquire" className="section surface--emerald" aria-labelledby="enquire-title">
         <div className="container form-section">
           <div className="form-section__intro">
             <h2 id="enquire-title" className="h2--sm">{c.enquiry.title}</h2>

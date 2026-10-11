@@ -26,10 +26,10 @@ export default async function BootcampPage() {
   const c = getDoc<Bootcamp>('bootcamp', await isPreview());
   return (
     <>
-      <section className="split-hero" aria-labelledby="bootcamp-title">
+      <section className="split-hero surface--emerald hero-lit" aria-labelledby="bootcamp-title">
         <div className="container split-hero__grid split-hero__grid--media-first split-hero__grid--text-first-mobile">
           {c.image && (
-            <div className="media split-hero__media">
+            <div className="media media--framed split-hero__media">
               <Picture image={c.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
             </div>
           )}
@@ -86,7 +86,7 @@ export default async function BootcampPage() {
         </div>
       </section>
 
-      <section id="register" className="section section--tight" aria-labelledby="register-title">
+      <section id="register" className="section surface--emerald" aria-labelledby="register-title">
         <div className="container form-section">
           <div className="form-section__intro">
             <h2 id="register-title" className="h2--sm">{c.register.title}</h2>

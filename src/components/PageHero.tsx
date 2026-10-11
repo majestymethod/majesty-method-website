@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function PageHero({ crumb, kicker, title, lead, children }: { crumb?: { href: string; label: string }; kicker?: string; title: string; lead?: string; children?: React.ReactNode }) {
   return (
-    <section className="page-hero">
+    <section className="page-hero hero-marble">
       <div className="container">
         {crumb && <p className="crumb"><Link href={crumb.href}>{crumb.label}</Link></p>}
         {kicker && <p className="page-hero__title">{kicker}</p>}

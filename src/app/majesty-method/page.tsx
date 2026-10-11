@@ -28,7 +28,7 @@ export default async function MajestyHome() {
   const cols = (n: number) => (n % 3 === 0 ? 'grid--3' : n % 4 === 0 ? 'grid--4' : 'grid--2');
   return (
     <>
-      <section className="split-hero" aria-labelledby="mm-hero-title">
+      <section className="split-hero surface--emerald hero-lit" aria-labelledby="mm-hero-title">
         <div className="container split-hero__grid">
           <div>
             {c.hero.kicker && <p className="kicker">{c.hero.kicker}</p>}
@@ -41,7 +41,7 @@ export default async function MajestyHome() {
           </div>
           {c.founder.image && (
             <figure style={{ margin: 0 }}>
-              <div className="media split-hero__media">
+              <div className="media media--framed media--portal split-hero__media">
                 <Picture image={c.founder.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
               </div>
               {c.founder.caption && <figcaption className="founder-caption">{c.founder.caption}</figcaption>}
@@ -65,7 +65,7 @@ export default async function MajestyHome() {
         </div>
       </section>
 
-      <section id="philosophy" className="section section--tight" aria-labelledby="philosophy-title">
+      <section id="philosophy" className="section surface--onyx" aria-labelledby="philosophy-title">
         <div className="container">
           <div className="section-head">
             <h2 id="philosophy-title" className="h2">{c.philosophy.title}</h2>

@@ -168,27 +168,29 @@ export const DOCS: DocDef[] = [
   // -------------------------------------------------------------------------
   {
     key: 'entry',
-    title: 'Entry page (Grand Entrance)',
+    title: 'Entry page (House of Majesty entrance)',
     group: 'Site',
     route: '/',
     fields: [
-      { key: 'headline', label: 'Page heading (read by screen readers and search engines)', type: 'text', help: 'The welcome text and logo are part of the entrance artwork itself.' },
-      { key: 'cue', label: 'Ribbon prompt', type: 'text', help: 'Shown under the seal, e.g. “Tap to enter”.' },
-      { key: 'choicePrompt', label: 'Heading above the two destinations', type: 'text' },
-      { key: 'majesty', label: 'Majesty Method portal', type: 'group', fields: [
-        { key: 'label', label: 'Title', type: 'text' },
-        { key: 'description', label: 'Supporting label', type: 'text' },
+      { key: 'headline', label: 'Page heading (read by screen readers and search engines)', type: 'text', help: 'The welcome text, logo and brand signs are part of the entrance artwork itself.' },
+      { key: 'cue', label: 'Ribbon prompt (read by screen readers)', type: 'text', help: 'The artwork already shows “Tap to enter” on the doors.' },
+      { key: 'choicePrompt', label: 'Heading shown inside, above the two pathways', type: 'text' },
+      { key: 'returnLabel', label: 'Button that returns to the entrance', type: 'text' },
+      { key: 'majesty', label: 'Majesty Method pathway (left)', type: 'group', fields: [
+        { key: 'label', label: 'Name (read by screen readers; the sign is in the artwork)', type: 'text' },
+        { key: 'description', label: 'Supporting label (shown on the Enter button)', type: 'text' },
       ] },
-      { key: 'tenderiq', label: 'TenderIQ portal', type: 'group', fields: [
-        { key: 'label', label: 'Title', type: 'text' },
-        { key: 'description', label: 'Supporting label', type: 'text' },
+      { key: 'tenderiq', label: 'TenderIQ pathway (right)', type: 'group', fields: [
+        { key: 'label', label: 'Name (read by screen readers; the sign is in the artwork)', type: 'text' },
+        { key: 'description', label: 'Supporting label (shown on the Enter button)', type: 'text' },
       ] },
       seo('', ''),
     ],
     defaults: {
       headline: 'Welcome to Majesty Method',
       cue: 'Tap to enter',
-      choicePrompt: 'Choose your destination',
+      choicePrompt: 'Choose your path',
+      returnLabel: 'Back to the entrance',
       majesty: { label: 'MAJESTY METHOD', description: 'Founders’ Solutions' },
       tenderiq: { label: 'TENDERIQ', description: 'Tender Opportunities & Intelligence' },
       seo: seoDefault('Majesty Method & TenderIQ | Marketing and Tenders, South Africa', 'Majesty Method helps South African founders with marketing strategy, AI implementation and training. TenderIQ helps businesses find and assess tender opportunities.'),

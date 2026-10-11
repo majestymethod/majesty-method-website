@@ -5,7 +5,7 @@ import { Picture } from './Picture';
 /** Two-column page hero: text and an optional photograph. */
 export function MediaHero({ crumb, title, lead, image, children }: { crumb?: { href: string; label: string }; title: string; lead?: string; image?: ImageRef | null; children?: React.ReactNode }) {
   return (
-    <section className="split-hero">
+    <section className="split-hero hero-marble">
       <div className="container split-hero__grid">
         <div>
           {crumb && <p className="crumb"><Link href={crumb.href}>{crumb.label}</Link></p>}
@@ -14,7 +14,7 @@ export function MediaHero({ crumb, title, lead, image, children }: { crumb?: { h
           {children}
         </div>
         {image && (
-          <div className="media split-hero__media split-hero__media--land">
+          <div className="media media--framed split-hero__media split-hero__media--land">
             <Picture image={image} sizes="(max-width: 860px) 100vw, 45vw" priority />
           </div>
         )}

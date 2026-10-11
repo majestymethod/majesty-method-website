@@ -146,17 +146,45 @@ To pick up the new default copy for a page, open it in the editor and use **Rese
 
 ---
 
-## Grand Entrance (entry page)
+## House of Majesty (entry page and site-wide design, v3)
 
-The entry page uses your "Welcome to Majesty Method" artwork (`seed/entrance/grand-entrance-original.png`).
-`scripts/prepare-entrance.py` cuts it into layers in `public/entrance/` (the lit interior behind the doors,
-two door leaves, two ribbon halves and the seal) and records their positions in
-`src/components/entrance-layout.json`. Closed, the layers recompose your original picture; tapping the ribbon
-(or pressing Enter on it) lifts the seal, parts the ribbon, slides the doors open and reveals the two portals.
+### The entrance
+Two artworks, in `seed/house/`: the exterior (corridor, glass doors, emerald ribbon, gold seal) and the interior
+(lobby with the emerald Majesty Method pathway and the purple TenderIQ pathway).
+`scripts/prepare-house.py` cuts the exterior into layers in `public/house/` (a ribbon-free base, the two glass
+doors, two ribbon halves and the seal), makes responsive copies of the interior, and records positions and the
+clickable pathway areas in `src/components/house-layout.json`. The component is `src/components/HouseEntrance.tsx`.
 
-- Visitors who prefer reduced motion, or use "Skip to the choices", get the open entrance instantly.
-- Returning to the page in the same browser session shows the open entrance straight away.
-- Without JavaScript, the portals are shown immediately.
-- Text you can edit: Pages → Entry page (Grand Entrance): the ribbon prompt, the heading above the portals,
-  the portal names and labels, and the page heading read by screen readers and search engines.
-- Replacing the artwork itself needs a developer: the ribbon, seal and door outlines are traced for this image.
+Sequence (about 2 seconds): the seal presses and lifts away → the ribbon halves release outward → the glass doors
+slide into the walls and the lobby appears through the gap → the view moves through the doorway and the lobby fills
+the screen → the two pathways become links (Majesty Method → `/majesty-method`, TenderIQ → `/tenderiq`).
+
+- Tapping the ribbon, the seal or the doors (which carry "Tap to enter" in the artwork) opens it; so does Enter/Space
+  on the ribbon button. Escape or a second click skips the animation.
+- Hovering or focusing a pathway lights its sign and runner and dims the other side. Each pathway has a visible
+  Enter button (its supporting label + "Enter").
+- "Back to the entrance" returns to the closed doors.
+- Phones and portrait or square screens: the lobby is seen through the door, then becomes two panels, one per
+  pathway (stacked on phones, side by side on squarer tablets).
+- Reduced motion, the "Skip to the two destinations" link and returning in the same browser session open it instantly.
+  Without JavaScript the lobby and both pathways are shown directly.
+- Text you can edit: Pages → Entry page (House of Majesty entrance): the heading inside, the back button, the
+  pathway names (read by screen readers) and supporting labels (shown on the Enter buttons), and the page heading.
+- Replacing either artwork needs a developer: the ribbon, seal, doors and pathways are traced for these images.
+
+### Site-wide design ("House of Majesty")
+The page background stays white stone everywhere. Colour lives in contained, rounded, glossy elements:
+- Flagship heroes (Majesty Method home, Founder Bootcamp, TenderIQ) and selected feature sections ("What we
+  believe", "What Majesty Method provides", the Bootcamp, Acceleration and TenderIQ registration areas) sit in rich
+  emerald, onyx or purple panels with a warm downlight, a fine gold (or lavender) edge and, on heroes, two fine
+  light lines like the lit pillars. Cards inside these panels become glass cards with a hairline edge.
+- Other heroes (Acceleration, webinars, courses, resources, contact) are white marble with a warm light, a fine gold
+  line beneath and a gold double frame around the photo. The founder portrait has an arched "portal" top.
+- Buttons: emerald (Majesty Method) or purple (TenderIQ) with white text and a fine lit edge; metallic gold on dark
+  emerald panels; white on purple panels; outlined on dark. Hover lifts slightly; pressed settles.
+- Header: white with a fine gold (or purple) hairline; the current page is underlined. Footer: onyx with a gold
+  (Majesty Method) or lavender (TenderIQ) hairline.
+- Feature cards carry a fine illuminated line along the top; forms carry one too.
+- Tokens (colours, light, shadows, radii, motion) are at the top of `src/app/globals.css`; section colours are
+  applied with `.surface--emerald`, `.surface--purple` or `.surface--onyx` on a `<section>` (the colour goes on
+  its inner panel, never the page).

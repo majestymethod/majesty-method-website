@@ -63,10 +63,10 @@ export default async function TenderIqPage() {
   const problems = lines(c.problem.items);
   return (
     <>
-      <section className="tiq-hero" aria-labelledby="tiq-title">
+      <section className="tiq-hero surface--purple hero-lit" aria-labelledby="tiq-title">
         <div className="container tiq-hero__grid">
           <div>
-            {c.hero.kicker && <p className="kicker" style={{ color: 'var(--royal)' }}>{c.hero.kicker}</p>}
+            {c.hero.kicker && <p className="kicker">{c.hero.kicker}</p>}
             <h1 id="tiq-title" style={{ marginTop: 'var(--s-3)' }}>{c.hero.headline}</h1>
             <p className="lead">{c.hero.body}</p>
             <div className="btn-row">
@@ -154,7 +154,7 @@ export default async function TenderIqPage() {
         </div>
       </section>
 
-      <section id="register" className="section section--tight" aria-labelledby="register-title">
+      <section id="register" className="section surface--purple" aria-labelledby="register-title">
         <div className="container form-section">
           <div className="form-section__intro">
             <h2 id="register-title" className="h2--sm">{c.register.title}</h2>
