@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ImageRef } from '@/lib/content/store';
 import { Picture } from './Picture';
+import { Popout, isCutout } from './Popout';
 
 /** Two-column page hero: text and an optional photograph. */
 export function MediaHero({ crumb, kicker, title, lead, image, portrait, children }: { crumb?: { href: string; label: string }; kicker?: string; title: string; lead?: string; image?: ImageRef | null; portrait?: boolean; children?: React.ReactNode }) {
@@ -14,11 +15,13 @@ export function MediaHero({ crumb, kicker, title, lead, image, portrait, childre
           {lead && <p className="lead">{lead}</p>}
           {children}
         </div>
-        {image && (
+        {image && (isCutout(image) ? (
+          <Popout image={image} sizes="(max-width: 860px) 100vw, 45vw" priority className="split-hero__pop" />
+        ) : (
           <div className={`media media--framed split-hero__media ${portrait ? 'split-hero__media--portrait' : 'split-hero__media--land'}`}>
             <Picture image={image} sizes="(max-width: 860px) 100vw, 45vw" priority />
           </div>
-        )}
+        ))}
       </div>
     </section>
   );

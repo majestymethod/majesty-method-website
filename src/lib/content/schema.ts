@@ -276,7 +276,7 @@ export const DOCS: DocDef[] = [
       },
       who: {
         title: 'Who we help',
-        image: { id: 'seed-who', alt: 'A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders' },
+        image: { id: 'seed-who-cutout', alt: 'A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders' },
         items: [
           { title: 'Founders doing their own marketing', body: 'You want a clear plan instead of guessing what to post next.' },
           { title: 'Small businesses ready to grow', body: 'You have customers and want a dependable way to find more.' },
@@ -387,7 +387,7 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      image: { id: 'seed-bootcamp', alt: 'A person in a dark suit holding up a newspaper that reads “Think bigger”' },
+      image: { id: 'seed-bootcamp-cutout', alt: 'A person in a dark suit holding up a newspaper that reads “Think bigger”' },
       headline: 'The Founder Marketing Bootcamp',
       intro: 'A practical marketing programme for founders who need their marketing to work — without becoming full-time marketers themselves.',
       value: 'Four weeks of guided, hands-on implementation in your own business\nMarketing strategy, practical skills and accessible AI tools\nSystems that keep your marketing moving when you get busy',
@@ -479,7 +479,7 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      image: { id: 'seed-webinars', alt: 'A smiling woman in a cream dress seated in a studio' },
+      image: { id: 'seed-webinars-cutout', alt: 'A smiling woman in a cream dress seated on a stool' },
       kicker: 'Free · Every Friday',
       title: 'The Founder Marketing Sessions',
       tagline: 'Smarter marketing. Stronger brands. Better business outcomes.',
@@ -642,7 +642,7 @@ export const DOCS: DocDef[] = [
       seo('', ''),
     ],
     defaults: {
-      image: { id: 'seed-resources', alt: 'A hand holding a phone with letter tiles spelling “Break the internet”' },
+      image: { id: 'seed-resources-cutout', alt: 'A hand holding a phone with letter tiles spelling “Break the internet”' },
       title: 'Free marketing and AI resources',
       intro: 'Templates, guides and checklists from Majesty Method, free to use in your business.',
       emptyTitle: 'Resources are being prepared',

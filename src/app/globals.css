@@ -1016,3 +1016,38 @@ ul, ol { margin: 0; padding: 0; }
   .mm-hero .container { width: calc(100% - 2 * var(--gutter)); }
   .mm-hero__actions .btn { flex: 1 1 100%; }
 }
+
+/* ---------- Cut-out people "popping out" of their green box (Majesty Method only) ----------
+   .popout--bleed breaks out of the green panel it sits in; .popout--box draws its own green stone box. */
+.popout { --pop: clamp(28px, 4.5vw, 72px); position: relative; min-width: 0; }
+.popout__img {
+  position: absolute; z-index: 1; bottom: 0; left: 50%; transform: translateX(-50%);
+  height: 100%; width: auto; max-width: 112%; object-fit: contain; object-position: 50% 100%;
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.32)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.18));
+}
+/* In a green panel: the panel stops clipping and the photo reaches past its top and bottom edges. */
+.surface--emerald > .container:has(> .popout--bleed), .block:has(> .popout--bleed) { overflow: visible; }
+.popout--bleed { --edge-pad: var(--panel-pad, 32px); align-self: stretch; min-height: 420px;
+  margin-block: calc(-1 * (var(--edge-pad) + var(--pop))); }
+.split-hero.surface--emerald:has(.popout--bleed), .surface--emerald:has(.popout--bleed) { padding-block: calc(clamp(28px, 4.5vw, 72px) + 24px); }
+@media (max-width: 860px) { .split-hero.surface--emerald:has(.popout--edge-bottom) { padding-top: clamp(16px, 3vw, 36px); } }
+.band:has(> .popout--bleed) { --pop: clamp(24px, 3.5vw, 52px); }
+.band > .popout--bleed { --edge-pad: clamp(20px, 3vw, 32px); min-height: 300px; }
+section:has(.band > .popout--bleed) { padding-block: calc(var(--pop, 48px) + 24px); }
+/* On white: a green stone box with the person standing in it, head above and feet below the box. */
+.popout--box { aspect-ratio: 4 / 5; width: 100%; max-width: 500px; justify-self: end; }
+.popout__box { position: absolute; left: 0; right: 0; top: var(--pop); bottom: var(--pop);
+  border-radius: calc(var(--r-block) + 10px); border: 1px solid rgba(220, 192, 120, 0.4);
+  background: var(--gloss-soft), var(--green-stone), var(--jade-3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 40px 70px -40px rgba(10, 14, 12, 0.65); }
+.who-wrap__pop { aspect-ratio: auto; max-width: none; min-height: 460px; margin-block: var(--pop) 0; }
+.split-hero__grid--media-first > .split-hero__media-pop { order: -1; }
+@media (max-width: 860px) {
+  .split-hero__grid--text-first-mobile > .split-hero__media-pop { order: 2; }
+  .popout--bleed { min-height: 0; height: clamp(360px, 108vw, 560px); margin-block: 0; }
+  .popout--bleed.popout--edge-bottom { margin-bottom: calc(-1 * (var(--edge-pad) + var(--pop))); }
+  .popout--bleed.popout--edge-top { margin-top: calc(-1 * (var(--edge-pad) + var(--pop))); }
+  .band > .popout--bleed { height: clamp(260px, 80vw, 420px); }
+  .popout--box { justify-self: center; max-width: 440px; }
+  .who-wrap__pop { min-height: 0; aspect-ratio: 4 / 5; justify-self: center; width: 100%; max-width: 440px; }
+}

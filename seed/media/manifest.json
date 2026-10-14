@@ -330,6 +330,96 @@
     "alt": "A container port with a cargo ship, cranes, delivery trucks and a plane overhead"
   },
   {
+    "id": "seed-bootcamp-cutout",
+    "original_name": "bootcamp-cutout.png",
+    "mime": "image/webp",
+    "width": 696,
+    "height": 915,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-bootcamp-cutout-480.webp",
+        "h": 631
+      },
+      {
+        "w": 696,
+        "file": "seed-bootcamp-cutout-696.webp",
+        "h": 915
+      }
+    ],
+    "alt": "A person in a dark suit holding up a newspaper that reads “Think bigger”"
+  },
+  {
+    "id": "seed-webinars-cutout",
+    "original_name": "webinars-cutout.png",
+    "mime": "image/webp",
+    "width": 706,
+    "height": 1288,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-webinars-cutout-480.webp",
+        "h": 876
+      },
+      {
+        "w": 706,
+        "file": "seed-webinars-cutout-706.webp",
+        "h": 1288
+      }
+    ],
+    "alt": "A smiling woman in a cream dress seated on a stool"
+  },
+  {
+    "id": "seed-resources-cutout",
+    "original_name": "resources-cutout.png",
+    "mime": "image/webp",
+    "width": 1109,
+    "height": 1731,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-resources-cutout-480.webp",
+        "h": 749
+      },
+      {
+        "w": 800,
+        "file": "seed-resources-cutout-800.webp",
+        "h": 1249
+      },
+      {
+        "w": 1109,
+        "file": "seed-resources-cutout-1109.webp",
+        "h": 1731
+      }
+    ],
+    "alt": "A hand holding a phone with letter tiles spelling “Break the internet”"
+  },
+  {
+    "id": "seed-who-cutout",
+    "original_name": "who-cutout.png",
+    "mime": "image/webp",
+    "width": 1086,
+    "height": 1296,
+    "variants": [
+      {
+        "w": 480,
+        "file": "seed-who-cutout-480.webp",
+        "h": 573
+      },
+      {
+        "w": 800,
+        "file": "seed-who-cutout-800.webp",
+        "h": 955
+      },
+      {
+        "w": 1086,
+        "file": "seed-who-cutout-1086.webp",
+        "h": 1296
+      }
+    ],
+    "alt": "A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders"
+  },
+  {
     "id": "seed-resources",
     "original_name": "resources-break-the-internet.jpg",
     "mime": "image/webp",

@@ -20,6 +20,34 @@ function deepEqual(a: unknown, b: unknown): boolean {
  * are moved to the new default copy. Pages the owner has edited are left untouched (use "Reset to default" in the
  * editor to adopt the new copy on those).
  */
+/** Swaps the original people photos for their cut-out versions, only where the page still uses the original photo. */
+function useCutouts(db: Database.Database) {
+  const swaps: [string, string[], string, string][] = [
+    ['mm_home', ['who', 'image'], 'seed-who', 'seed-who-cutout'],
+    ['bootcamp', ['image'], 'seed-bootcamp', 'seed-bootcamp-cutout'],
+    ['webinars_page', ['image'], 'seed-webinars', 'seed-webinars-cutout'],
+    ['resources_page', ['image'], 'seed-resources', 'seed-resources-cutout'],
+  ];
+  const sel = db.prepare('SELECT draft, published FROM content WHERE key = ?');
+  const upd = db.prepare('UPDATE content SET draft = ?, published = ? WHERE key = ?');
+  for (const [key, at, from, to] of swaps) {
+    const row = sel.get(key) as { draft: string; published: string | null } | undefined;
+    if (!row) continue;
+    const swap = (raw: string | null) => {
+      if (!raw) return raw;
+      const doc = JSON.parse(raw);
+      let node = doc;
+      for (const k of at.slice(0, -1)) node = node?.[k];
+      const img = node?.[at[at.length - 1]];
+      if (!img || img.id !== from) return raw;
+      img.id = to;
+      return JSON.stringify(doc);
+    };
+    const d2 = swap(row.draft), p2 = swap(row.published);
+    if (d2 !== row.draft || p2 !== row.published) { upd.run(d2, p2, key); console.log(`[seed] ${key}: switched to the cut-out photo`); }
+  }
+}
+
 function refreshUnchangedDocs(db: Database.Database, ts: string) {
   const get = db.prepare('SELECT draft, published FROM content WHERE key = ?');
   const upd = db.prepare('UPDATE content SET draft = ?, published = ?, updated_at = ?, published_at = ?, updated_by = ? WHERE key = ?');
@@ -86,6 +114,7 @@ export function ensureSeeded(db: Database.Database) {
 
   refreshUnchangedDocs(db, ts);
   applyRenames(db);
+  useCutouts(db);
 
   // Content patches for sites that already exist: fill in photos that were still empty placeholders.
   // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.

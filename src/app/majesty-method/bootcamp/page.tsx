@@ -4,6 +4,7 @@ import { isPreview } from '@/lib/auth';
 import { pageMetadata } from '@/lib/seo';
 import { Facts, Faqs } from '@/components/PageHero';
 import { Picture } from '@/components/Picture';
+import { Popout, isCutout } from '@/components/Popout';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
 import { JsonLd } from '@/components/JsonLd';
@@ -30,11 +31,13 @@ export default async function BootcampPage() {
     <>
       <section className="split-hero surface--emerald hero-lit" aria-labelledby="bootcamp-title">
         <div className="container split-hero__grid split-hero__grid--media-first split-hero__grid--text-first-mobile">
-          {c.image && (
+          {c.image && (isCutout(c.image) ? (
+            <Popout image={c.image} sizes="(max-width: 860px) 100vw, 45vw" priority variant="bleed" edge="bottom" className="split-hero__media-pop" />
+          ) : (
             <div className="media media--framed split-hero__media">
               <Picture image={c.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
             </div>
-          )}
+          ))}
           <div>
             <p className="crumb"><Link href="/majesty-method#paths">Programmes and services</Link></p>
             <h1 id="bootcamp-title" style={{ fontSize: 'var(--t-2xl)' }}>{c.headline}</h1>

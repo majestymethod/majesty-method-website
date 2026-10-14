@@ -21,6 +21,12 @@ const items = [
   { id: 'seed-tiq-construction', src: 'seed/photos/tiq-construction.jpg', widths: [480, 736], alt: 'A house under construction with building plans, a hard hat and a tape measure in front' },
   { id: 'seed-tiq-supply', src: 'seed/photos/tiq-supply-warehouse.jpg', widths: [480, 736], alt: 'A warehouse aisle with shelving stacked with boxed goods on pallets' },
   { id: 'seed-tiq-logistics', src: 'seed/photos/tiq-logistics-port.jpg', widths: [480, 736], alt: 'A container port with a cargo ship, cranes, delivery trucks and a plane overhead' },
+  // Cut-out versions (background removed) of the photos with people in them. Any image whose id ends in
+  // "-cutout" is shown "popping out" of its green box instead of in a framed rectangle.
+  { id: 'seed-bootcamp-cutout', src: 'seed/photos/bootcamp-cutout.png', widths: [480, 696], alt: 'A person in a dark suit holding up a newspaper that reads “Think bigger”' },
+  { id: 'seed-webinars-cutout', src: 'seed/photos/webinars-cutout.png', widths: [480, 706], alt: 'A smiling woman in a cream dress seated on a stool' },
+  { id: 'seed-resources-cutout', src: 'seed/photos/resources-cutout.png', widths: [480, 800, 1109], alt: 'A hand holding a phone with letter tiles spelling “Break the internet”' },
+  { id: 'seed-who-cutout', src: 'seed/photos/who-cutout.png', widths: [480, 800, 1086], alt: 'A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders' },
   { id: 'seed-resources', src: 'seed/photos/resources-break-the-internet.jpg', widths: [480, 800, 1200], alt: 'A hand holding a phone with letter tiles spelling “Break the internet”' },
 ];
 const manifest = [];

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getDoc, type ImageRef } from '@/lib/content/store';
 import { isPreview } from '@/lib/auth';
 import { Picture } from '@/components/Picture';
+import { Popout, isCutout } from '@/components/Popout';
 import { ArrowRight } from '@/components/Icons';
 import { JsonLd } from '@/components/JsonLd';
 import { pageMetadata } from '@/lib/seo';
@@ -60,11 +61,13 @@ export default async function MajestyHome() {
         <div className="container">
           <div className="section-head"><h2 id="who-title" className="h2">{c.who.title}</h2></div>
           <div className={c.who.image ? 'who-wrap who-wrap--photo' : 'who-wrap'}>
-          {c.who.image && (
+          {c.who.image && (isCutout(c.who.image) ? (
+            <Popout image={c.who.image} sizes="(max-width: 860px) 100vw, 34vw" className="who-wrap__pop" />
+          ) : (
             <div className="media who-wrap__media">
               <Picture image={c.who.image} sizes="(max-width: 860px) 100vw, 34vw" />
             </div>
-          )}
+          ))}
           <ul className="who-list">
             {c.who.items.map((w) => (
               <li key={w.title} className="block">
@@ -130,11 +133,13 @@ export default async function MajestyHome() {
       <section className="section section--tight" aria-labelledby="webinars-title">
         <div className="container">
           <div className={c.webinars.image ? 'block block--dark block--emerald band band--photo' : 'block block--dark block--emerald band'}>
-            {c.webinars.image && (
+            {c.webinars.image && (isCutout(c.webinars.image) ? (
+              <Popout image={c.webinars.image} sizes="(max-width: 760px) 100vw, 320px" variant="bleed" edge="top" className="band__pop" />
+            ) : (
               <div className="band__media">
                 <Picture image={c.webinars.image} sizes="(max-width: 760px) 100vw, 240px" />
               </div>
-            )}
+            ))}
             <div>
               <h2 id="webinars-title">{c.webinars.title}</h2>
               <p>{c.webinars.body}</p>
