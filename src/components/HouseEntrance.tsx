@@ -38,13 +38,13 @@ const polygonIn = (pts: number[][], p: Box) => `polygon(${pts.map(([x, y]) => `$
 const RIBBON_HIT: Box = { x: 498, y: 484, w: 677, h: 98 };
 const SRCSET_INT = '/house/int-800.webp 800w, /house/int-1100.webp 1100w, /house/int-1672.webp 1672w';
 
-function Pathway({ id, brand, href, refEl, loaded }: {
-  id: 'mm' | 'tiq'; brand: Brand; href: string; refEl?: React.Ref<HTMLAnchorElement>; loaded: boolean;
+function Pathway({ id, brand, href, refEl, loaded, active }: {
+  id: 'mm' | 'tiq'; brand: Brand; href: string; refEl?: React.Ref<HTMLAnchorElement>; loaded: boolean; active: boolean;
 }) {
   const g = L.interior[id];
   const hit = g.hit as Box;
   return (
-    <Link href={href} ref={refEl} className={`hx-path hx-path--${id}`} style={{ ...intBox(hit), ['--fx' as string]: g.focus.x, ['--fy' as string]: g.focus.y }}>
+    <Link href={href} ref={refEl} className={`hx-path hx-path--${id}${active ? ' is-active' : ''}`} style={{ ...intBox(hit), ['--fx' as string]: g.focus.x, ['--fy' as string]: g.focus.y }}>
       {/* Portrait: this pathway's own crop of the interior artwork */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {loaded ? <img className="hx-path__crop" src="/house/int-1672.webp" srcSet={SRCSET_INT} sizes="200vw" alt="" decoding="async" /> : <span className="hx-path__crop" />}
@@ -68,6 +68,9 @@ export function HouseEntrance({ heading, cue, choicePrompt, returnLabel, majesty
   const root = useRef<HTMLElement>(null);
   const aperture = useRef<HTMLDivElement>(null);
   const firstPath = useRef<HTMLAnchorElement>(null);
+  const secondPath = useRef<HTMLAnchorElement>(null);
+  const scroller = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState<0 | 1>(0);
   const ribbonBtn = useRef<HTMLButtonElement>(null);
   const timers = useRef<number[]>([]);
 
@@ -149,6 +152,33 @@ export function HouseEntrance({ heading, cue, choicePrompt, returnLabel, majesty
     return () => { window.removeEventListener('keydown', skip); window.removeEventListener('click', skip); };
   }, [phase, finish]);
 
+  // Phones: the lobby is a horizontal strip; swipe (or use the arrows) between the two pathways.
+  const swipeMode = () => window.matchMedia('(max-aspect-ratio: 9/10)').matches;
+  const centreOf = (i: 0 | 1) => {
+    const el = (i === 0 ? firstPath : secondPath).current, sc = scroller.current;
+    return el && sc ? el.offsetLeft + el.offsetWidth / 2 - sc.clientWidth / 2 : 0;
+  };
+  const go = useCallback((i: 0 | 1) => {
+    scroller.current?.scrollTo({ left: centreOf(i), behavior: reduced() ? 'auto' : 'smooth' });
+    setActive(i);
+  }, []);
+  const onScroll = () => {
+    const sc = scroller.current;
+    if (!sc || !swipeMode()) return;
+    const mid = (centreOf(0) + centreOf(1)) / 2;
+    setActive(sc.scrollLeft > mid ? 1 : 0);
+  };
+  // Start on the Majesty Method pathway whenever the interior is shown, and keep it aligned on resize.
+  useEffect(() => {
+    if (phase !== 'push' && phase !== 'open') return;
+    const align = () => { if (swipeMode() && scroller.current) { scroller.current.scrollLeft = centreOf(active); } };
+    if (phase === 'push') { setActive(0); requestAnimationFrame(() => { if (scroller.current && swipeMode()) scroller.current.scrollLeft = centreOf(0); }); }
+    else align();
+    window.addEventListener('resize', align);
+    return () => window.removeEventListener('resize', align);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, loadInterior]);
+
   const closed = phase === 'closed';
   const interiorLive = phase === 'push' || phase === 'open';
 
@@ -194,13 +224,24 @@ export function HouseEntrance({ heading, cue, choicePrompt, returnLabel, majesty
         {/* Portrait screens: the full lobby is seen through the doorway, then it gives way to the two pathway panels. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {loadInterior ? <img className="hx-int__cover" src="/house/int-1672.webp" srcSet={SRCSET_INT} sizes="100vh" alt="" decoding="async" /> : null}
+        <div className="hx-scroller" ref={scroller} onScroll={onScroll}>
         <div className="hx-stage hx-stage--int" id="hx-paths">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {loadInterior
             ? <img className="hx-int__base" src="/house/int-1672.webp" srcSet={SRCSET_INT} sizes="max(100vw, 178svh)" width={IW} height={IH} alt="" decoding="async" />
             : <noscript><img className="hx-int__base" src="/house/int-1672.webp" width={IW} height={IH} alt="" /></noscript>}
-          <Pathway id="mm" brand={majesty} href="/majesty-method" refEl={firstPath} loaded={loadInterior} />
-          <Pathway id="tiq" brand={tenderiq} href="/tenderiq" loaded={loadInterior} />
+          <Pathway id="mm" brand={majesty} href="/majesty-method" refEl={firstPath} loaded={loadInterior} active={active === 0} />
+          <Pathway id="tiq" brand={tenderiq} href="/tenderiq" refEl={secondPath} loaded={loadInterior} active={active === 1} />
+        </div>
+        </div>
+        {/* Phones only: arrows and position dots for the two pathways */}
+        <div className="hx-pager">
+          <button type="button" className="hx-pager__btn" onClick={() => go(0)} disabled={active === 0} aria-label={`Show the ${majesty.label} pathway`}><span aria-hidden="true">←</span></button>
+          <div className="hx-pager__mid" aria-hidden="true">
+            <span className="hx-pager__dots"><i data-on={active === 0 || undefined} /><i data-on={active === 1 || undefined} /></span>
+            <span className="hx-pager__hint">{active === 0 ? `Swipe for ${tenderiq.label}` : `Swipe for ${majesty.label}`}</span>
+          </div>
+          <button type="button" className="hx-pager__btn" onClick={() => go(1)} disabled={active === 1} aria-label={`Show the ${tenderiq.label} pathway`}><span aria-hidden="true">→</span></button>
         </div>
       </div>
 

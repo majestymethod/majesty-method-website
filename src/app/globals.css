@@ -444,8 +444,11 @@ ul, ol { margin: 0; padding: 0; }
 .hx[data-instant], .hx[data-instant] * { transition: none !important; animation: none !important; }
 .hx[data-instant][data-phase='open'] :is(.hx-seal, .hx-ribbon) { opacity: 0; }
 
-/* Portrait, square and narrow screens: the interior becomes two panels, one per pathway
-   (stacked on phones, side by side on squarer screens). */
+/* Inside on wide screens: the scroller is just the full-screen frame; the phone pager is hidden. */
+.hx-scroller { position: absolute; inset: 0; }
+.hx-pager { display: none; }
+
+/* Portrait and square screens: the lobby is shown through the door, then the pathways take over. */
 @media (max-aspect-ratio: 4/3) {
   .hx-int { display: flex; flex-direction: column; }
   .hx-int__cover { display: block; position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; max-width: none; object-fit: cover; pointer-events: none; transition: opacity 0.55s ease; }
@@ -453,9 +456,14 @@ ul, ol { margin: 0; padding: 0; }
   .hx-int__bar { position: relative; inset: auto; grid-template-columns: auto 1fr; padding: 10px 12px; background: #0c0d0b; border-bottom: 1px solid rgba(201, 167, 90, 0.45); }
   .hx-int__bar-spacer { display: none; }
   .hx-prompt { justify-self: end; font-size: 0.6875rem; letter-spacing: 0.18em; padding: 8px 4px 8px 12px; white-space: normal; text-align: right; background: none; border: 0; backdrop-filter: none; }
-  .hx-stage--int { position: relative; left: auto; top: auto; width: auto; height: auto; flex: 1; display: grid; grid-template-rows: 1fr 1fr; gap: 2px; background: #c9a75a; transform: none !important; }
+  .hx-scroller { position: relative; inset: auto; flex: 1; min-height: 0; }
+}
+
+/* Square-ish tablets: two side-by-side panels, each a crop of its own pathway. */
+@media (max-aspect-ratio: 4/3) and (min-aspect-ratio: 9/10) {
+  .hx-stage--int { position: absolute; inset: 0; left: 0; top: 0; width: auto; height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #c9a75a; transform: none !important; }
   .hx-int__base { display: none; }
-  .hx-path { --py: calc(var(--fy) - 40); position: relative !important; left: auto !important; top: auto !important; width: auto !important; height: auto !important; overflow: hidden; container-type: size; border-radius: 0; }
+  .hx-path { --py: var(--fy); position: relative !important; left: auto !important; top: auto !important; width: auto !important; height: auto !important; overflow: hidden; container-type: size; border-radius: 0; }
   .hx-path--mm { background: linear-gradient(160deg, #0a5c48, #03241c); }
   .hx-path--tiq { background: linear-gradient(160deg, #5b2e96, #1c0b33); }
   .hx-path__crop { --s: min(max(calc(100cqw / 430), calc(100cqh / 470)), calc(100cqw / 330)); display: block; position: absolute; max-width: none; height: auto;
@@ -467,9 +475,32 @@ ul, ol { margin: 0; padding: 0; }
   .hx-chip { left: 50% !important; top: auto !important; bottom: 16px; transform: translateX(-50%); }
   .hx-path:hover .hx-chip { transform: translate(-50%, -3px); }
 }
-@media (max-aspect-ratio: 4/3) and (min-aspect-ratio: 9/10) {
-  .hx-stage--int { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
-  .hx-path { --py: var(--fy); }
+
+/* Phones: the whole lobby as a horizontal strip at full height — swipe between the two pathways. */
+@media (max-aspect-ratio: 9/10) {
+  .hx-scroller { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; container-type: size; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .hx-scroller::-webkit-scrollbar { display: none; }
+  .hx-stage--int { --u: calc(177.872cqh / 1672); position: relative; left: 0; top: 0; height: 100cqh; width: 177.872cqh; transform: scale(1.04) !important; transform-origin: 30% 50%; transition: transform 1s var(--ease-push); }
+  .hx:is([data-phase='open'], [data-phase='leaving']) .hx-stage--int { transform: none !important; }
+  .hx-path { scroll-snap-align: center; scroll-snap-stop: always; }
+  /* The pathway in view is softly lit, as on hover on desktop */
+  .hx-path.is-active .hx-path__light { opacity: 0.8; }
+  .hx-path.is-active:is(:hover, :focus-visible) .hx-path__light { opacity: 1; }
+  .hx-stage--int:has(.hx-path--mm:is(:hover, :focus-visible)) .hx-path--tiq::before,
+  .hx-stage--int:has(.hx-path--tiq:is(:hover, :focus-visible)) .hx-path--mm::before { opacity: 0; }
+  .hx-chip { min-width: 13rem; left: 50% !important; }
+  .hx-pager { position: relative; z-index: 3; display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 8px; padding: 8px 12px calc(10px + env(safe-area-inset-bottom, 0px)); background: #0c0d0b; border-top: 1px solid rgba(201, 167, 90, 0.45); opacity: 0; transition: opacity 0.5s ease; }
+  .hx[data-phase='open'] .hx-pager { opacity: 1; }
+  .hx-pager__btn { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; font: 500 1.125rem/1 var(--font); color: #f5efe0; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(233, 205, 132, 0.5); transition: opacity 0.2s ease, background-color 0.2s ease; }
+  .hx-pager__btn:not(:disabled):hover { background: rgba(233, 205, 132, 0.14); }
+  .hx-pager__btn:disabled { opacity: 0.3; cursor: default; }
+  .hx-pager__btn:focus-visible { box-shadow: 0 0 0 3px #e9cd84; border-radius: 50%; }
+  .hx-pager__mid { display: grid; justify-items: center; gap: 6px; }
+  .hx-pager__dots { display: flex; gap: 8px; }
+  .hx-pager__dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); transition: background-color 0.25s ease, transform 0.25s ease; }
+  .hx-pager__dots i:first-child[data-on] { background: #ecd08a; transform: scale(1.2); }
+  .hx-pager__dots i:last-child[data-on] { background: #c9a6ff; transform: scale(1.2); }
+  .hx-pager__hint { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245, 239, 224, 0.75); text-align: center; }
 }
 
 /* ---------- Two-column hero with photo (MM home, Bootcamp, Acceleration, listings) ---------- */
