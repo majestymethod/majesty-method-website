@@ -70,6 +70,7 @@ export interface Settings {
   informationOfficer: { name: string; email: string; phone: string };
   socials: { label: string; url: string }[];
   bookingUrl: string;
+  announcement: { enabled: boolean; text: string; linkLabel: string; href: string };
   marketingConsentWording: string; tenderiqConsentWording: string; consentWordingVersion: string;
   analytics: { provider: 'none' | 'ga4'; ga4Id: string };
   cookieConsentVersion: string;

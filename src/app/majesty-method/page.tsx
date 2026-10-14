@@ -41,7 +41,7 @@ export default async function MajestyHome() {
           </div>
           {c.founder.image && (
             <figure style={{ margin: 0 }}>
-              <div className="media media--framed media--portal split-hero__media">
+              <div className="media split-hero__media">
                 <Picture image={c.founder.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
               </div>
               {c.founder.caption && <figcaption className="founder-caption">{c.founder.caption}</figcaption>}
@@ -116,7 +116,7 @@ export default async function MajestyHome() {
 
       <section className="section section--tight" aria-labelledby="webinars-title">
         <div className="container">
-          <div className="block block--dark band" style={{ ['--block-c1' as string]: 'var(--turquoise)', ['--block-c2' as string]: 'var(--forest)' }}>
+          <div className="block block--dark block--emerald band">
             <div>
               <h2 id="webinars-title">{c.webinars.title}</h2>
               <p>{c.webinars.body}</p>

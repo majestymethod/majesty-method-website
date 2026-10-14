@@ -21,6 +21,7 @@ export async function BrandShell({ brand, children }: { brand: 'majesty' | 'tend
         name={brand === 'majesty' ? s.brandName : 'TenderIQ'}
         links={brand === 'majesty' ? nav.majesty : nav.tenderiq}
         cta={brand === 'majesty' ? nav.majestyCta : nav.tenderiqCta}
+        announcement={brand === 'majesty' && s.announcement?.enabled && s.announcement.text ? s.announcement : null}
       />
       <main id="main" tabIndex={-1}>{children}</main>
       <SiteFooter brand={brand} />

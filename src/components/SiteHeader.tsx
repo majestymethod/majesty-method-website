@@ -12,9 +12,10 @@ interface Props {
   name: string;
   links: NavLink[];
   cta: NavLink | null;
+  announcement?: { text: string; linkLabel: string; href: string } | null;
 }
 
-export function SiteHeader({ brand, homeHref, logoSrc, logoAlt, name, links, cta }: Props) {
+export function SiteHeader({ brand, homeHref, logoSrc, logoAlt, name, links, cta, announcement }: Props) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const panelId = useId();
@@ -76,6 +77,22 @@ export function SiteHeader({ brand, homeHref, logoSrc, logoAlt, name, links, cta
           </div>
         </nav>
       </div>
+      {announcement && (
+        <div className="announce">
+          <Link href={announcement.href || '/majesty-method/webinars'} className="announce__link">
+            {/* Screen readers get the message once; the scrolling copy is decorative */}
+            <span className="visually-hidden">{announcement.text} {announcement.linkLabel}</span>
+            <span className="announce__track" aria-hidden="true">
+              {[0, 1].map((i) => (
+                <span className="announce__item" key={i}>
+                  <span className="announce__dot" />
+                  {announcement.text} <strong>{announcement.linkLabel} →</strong>
+                </span>
+              ))}
+            </span>
+          </Link>
+        </div>
+      )}
     </header>
   );
 }
