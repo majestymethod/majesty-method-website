@@ -11,10 +11,10 @@ type Cta = { label: string; href: string };
 interface Home {
   hero: { kicker: string; headline: string; body: string; primary: Cta; secondary: Cta };
   founder: { image: ImageRef | null; caption: string };
-  who: { title: string; items: { title: string; body: string }[] };
+  who: { title: string; image: ImageRef | null; items: { title: string; body: string }[] };
   philosophy: { title: string; intro: string; principles: { title: string; body: string }[] };
   paths: { title: string; intro: string; pillars: { title: string; body: string }[]; items: { title: string; body: string; ctaLabel: string; href: string }[]; tenderiq: { title: string; body: string; ctaLabel: string } };
-  webinars: { title: string; body: string; ctaLabel: string };
+  webinars: { title: string; image: ImageRef | null; body: string; ctaLabel: string };
   finalCta: { title: string; body: string; primary: Cta; secondary: Cta };
   seo: { title: string; description: string; image: ImageRef | null };
 }
@@ -53,6 +53,12 @@ export default async function MajestyHome() {
       <section className="section section--tight" aria-labelledby="who-title">
         <div className="container">
           <div className="section-head"><h2 id="who-title" className="h2">{c.who.title}</h2></div>
+          <div className={c.who.image ? 'who-wrap who-wrap--photo' : 'who-wrap'}>
+          {c.who.image && (
+            <div className="media who-wrap__media">
+              <Picture image={c.who.image} sizes="(max-width: 860px) 100vw, 34vw" />
+            </div>
+          )}
           <ul className="who-list">
             {c.who.items.map((w) => (
               <li key={w.title} className="block">
@@ -62,6 +68,7 @@ export default async function MajestyHome() {
               </li>
             ))}
           </ul>
+          </div>
         </div>
       </section>
 
@@ -116,7 +123,12 @@ export default async function MajestyHome() {
 
       <section className="section section--tight" aria-labelledby="webinars-title">
         <div className="container">
-          <div className="block block--dark block--emerald band">
+          <div className={c.webinars.image ? 'block block--dark block--emerald band band--photo' : 'block block--dark block--emerald band'}>
+            {c.webinars.image && (
+              <div className="band__media">
+                <Picture image={c.webinars.image} sizes="(max-width: 760px) 100vw, 240px" />
+              </div>
+            )}
             <div>
               <h2 id="webinars-title">{c.webinars.title}</h2>
               <p>{c.webinars.body}</p>

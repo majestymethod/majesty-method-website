@@ -223,6 +223,7 @@ export const DOCS: DocDef[] = [
       ] },
       { key: 'who', label: 'Who we help', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
+        { key: 'image', label: 'Photograph (beside the list)', type: 'image', help: 'Portrait photos work best. Leave empty to show the list on its own.' },
         { key: 'items', label: 'Audiences', type: 'list', itemLabelKey: 'title', fields: [
           { key: 'title', label: 'Who', type: 'text' },
           { key: 'body', label: 'Short description', type: 'textarea' },
@@ -257,6 +258,7 @@ export const DOCS: DocDef[] = [
       ] },
       { key: 'webinars', label: 'Free Friday webinars', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
+        { key: 'image', label: 'Photograph (left of the block)', type: 'image', help: 'Leave empty to show the block without a photo.' },
         { key: 'body', label: 'Text', type: 'textarea' },
         { key: 'ctaLabel', label: 'Button text', type: 'text' },
       ] },
@@ -278,6 +280,7 @@ export const DOCS: DocDef[] = [
       founder: { image: { id: 'seed-founder', alt: 'Adelade Nyarirangwe, founder of Majesty Method' }, caption: 'Majesty Method Founder: Adelade Nyarirangwe' },
       who: {
         title: 'Who we help',
+        image: { id: 'seed-who', alt: 'A businesswoman on the phone, juggling a stack of overflowing folders' },
         items: [
           { title: 'Founders doing their own marketing', body: 'You want a clear plan instead of guessing what to post next.' },
           { title: 'Small businesses ready to grow', body: 'You have customers and want a dependable way to find more.' },
@@ -315,6 +318,7 @@ export const DOCS: DocDef[] = [
       },
       webinars: {
         title: 'Free Friday webinars',
+        image: { id: 'seed-webinar-band', alt: 'Someone relaxing with their feet up in red heels, a laptop on their lap' },
         body: 'Each Friday we teach one practical marketing, AI, sales or growth topic. Join a session and get access to free Majesty Method resources.',
         ctaLabel: 'Register for a webinar',
       },
@@ -628,9 +632,9 @@ export const DOCS: DocDef[] = [
         title: 'Built for businesses that tender across sectors',
         intro: 'From construction to supply and delivery, many kinds of South African businesses pursue tenders.',
         items: [
-          { label: 'Construction and infrastructure', description: 'Building, civil works and maintenance', image: null },
-          { label: 'Supply and delivery', description: 'Equipment, materials and business supplies', image: null },
-          { label: 'Logistics and commercial services', description: 'Transport, operations and facility services', image: null },
+          { label: 'Construction and infrastructure', description: 'Building, civil works and maintenance', image: { id: 'seed-tiq-construction', alt: 'A house under construction with building plans, a hard hat and a tape measure in front' } },
+          { label: 'Supply and delivery', description: 'Equipment, materials and business supplies', image: { id: 'seed-tiq-supply', alt: 'A warehouse aisle with shelving stacked with boxed goods on pallets' } },
+          { label: 'Logistics and commercial services', description: 'Transport, operations and facility services', image: { id: 'seed-tiq-logistics', alt: 'A container port with a cargo ship, cranes, delivery trucks and a plane overhead' } },
         ],
         note: 'Photographs show example sectors. They don’t depict TenderIQ customers or tender projects.',
       },

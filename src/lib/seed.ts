@@ -35,6 +35,27 @@ export function ensureSeeded(db: Database.Database) {
     }
   }
 
+  // Content patches for sites that already exist: fill in photos that were still empty placeholders.
+  // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.
+  const tiq = db.prepare("SELECT draft, published FROM content WHERE key = 'tenderiq'").get() as { draft: string; published: string | null } | undefined;
+  if (tiq) {
+    const photos: Record<string, { id: string; alt: string }> = {};
+    for (const it of (DOCS.find((d) => d.key === 'tenderiq')?.defaults as { industries?: { items?: { label: string; image: { id: string; alt: string } | null }[] } })?.industries?.items ?? []) {
+      if (it.image) photos[it.label] = it.image;
+    }
+    const fill = (raw: string | null) => {
+      if (!raw) return raw;
+      const doc = JSON.parse(raw);
+      let changed = false;
+      for (const it of doc?.industries?.items ?? []) {
+        if (it && it.image == null && photos[it.label]) { it.image = photos[it.label]; changed = true; }
+      }
+      return changed ? JSON.stringify(doc) : raw;
+    };
+    const d2 = fill(tiq.draft), p2 = fill(tiq.published);
+    if (d2 !== tiq.draft || p2 !== tiq.published) db.prepare("UPDATE content SET draft = ?, published = ? WHERE key = 'tenderiq'").run(d2, p2);
+  }
+
   // One example item per collection, saved as DRAFT so it never appears publicly.
   const count = db.prepare('SELECT COUNT(*) as n FROM items').get() as { n: number };
   if (count.n === 0) {

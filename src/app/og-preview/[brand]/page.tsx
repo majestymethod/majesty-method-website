@@ -10,7 +10,7 @@ export default async function Og({ params }: { params: Promise<{ brand: string }
   return tiq ? (
     <div style={{ ...box, background: 'url(/textures/white-stone.webp) center/cover, #fff' }}>
       <div style={{ display: 'grid', gap: 22, justifyItems: 'center' }}>
-        <p style={{ fontWeight: 700, fontSize: 112, letterSpacing: '-0.02em', color: '#48246f', margin: 0, lineHeight: 1 }}>TenderIQ</p>
+        <p style={{ fontWeight: 700, fontSize: 112, letterSpacing: '-0.02em', color: '#5a0060', margin: 0, lineHeight: 1 }}>TenderIQ</p>
         <p style={{ fontWeight: 500, fontSize: 38, color: '#171717', maxWidth: 900, lineHeight: 1.3 }}>Find tender opportunities in South Africa that fit your business.</p>
         <p style={{ fontWeight: 600, fontSize: 22, color: '#86681f', letterSpacing: '0.18em', textTransform: 'uppercase' }}>Tender Intelligence · by Majesty Method</p>
       </div>
