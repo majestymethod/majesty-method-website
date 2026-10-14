@@ -39,15 +39,16 @@ export function SiteFooter({ brand }: { brand: 'majesty' | 'tenderiq' }) {
               <ul>
                 <li><Link href="/tenderiq#why">Why TenderIQ</Link></li>
                 <li><Link href="/tenderiq#how-it-works">How it works</Link></li>
-                <li><Link href="/tenderiq#register">Register your interest</Link></li>
+                <li><Link href="/tenderiq#pricing">Pricing</Link></li>
+                <li><Link href="/tenderiq#register">Join TenderIQ</Link></li>
                 <li><Link href="/majesty-method">Majesty Method</Link></li>
               </ul>
             ) : (
               <ul>
-                <li><Link href="/majesty-method/bootcamp">Founder Bootcamp</Link></li>
-                <li><Link href="/majesty-method/acceleration">Business Acceleration</Link></li>
+                <li><Link href="/majesty-method/bootcamp">Founder Marketing Bootcamp</Link></li>
+                <li><Link href="/majesty-method/acceleration">Team Acceleration</Link></li>
                 <li><Link href="/majesty-method/courses">Courses</Link></li>
-                <li><Link href="/majesty-method/webinars">Free Friday webinars</Link></li>
+                <li><Link href="/majesty-method/webinars">The Founder Marketing Sessions</Link></li>
                 <li><Link href="/majesty-method/resources">Free resources</Link></li>
                 <li><Link href="/tenderiq">TenderIQ</Link></li>
               </ul>

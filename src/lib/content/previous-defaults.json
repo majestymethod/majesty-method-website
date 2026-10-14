@@ -1,0 +1,497 @@
+{
+ "navigation": {
+  "majesty": [
+   {
+    "label": "Home",
+    "href": "/majesty-method"
+   },
+   {
+    "label": "Our philosophy",
+    "href": "/majesty-method#philosophy"
+   },
+   {
+    "label": "Programmes and services",
+    "href": "/majesty-method#paths"
+   },
+   {
+    "label": "Resources",
+    "href": "/majesty-method/resources"
+   },
+   {
+    "label": "Webinars",
+    "href": "/majesty-method/webinars"
+   },
+   {
+    "label": "Contact",
+    "href": "/contact"
+   }
+  ],
+  "majestyCta": {
+   "label": "Explore our programmes",
+   "href": "/majesty-method#paths"
+  },
+  "tenderiq": [
+   {
+    "label": "Why TenderIQ",
+    "href": "/tenderiq#why"
+   },
+   {
+    "label": "How it works",
+    "href": "/tenderiq#how-it-works"
+   },
+   {
+    "label": "Contact",
+    "href": "/contact?brand=tenderiq"
+   }
+  ],
+  "tenderiqCta": {
+   "label": "Register your interest",
+   "href": "/tenderiq#register"
+  }
+ },
+ "mm_home": {
+  "hero": {
+   "kicker": "Marketing strategy and AI for South African businesses",
+   "headline": "Your marketing is too important to be left to chance.",
+   "body": "A founder-led approach to understanding your customers, building your strategy, and turning attention into sales.",
+   "primary": {
+    "label": "Explore our programmes",
+    "href": "#paths"
+   },
+   "secondary": {
+    "label": "Join a free webinar",
+    "href": "/majesty-method/webinars"
+   }
+  },
+  "founder": {
+   "image": {
+    "id": "seed-founder",
+    "alt": "Adelade Nyarirangwe, founder of Majesty Method"
+   },
+   "caption": "Majesty Method Founder: Adelade Nyarirangwe"
+  },
+  "who": {
+   "title": "Who we help",
+   "items": [
+    {
+     "title": "Founders doing their own marketing",
+     "body": "You want a clear plan instead of guessing what to post next."
+    },
+    {
+     "title": "Small businesses ready to grow",
+     "body": "You have customers and want a dependable way to find more."
+    },
+    {
+     "title": "Teams adopting AI",
+     "body": "You want practical AI workflows that save time, not more tools."
+    },
+    {
+     "title": "Businesses building in-house capability",
+     "body": "You’d rather develop your own team than outsource everything."
+    }
+   ]
+  },
+  "philosophy": {
+   "title": "What we believe",
+   "intro": "Marketing is the heartbeat of a business. It deserves strategy, structure and the right tools.",
+   "principles": [
+    {
+     "title": "Strategy before tools",
+     "body": "A clear strategy tells you which platforms and software deserve your time."
+    },
+    {
+     "title": "Customers before content",
+     "body": "Content works when it answers the questions your customers already ask."
+    },
+    {
+     "title": "Every activity has a purpose",
+     "body": "If it can’t be linked to a business goal, question whether it’s worth doing."
+    },
+    {
+     "title": "AI amplifies good thinking",
+     "body": "Use AI to remove repetitive work so your strategy goes further."
+    },
+    {
+     "title": "Systems make it repeatable",
+     "body": "What works once should be documented and repeated, not reinvented."
+    },
+    {
+     "title": "Founders stay in control",
+     "body": "Understand marketing well enough to direct it, even when others do the work."
+    }
+   ]
+  },
+  "paths": {
+   "title": "Ways to work with us",
+   "intro": "Start where your business is today. Not every business needs every programme.",
+   "pillars": [
+    {
+     "title": "Teach",
+     "body": "Learn the methods so you can make better marketing decisions yourself."
+    },
+    {
+     "title": "Build",
+     "body": "Implement systems, workflows and campaigns inside your business."
+    },
+    {
+     "title": "Strategise",
+     "body": "Decide what to focus on, what to stop and what to build next."
+    }
+   ],
+   "items": [
+    {
+     "title": "Founder Bootcamp",
+     "body": "Four practical weeks of marketing and AI training for entrepreneurs. You learn it, then you build it.",
+     "ctaLabel": "Explore the Bootcamp",
+     "href": "/majesty-method/bootcamp"
+    },
+    {
+     "title": "Business Acceleration",
+     "body": "Build marketing, sales and AI capacity inside your business with a trained graduate.",
+     "ctaLabel": "Explore Acceleration",
+     "href": "/majesty-method/acceleration"
+    },
+    {
+     "title": "Courses",
+     "body": "Focused digital marketing training on one skill at a time.",
+     "ctaLabel": "Browse courses",
+     "href": "/majesty-method/courses"
+    },
+    {
+     "title": "Free resources",
+     "body": "Templates, guides and checklists you can use straight away.",
+     "ctaLabel": "Access free resources",
+     "href": "/majesty-method/resources"
+    }
+   ],
+   "tenderiq": {
+    "title": "Looking for tenders?",
+    "body": "TenderIQ is our separate product for finding and assessing tender opportunities.",
+    "ctaLabel": "Visit TenderIQ"
+   }
+  },
+  "webinars": {
+   "title": "Free Friday webinars",
+   "body": "Each Friday we teach one practical marketing, AI, sales or growth topic. Join a session and get access to free Majesty Method resources.",
+   "ctaLabel": "Register for a webinar"
+  },
+  "finalCta": {
+   "title": "Not sure where to start?",
+   "body": "Tell us where your business is today and we’ll point you to the most useful next step.",
+   "primary": {
+    "label": "Contact us",
+    "href": "/contact"
+   },
+   "secondary": {
+    "label": "Join a free webinar",
+    "href": "/majesty-method/webinars"
+   }
+  },
+  "seo": {
+   "title": "Marketing Strategy & AI for SA Businesses | Majesty Method",
+   "description": "Majesty Method helps South African founders build marketing strategy, lead generation and practical AI automation through training, implementation and strategic support.",
+   "image": null
+  }
+ },
+ "bootcamp": {
+  "image": {
+   "id": "seed-bootcamp",
+   "alt": "A person in a dark suit holding up a newspaper that reads “Think bigger”"
+  },
+  "headline": "Founder Bootcamp: marketing and AI training for entrepreneurs",
+  "intro": "Four practical weeks. Each week you learn one part of a working marketing system, then build it in your own business.",
+  "value": "Understand your customers and what makes them buy\nCreate content and outreach that bring in enquiries\nUse AI and simple systems to save time every week",
+  "facts": [
+   {
+    "label": "Duration",
+    "value": "Four weeks"
+   }
+  ],
+  "curriculumTitle": "What the four weeks cover",
+  "curriculum": [
+   {
+    "week": "Week 1",
+    "title": "Know your market",
+    "topics": "Customer research and segmentation\nCompetitor analysis\nCustomer questions, objections and buying behaviour"
+   },
+   {
+    "week": "Week 2",
+    "title": "Content that converts",
+    "topics": "Content strategy\nMessaging and positioning\nTurning attention into enquiries"
+   },
+   {
+    "week": "Week 3",
+    "title": "Outreach, leads and paid ads",
+    "topics": "Practical outreach\nLead generation\nWhen paid advertising makes sense"
+   },
+   {
+    "week": "Week 4",
+    "title": "AI, funnels and systems",
+    "topics": "Useful AI workflows\nMarketing automation and simple funnels\nRepeatable marketing processes"
+   }
+  ],
+  "whoForTitle": "Who should join",
+  "whoFor": "Founders and small-business owners ready to implement each week\nBusinesses that want more qualified enquiries\nOwners who want to understand marketing well enough to direct it\nTeams who want to use AI practically",
+  "start": {
+   "title": "How to Get Started",
+   "steps": [
+    {
+     "title": "Complete the registration form",
+     "body": "Register your interest through the form on this page."
+    },
+    {
+     "title": "Attend the free Friday webinar",
+     "body": "Learn about the programme, its value and how it works."
+    },
+    {
+     "title": "Complete payment and join",
+     "body": "Once you’ve received the programme details and payment instructions, complete payment to join."
+    }
+   ]
+  },
+  "register": {
+   "title": "Register for the Bootcamp",
+   "body": "Complete the form and we’ll share the details of the next free Friday webinar. Registering doesn’t commit you to pay or confirm a place."
+  },
+  "faqs": [
+   {
+    "q": "Do I need marketing experience?",
+    "a": "No. The programme starts with fundamentals. You do need to apply each week’s work to your own business."
+   },
+   {
+    "q": "How much time will it take each week?",
+    "a": "Plan time each week to put what you learn into practice. The schedule is shared at the webinar."
+   },
+   {
+    "q": "Can someone from my team join?",
+    "a": "Yes. If an employee handles your marketing, include their email address when you register."
+   },
+   {
+    "q": "What happens after I register?",
+    "a": "You’ll receive the details of the next free Friday webinar, where we explain the programme and the next steps."
+   }
+  ],
+  "seo": {
+   "title": "Marketing & AI Training for Entrepreneurs | Founder Bootcamp",
+   "description": "A four-week, hands-on marketing and AI training programme for South African entrepreneurs: customer research, content, lead generation and AI workflows.",
+   "image": null
+  }
+ },
+ "webinars_page": {
+  "image": {
+   "id": "seed-webinars",
+   "alt": "A smiling woman in a cream dress seated in a studio"
+  },
+  "title": "Free Friday webinars on marketing and AI",
+  "intro": "One practical topic each Friday, taught so you can apply it the following week.",
+  "value": "Practical methods you can use straight away\nTime for questions from founders\nAccess to free Majesty Method resources",
+  "resourcesNote": "Everyone who joins a webinar gets access to free Majesty Method digital resources.",
+  "emptyTitle": "The next sessions are being scheduled",
+  "emptyBody": "Leave your details and we’ll let you know when registration opens.",
+  "seo": {
+   "title": "Free Marketing & AI Webinars for Founders | Majesty Method",
+   "description": "Free Friday webinars on practical marketing, AI, sales and business growth for South African founders, with access to free Majesty Method resources.",
+   "image": null
+  }
+ },
+ "acceleration": {
+  "image": {
+   "id": "seed-acceleration",
+   "alt": "A team working through marketing strategy documents around a table"
+  },
+  "title": "Business Acceleration Programme",
+  "headline": "Build marketing, sales and AI capacity inside your business",
+  "intro": "Bring a graduate into your team as a developing marketing, sales and AI resource, supported by hands-on training and implementation from Majesty Method. Your business builds capability, and a South African graduate gains valuable work experience.",
+  "challenge": {
+   "title": "The challenge",
+   "body": "Many growing businesses need more marketing and sales support but aren’t ready for a senior hire or an ongoing agency retainer. The work falls back on the founder, or it doesn’t get done."
+  },
+  "graduateHelps": "Day-to-day marketing and content\nSales and lead-generation support\nUseful AI workflows and automation\nBasic data and performance reporting\nDocumenting and improving processes",
+  "graduateNote": "A graduate is an early-career team member, not a senior marketer. The programme develops their skills alongside your business.",
+  "provides": "Hands-on training in practical marketing, sales and AI skills\nSupport to apply that training in your business\nA structured approach to building your marketing function",
+  "steps": [
+   {
+    "title": "Discovery call",
+    "body": "We learn about your business, your goals and how marketing works today."
+   },
+   {
+    "title": "Assess fit",
+    "body": "We confirm whether the programme suits your needs and explain how it works commercially."
+   },
+   {
+    "title": "Agree the engagement",
+    "body": "Scope, responsibilities and terms are set out in writing before anything starts."
+   },
+   {
+    "title": "Train and implement",
+    "body": "The graduate is trained and starts applying the work in your business."
+   }
+  ],
+  "suitability": "You sell a product or service and want more consistent marketing and sales\nSomeone can supervise and support a graduate day to day\nYou can give the graduate the information and tools they need\nYou want to build capability in-house over time",
+  "termsNote": "Placements depend on suitability and availability. Costs and terms are confirmed in writing before you commit.",
+  "enquiry": {
+   "title": "Book a discovery call",
+   "body": "Tell us a little about your business. We’ll get back to you to arrange a call."
+  },
+  "seo": {
+   "title": "Marketing Support & AI Automation for Small Businesses | Majesty Method",
+   "description": "Build in-house marketing, sales and AI capability with a trained graduate and hands-on support from Majesty Method. For small businesses in South Africa.",
+   "image": null
+  }
+ },
+ "courses_page": {
+  "image": {
+   "id": "seed-courses",
+   "alt": "A phone screen showing a folder of social media apps"
+  },
+  "title": "Digital marketing and AI courses",
+  "intro": "Focused learning on one marketing, sales or AI skill at a time.",
+  "emptyTitle": "New courses are in preparation",
+  "emptyBody": "In the meantime, join a free Friday webinar or put one of our free resources to work.",
+  "seo": {
+   "title": "Digital Marketing Training Courses | Majesty Method",
+   "description": "Focused digital marketing, sales and AI courses for South African founders and their teams.",
+   "image": null
+  }
+ },
+ "tenderiq": {
+  "hero": {
+   "kicker": "Tender opportunities for South African businesses",
+   "headline": "Stop searching blindly. Start pursuing tenders that fit.",
+   "body": "TenderIQ is designed to help businesses find relevant tender opportunities, understand what each one requires, and decide which tenders are worth pursuing.",
+   "primary": {
+    "label": "Register your interest",
+    "href": "#register"
+   },
+   "secondary": {
+    "label": "See how it works",
+    "href": "#how-it-works"
+   }
+  },
+  "problem": {
+   "title": "Tendering takes more time than it should",
+   "intro": "Hours can disappear into a tender document before you find a requirement you can’t meet.",
+   "items": "Suitable opportunities are found too late to respond properly\nLong documents have to be reviewed manually, one by one\nMandatory requirements are easy to miss in the detail\nMissing documents surface days before the deadline\nSubmissions are prepared under unnecessary time pressure\nOpportunities outside your usual province go unnoticed\nTime goes into screening instead of preparing a stronger bid"
+  },
+  "outcomes": {
+   "title": "What TenderIQ is designed to help you do",
+   "items": [
+    {
+     "title": "Find more relevant opportunities",
+     "body": "Focus on tenders closer to your capabilities, business profile and eligibility."
+    },
+    {
+     "title": "Screen opportunities earlier",
+     "body": "Identify key qualification requirements before committing time to a full submission."
+    },
+    {
+     "title": "Understand what is required",
+     "body": "See the relevant requirements in a structured, readable format."
+    },
+    {
+     "title": "Identify what is missing",
+     "body": "Compare what a tender asks for with the documents and capabilities you have."
+    },
+    {
+     "title": "Prepare with more time",
+     "body": "Find suitable opportunities early enough to plan the work without a last-minute rush."
+    },
+    {
+     "title": "Spend less time screening",
+     "body": "Spend less time reading lengthy documents that turn out not to fit."
+    },
+    {
+     "title": "Focus on stronger submissions",
+     "body": "Put your effort into the opportunities worth pursuing, and submit on time."
+    }
+   ]
+  },
+  "industries": {
+   "title": "Built for businesses that tender across sectors",
+   "intro": "From construction to supply and delivery, many kinds of South African businesses pursue tenders.",
+   "items": [
+    {
+     "label": "Construction and infrastructure",
+     "description": "Building, civil works and maintenance",
+     "image": null
+    },
+    {
+     "label": "Supply and delivery",
+     "description": "Equipment, materials and business supplies",
+     "image": null
+    },
+    {
+     "label": "Logistics and commercial services",
+     "description": "Transport, operations and facility services",
+     "image": null
+    }
+   ],
+   "note": "Photographs show example sectors. They don’t depict TenderIQ customers or tender projects."
+  },
+  "example": {
+   "title": "A tender in another province",
+   "disclaimer": "An illustrative scenario — not a customer story, and not a guarantee of results.",
+   "steps": "A Gauteng electrical contractor usually only looks at tenders close to home.\nAn opportunity in Limpopo matches their services and capacity — one they would normally have missed.\nThey check the mandatory requirements early and see that two compliance documents need updating.\nWith weeks rather than days to spare, they update the documents and plan the logistics of working out of province.\nThey decide to bid, then prepare and submit through the issuer’s official process — without a last-minute rush."
+  },
+  "how": {
+   "title": "How it works",
+   "steps": [
+    {
+     "title": "Discover",
+     "body": "Find a potential tender."
+    },
+    {
+     "title": "Assess",
+     "body": "Compare the opportunity with your business profile."
+    },
+    {
+     "title": "Review",
+     "body": "Check eligibility and mandatory requirements."
+    },
+    {
+     "title": "Identify gaps",
+     "body": "See which documents and requirements need attention."
+    },
+    {
+     "title": "Decide",
+     "body": "Choose whether to pursue the opportunity."
+    },
+    {
+     "title": "Prepare and submit",
+     "body": "Complete your submission through the official process."
+    }
+   ]
+  },
+  "trust": {
+   "title": "What TenderIQ does — and doesn’t — do",
+   "items": "TenderIQ supports finding and assessing opportunities. It does not replace the issuer’s official tender documents.\nYou remain responsible for checking every requirement in the official documentation and submitting through the prescribed channel.\nTenderIQ cannot guarantee that you will qualify for, or be awarded, any tender, or that every available tender will be found."
+  },
+  "faqs": [
+   {
+    "q": "Does TenderIQ guarantee that I’ll win a tender?",
+    "a": "No. TenderIQ is designed to help you find and assess opportunities. Whether you qualify and win depends on the tender, your submission and the issuer’s evaluation."
+   },
+   {
+    "q": "Does TenderIQ replace the official tender documents?",
+    "a": "No. Always read the issuer’s official documents. Requirements vary from tender to tender, and the official documents take precedence."
+   },
+   {
+    "q": "How do I know if my business qualifies for a tender?",
+    "a": "Check the mandatory requirements in the official tender documents. These often include registration and compliance documents, and sometimes an industry grading, but they differ for every tender. TenderIQ is designed to help you spot these requirements earlier."
+   },
+   {
+    "q": "Who is TenderIQ for?",
+    "a": "South African businesses that pursue, or want to start pursuing, public and private tender opportunities."
+   }
+  ],
+  "register": {
+   "title": "Register your interest",
+   "body": "Tell us about your business and how you tender today. The TenderIQ team will contact you about next steps."
+  },
+  "seo": {
+   "title": "TenderIQ | Find Tender Opportunities in South Africa",
+   "description": "TenderIQ helps South African businesses find relevant tender opportunities, check eligibility requirements early, and decide which tenders are worth pursuing.",
+   "image": null
+  }
+ }
+}

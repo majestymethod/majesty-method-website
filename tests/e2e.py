@@ -208,7 +208,7 @@ async def main():
         check('webinar strip not shown on TenderIQ', await page.locator('.announce').count() == 0)
         await page.goto(BASE + '/majesty-method')
         bg = await page.evaluate("[getComputedStyle(document.querySelector('.site-header')).backgroundColor, getComputedStyle(document.querySelector('.split-hero')).backgroundColor, getComputedStyle(document.body, '::before').backgroundImage]")
-        check('page background stays white stone (header white, sections transparent, texture present)', bg[0].startswith('rgba(255, 255, 255') and bg[1] == 'rgba(0, 0, 0, 0)' and 'white-stone' in bg[2], str(bg))
+        check('page background stays white marble (header white, sections transparent, texture present)', bg[0].startswith('rgba(255, 255, 255') and bg[1] == 'rgba(0, 0, 0, 0)' and 'white-marble' in bg[2], str(bg))
 
         # All internal links resolve
         hrefs = set()
@@ -237,7 +237,7 @@ async def main():
         check('MM home: founder caption exact', 'Majesty Method Founder: Adelade Nyarirangwe' in body)
         check('MM home: arch and transformation section removed', await page.locator('.arch').count() == 0 and 'From activity to a marketing system' not in body)
         bg = await page.evaluate("getComputedStyle(document.body, '::before').backgroundImage")
-        check('white stone texture applied site-wide', 'white-stone' in bg, bg)
+        check('white marble background applied site-wide', 'white-marble' in bg, bg)
         await page.goto(BASE + '/majesty-method/bootcamp')
         body = await page.locator('main').inner_text()
         check('bootcamp: How to Get Started with 3 steps', 'How to Get Started' in body and await page.locator('.steps3 > li').count() == 3)

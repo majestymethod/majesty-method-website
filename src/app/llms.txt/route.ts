@@ -17,9 +17,9 @@ export async function GET() {
 
 ## Majesty Method
 - [Majesty Method homepage](${b}/majesty-method): what the company does, who it helps, and ways to work with it.
-- [Founder Bootcamp](${b}/majesty-method/bootcamp): ${boot.intro}
-- [Business Acceleration Programme](${b}/majesty-method/acceleration): ${acc.intro}
-- [Free Friday webinars](${b}/majesty-method/webinars): free weekly webinars on marketing, AI, sales and business growth.
+- [The Founder Marketing Bootcamp](${b}/majesty-method/bootcamp): ${boot.intro}
+- [Team Acceleration](${b}/majesty-method/acceleration): ${acc.intro}
+- [The Founder Marketing Sessions](${b}/majesty-method/webinars): free Friday sessions on founder-led marketing, positioning, AI automation and turning marketing into revenue.
 - [Courses](${b}/majesty-method/courses) and [free resources](${b}/majesty-method/resources).
 
 ## TenderIQ

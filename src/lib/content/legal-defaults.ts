@@ -38,7 +38,7 @@ We only collect what we need for the purpose you are engaging with.
 |---|---|---|
 | Register for the Founder Bootcamp | Name, email, WhatsApp number, business name and description, whether the business is registered, number of employees, social media use, who does your marketing | To process your registration, contact you about the programme and tailor it to your business |
 | Register for a webinar | Name, email, optional business name | To register you, send joining details and give you access to the free resources offered with the webinar |
-| Enquire about the Business Acceleration Programme | Business name, contact person, work email, telephone, website, marketing needs and context | To respond to your enquiry and arrange a discovery call |
+| Enquire about the Team Acceleration programme | Business name, contact person, work email, telephone, website, marketing needs and context | To respond to your enquiry and arrange a discovery call |
 | Register interest in TenderIQ | Name, business name, business email, contact number, province, sector, business size, tendering experience, challenges and interests | To understand your tendering needs and contact you about TenderIQ |
 | Send a general enquiry | Name, email, optional telephone and business name, enquiry type and message | To respond to you |
 | Request a gated resource | Name and email | To provide the resource |

@@ -5,10 +5,16 @@ import { MediaHero } from '@/components/MediaHero';
 import type { ImageRef } from '@/lib/content/store';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
-import { lines } from '@/components/Lines';
+import Link from 'next/link';
+import { Prose, num } from '@/components/Prose';
 import { formatSast, parseSast } from '@/lib/dates';
 
-interface Page { image: ImageRef | null; title: string; intro: string; value: string; resourcesNote: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string } }
+type Block = { title: string; body: string };
+interface Page {
+  image: ImageRef | null; kicker: string; title: string; tagline: string; intro: string;
+  problem: Block; topicsTitle: string; topics: Block[]; audience: Block; closing: Block;
+  resourcesNote: string; emptyTitle: string; emptyBody: string; seo: { title: string; description: string };
+}
 interface Webinar { title: string; topic: string; description: string; startsAt: string; durationMinutes: number; delivery: string; registrationMode: 'internal' | 'external'; registrationUrl: string; recordingUrl: string }
 
 export async function generateMetadata() {
@@ -27,11 +33,41 @@ export default async function WebinarsPage() {
 
   return (
     <>
-      <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} title={c.title} lead={c.intro} image={c.image}>
-        <ul className="ticks" style={{ marginTop: 'var(--s-6)' }}>{lines(c.value).map((v) => <li key={v}>{v}</li>)}</ul>
+      <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} kicker={c.kicker} title={c.title} lead={c.tagline} image={c.image}>
+        {c.intro && <p className="hero-question">{c.intro}</p>}
+        <div className="btn-row" style={{ marginTop: 'var(--s-6)' }}>
+          <Link className="btn" href="#upcoming">Register for a session</Link>
+          <Link className="btn btn--secondary" href="#explore">What we’ll explore</Link>
+        </div>
       </MediaHero>
 
-      <section className="section section--tight" aria-labelledby="upcoming-title">
+      {c.problem.body && (
+        <section className="section section--tight" aria-labelledby="why-title">
+          <div className="container split-copy">
+            <div className="split-copy__head"><span className="rule-gold" aria-hidden="true" /><h2 id="why-title" className="h2">{c.problem.title}</h2></div>
+            <Prose text={c.problem.body} className="prose--lead" />
+          </div>
+        </section>
+      )}
+
+      {c.topics.length > 0 && (
+        <section id="explore" className="section surface--onyx" aria-labelledby="explore-title">
+          <div className="container">
+            <div className="section-head"><h2 id="explore-title" className="h2">{c.topicsTitle}</h2></div>
+            <ol className="numbered numbered--3">
+              {c.topics.map((t, i) => (
+                <li key={t.title} className="block">
+                  <span className="numbered__n" aria-hidden="true">{num(i)}</span>
+                  <h3>{t.title}</h3>
+                  <p>{t.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      <section id="upcoming" className="section section--tight" aria-labelledby="upcoming-title">
         <div className="container">
           <div className="section-head">
             <h2 id="upcoming-title" className="h2">Upcoming sessions</h2>
@@ -85,6 +121,29 @@ export default async function WebinarsPage() {
         </div>
       </section>
 
+      {c.audience.body && (
+        <section className="section section--tight" aria-labelledby="audience-title">
+          <div className="container">
+            <div className="block block--dark block--emerald feature-block">
+              <span className="rule-gold" aria-hidden="true" />
+              <h2 id="audience-title" className="h2--sm">{c.audience.title}</h2>
+              <Prose text={c.audience.body} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {c.closing.title && (
+        <section className="section section--tight" aria-labelledby="closing-title">
+          <div className="container closing">
+            <span className="rule-gold" aria-hidden="true" />
+            <h2 id="closing-title">{c.closing.title}</h2>
+            <p className="lead">{c.closing.body}</p>
+            <div className="btn-row" style={{ justifyContent: 'center' }}><Link className="btn" href="#upcoming">Register for a session</Link></div>
+          </div>
+        </section>
+      )}
+
       {past.length > 0 && (
         <section className="section section--tight" aria-labelledby="past-title">
           <div className="container">
@@ -106,7 +165,7 @@ export default async function WebinarsPage() {
         </section>
       )}
 
-      <ContactStrip title="Questions about the webinars?" body="Suggest a topic or ask about upcoming sessions." type="Webinars" />
+      <ContactStrip title="Questions about the sessions?" body="Suggest a topic or ask about upcoming sessions." type="Webinars" />
     </>
   );
 }

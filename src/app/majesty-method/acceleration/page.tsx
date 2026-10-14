@@ -7,12 +7,15 @@ import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
 import { JsonLd } from '@/components/JsonLd';
 import { lines } from '@/components/Lines';
+import { Prose, num } from '@/components/Prose';
 import { breadcrumbLd, serviceLd } from '@/lib/structured-data';
 
+type Block = { title: string; body: string };
 interface Acc {
-  image: ImageRef | null; title: string; headline: string; intro: string; challenge: { title: string; body: string };
-  graduateHelps: string; graduateNote: string; provides: string; steps: { title: string; body: string }[];
-  suitability: string; termsNote: string; enquiry: { title: string; body: string }; seo: { title: string; description: string };
+  image: ImageRef | null; title: string; headline: string; intro: string; challenge: Block; offer: Block;
+  capabilitiesTitle: string; capabilities: Block[]; graduateNote: string; whyInternal: Block;
+  outcome: Block & { closingLine: string }; steps: Block[];
+  suitability: string; termsNote: string; enquiry: Block; seo: { title: string; description: string };
 }
 
 export async function generateMetadata() {
@@ -46,32 +49,64 @@ export default async function AccelerationPage() {
 
       <section className="section section--tight" aria-labelledby="challenge-title">
         <div className="container">
-          <div className="block block--dark block--emerald" style={{ padding: 'clamp(28px, 4vw, 48px)' }}>
-            <div className="rule-gold" aria-hidden="true" style={{ marginBottom: 'var(--s-4)' }} />
+          <div className="block block--dark block--emerald feature-block">
+            <span className="rule-gold" aria-hidden="true" />
             <h2 id="challenge-title" className="h2--sm">{c.challenge.title}</h2>
-            <p style={{ marginTop: 'var(--s-3)', fontSize: 'var(--t-md)', maxWidth: '70ch' }}>{c.challenge.body}</p>
+            <Prose text={c.challenge.body} />
           </div>
         </div>
       </section>
 
-      <section className="section section--tight" aria-labelledby="helps-title">
-        <div className="container">
-          <div className="section-head"><h2 id="helps-title" className="h2--sm">What the graduate can help with</h2></div>
-          <div className="block">
-            <ul className="ticks grid grid--2">{lines(c.graduateHelps).map((x) => <li key={x}>{x}</li>)}</ul>
-            {c.graduateNote && <p className="muted" style={{ marginTop: 'var(--s-5)', paddingTop: 'var(--s-4)', borderTop: '1px solid var(--line)' }}>{c.graduateNote}</p>}
+      {c.offer.body && (
+        <section className="section section--tight" aria-labelledby="offer-title">
+          <div className="container split-copy">
+            <div className="split-copy__head"><span className="rule-gold" aria-hidden="true" /><h2 id="offer-title" className="h2">{c.offer.title}</h2></div>
+            <Prose text={c.offer.body} className="prose--lead" />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="section surface--onyx" aria-labelledby="provides-title">
-        <div className="container">
-          <div className="section-head"><h2 id="provides-title" className="h2--sm">What Majesty Method provides</h2></div>
-          <ul className="grid grid--3" style={{ listStyle: 'none' }}>
-            {lines(c.provides).map((x) => <li key={x} className="block card"><span className="card__mark" aria-hidden="true" /><p style={{ color: 'var(--ink)', fontWeight: 500 }}>{x}</p></li>)}
-          </ul>
-        </div>
-      </section>
+      {c.capabilities.length > 0 && (
+        <section className="section section--tight" aria-labelledby="caps-title">
+          <div className="container">
+            <div className="section-head"><h2 id="caps-title" className="h2">{c.capabilitiesTitle}</h2></div>
+            <ol className="numbered numbered--3">
+              {c.capabilities.map((m, i) => (
+                <li key={m.title} className="block card">
+                  <span className="numbered__n" aria-hidden="true">{num(i)}</span>
+                  <h3>{m.title}</h3>
+                  <p>{m.body}</p>
+                </li>
+              ))}
+            </ol>
+            {c.graduateNote && <p className="aside-note">{c.graduateNote}</p>}
+          </div>
+        </section>
+      )}
+
+      {c.whyInternal.body && (
+        <section className="section surface--onyx" aria-labelledby="internal-title">
+          <div className="container">
+            <div className="feature-block feature-block--wide">
+              <span className="rule-gold" aria-hidden="true" />
+              <h2 id="internal-title" className="h2">{c.whyInternal.title}</h2>
+              <Prose text={c.whyInternal.body} className="prose--lead prose--cols" />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {c.outcome.body && (
+        <section className="section section--tight" aria-labelledby="outcome-title">
+          <div className="container split-copy">
+            <div className="split-copy__head"><span className="rule-gold" aria-hidden="true" /><h2 id="outcome-title" className="h2">{c.outcome.title}</h2></div>
+            <div>
+              <Prose text={c.outcome.body} className="prose--lead" />
+              {c.outcome.closingLine && <p className="pull-line">{c.outcome.closingLine}</p>}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section id="how" className="section section--tight" aria-labelledby="how-title">
         <div className="container">
@@ -109,7 +144,7 @@ export default async function AccelerationPage() {
         </div>
       </section>
 
-      <ContactStrip title="Not sure this is the right fit?" body="Ask a question first. There’s no obligation." type="Business Acceleration" />
+      <ContactStrip title="Not sure this is the right fit?" body="Ask a question first. There’s no obligation." type="Team Acceleration" />
       <JsonLd data={[
         serviceLd(c.title, '/majesty-method/acceleration', c.intro, 'Marketing support and AI implementation for small businesses'),
         breadcrumbLd([{ name: 'Majesty Method', path: '/majesty-method' }, { name: c.title, path: '/majesty-method/acceleration' }]),

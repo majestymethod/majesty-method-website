@@ -4,6 +4,55 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { DOCS } from './content/schema';
 import { DEFAULT_FORMS } from './forms/definitions';
+import PREVIOUS_DEFAULTS from './content/previous-defaults.json';
+
+function deepEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b || a === null || b === null || typeof a !== 'object') return false;
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+  const ka = Object.keys(a as object), kb = Object.keys(b as object);
+  if (ka.length !== kb.length) return false;
+  return ka.every((k) => deepEqual((a as Record<string, unknown>)[k], (b as Record<string, unknown>)[k]));
+}
+
+/**
+ * Copy refresh for existing sites: pages whose stored text is still exactly the previous release's default copy
+ * are moved to the new default copy. Pages the owner has edited are left untouched (use "Reset to default" in the
+ * editor to adopt the new copy on those).
+ */
+function refreshUnchangedDocs(db: Database.Database, ts: string) {
+  const get = db.prepare('SELECT draft, published FROM content WHERE key = ?');
+  const upd = db.prepare('UPDATE content SET draft = ?, published = ?, updated_at = ?, published_at = ?, updated_by = ? WHERE key = ?');
+  for (const [key, previous] of Object.entries(PREVIOUS_DEFAULTS as Record<string, unknown>)) {
+    const def = DOCS.find((d) => d.key === key);
+    const row = get.get(key) as { draft: string; published: string | null } | undefined;
+    if (!def || !row) continue;
+    const isPrevious = (raw: string | null) => { try { return !!raw && deepEqual(JSON.parse(raw), previous); } catch { return false; } };
+    const fresh = JSON.stringify(def.defaults);
+    const draft = isPrevious(row.draft) ? fresh : row.draft;
+    const published = isPrevious(row.published) ? fresh : row.published;
+    if (draft !== row.draft || published !== row.published) {
+      upd.run(draft, published, ts, ts, 'update', key);
+      console.log(`[content] Updated "${key}" to the new default copy`);
+    } else if (row.published && !deepEqual(JSON.parse(row.published), def.defaults)) {
+      console.log(`[content] "${key}" has been edited, so its copy was left as is`);
+    }
+  }
+}
+
+/** Renames that apply to stored forms and legal pages (plain text replacement, safe for the owner's edits). */
+function applyRenames(db: Database.Database) {
+  const renames: [string, string][] = [['Business Acceleration Programme', 'Team Acceleration programme'], ['Business Acceleration', 'Team Acceleration']];
+  const swap = (t: string) => renames.reduce((acc, [a, b]) => acc.split(a).join(b), t);
+  for (const r of db.prepare('SELECT key, definition FROM forms').all() as { key: string; definition: string }[]) {
+    const n = swap(r.definition);
+    if (n !== r.definition) db.prepare('UPDATE forms SET definition = ? WHERE key = ?').run(n, r.key);
+  }
+  for (const r of db.prepare("SELECT key, draft, published FROM content WHERE key LIKE 'legal_%'").all() as { key: string; draft: string; published: string | null }[]) {
+    const d = swap(r.draft), p = r.published == null ? null : swap(r.published);
+    if (d !== r.draft || p !== r.published) db.prepare('UPDATE content SET draft = ?, published = ? WHERE key = ?').run(d, p, r.key);
+  }
+}
 
 const SEED_MEDIA = path.resolve(process.cwd(), 'seed/media');
 
@@ -34,6 +83,9 @@ export function ensureSeeded(db: Database.Database) {
       ins.run(m.id, m.original_name, m.mime, m.width, m.height, JSON.stringify(m.variants), m.alt, ts);
     }
   }
+
+  refreshUnchangedDocs(db, ts);
+  applyRenames(db);
 
   // Content patches for sites that already exist: fill in photos that were still empty placeholders.
   // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.
