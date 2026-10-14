@@ -998,17 +998,21 @@ ul, ol { margin: 0; padding: 0; }
 }
 .mm-banner__tag em { font-style: italic; font-weight: 800; color: #043532; letter-spacing: -0.005em; }
 .mm-hero__actions { justify-content: center; margin-top: clamp(20px, 3vw, 32px); }
+.mm-banner__phone-lines { display: none; }
+/* Phone: the portrait banner design (810 x 1012.5 artboard). The green stone, monograms, light-green curve and
+   background lines are one image; photo, logo, gold bar, words and the front lines are placed on top. */
 @media (max-width: 700px) {
-  .mm-banner__logo { left: 11%; top: 3%; width: 78%; }
-  .mm-banner__slashes { left: auto; right: 6%; top: 35%; width: 30%; height: 3%; }
-  .mm-banner__bar { left: 0; top: 39.5%; width: 94%; height: 8%; }
-  .mm-banner__tag { left: 0; right: 6%; top: 39.5%; height: 8%; font-size: 6cqw; }
-  .mm-banner__arc { top: 51%; width: 76%; height: 57%; }
-  .mm-banner__chevrons { left: -10%; top: 86%; width: 20%; height: 6%; }
-  .mm-banner__photo { top: auto; bottom: 0; width: 56%; }
+  .mm-banner { aspect-ratio: 810 / 1012.5; background: url('/brand/mm-hero-mobile-plate.webp') 0 0 / 100% 100% no-repeat, #043532; }
+  .mm-banner__arc, .mm-banner__chevrons, .mm-banner__slashes { display: none; }
+  .mm-banner__photo { left: -5.3%; top: 26.62%; width: 79.32%; }
+  .mm-banner__logo { left: 36.28%; top: 12.67%; width: 33.04%; }
+  .mm-banner__bar { left: 12.47%; top: 79.96%; width: 77.71%; height: 8.57%; z-index: 2; }
+  .mm-banner__tag { left: 27.37%; right: auto; top: 79.96%; height: 8.57%; justify-content: flex-start; gap: 0.22em;
+    font-size: 5.1cqw; font-weight: 700; letter-spacing: -0.045em; z-index: 3; }
+  .mm-banner__tag em { letter-spacing: -0.03em; }
+  .mm-banner__phone-lines { display: block; inset: 0; width: 100%; height: 100%; z-index: 3; }
 }
 @media (max-width: 700px) {
-  .mm-banner { aspect-ratio: 3 / 4; background-size: cover; }
   .mm-hero .container { width: calc(100% - 2 * var(--gutter)); }
   .mm-hero__actions .btn { flex: 1 1 100%; }
 }
