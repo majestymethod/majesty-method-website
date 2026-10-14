@@ -33,7 +33,7 @@ export default async function WebinarsPage() {
 
   return (
     <>
-      <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} kicker={c.kicker} title={c.title} lead={c.tagline} image={c.image}>
+      <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} kicker={c.kicker} title={c.title} lead={c.tagline} image={c.image} portrait>
         {c.intro && <p className="hero-question">{c.intro}</p>}
         <div className="btn-row" style={{ marginTop: 'var(--s-6)' }}>
           <Link className="btn" href="#upcoming">Register for a session</Link>
