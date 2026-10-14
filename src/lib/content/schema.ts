@@ -212,15 +212,11 @@ export const DOCS: DocDef[] = [
     group: 'Majesty Method',
     route: '/majesty-method',
     fields: [
-      { key: 'hero', label: 'Hero', type: 'group', fields: [
-        { key: 'kicker', label: 'Line above the headline', type: 'text' },
-        { key: 'headline', label: 'Headline', type: 'text' },
-        { key: 'body', label: 'Supporting copy', type: 'textarea' },
+      { key: 'hero', label: 'Banner', type: 'group', fields: [
+        { key: 'headline', label: 'Page headline (not shown on the banner; read by search engines and screen readers)', type: 'text' },
+        { key: 'tagline', label: 'Text on the gold bar', type: 'text' },
+        { key: 'taglineEmphasis', label: 'Bold word at the end of the gold bar', type: 'text' },
         cta('primary'), cta('secondary'),
-      ] },
-      { key: 'founder', label: 'Founder photograph', type: 'group', fields: [
-        { key: 'image', label: 'Photograph', type: 'image' },
-        { key: 'caption', label: 'Caption', type: 'text' },
       ] },
       { key: 'who', label: 'Who we help', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
@@ -272,13 +268,12 @@ export const DOCS: DocDef[] = [
     ],
     defaults: {
       hero: {
-        kicker: 'Marketing strategy and AI for South African businesses',
-        headline: 'Your marketing is too important to be left to chance.',
-        body: 'A founder-led approach to understanding your customers, building your strategy, and turning attention into sales.',
+        headline: 'Majesty Method: marketing strategy and AI for South African businesses',
+        tagline: 'The method of',
+        taglineEmphasis: 'success',
         primary: { label: 'Explore our programmes', href: '#paths' },
         secondary: { label: 'Join a free webinar', href: '/majesty-method/webinars' },
       },
-      founder: { image: { id: 'seed-founder', alt: 'Adelade Nyarirangwe, founder of Majesty Method' }, caption: 'Majesty Method Founder: Adelade Nyarirangwe' },
       who: {
         title: 'Who we help',
         image: { id: 'seed-who', alt: 'A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders' },

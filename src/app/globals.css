@@ -27,7 +27,9 @@
   --emerald: #064d3b;
   --emerald-lit: #075443;      /* gentle highlight within the dark green */
   /* Deep jade: the dark green used for panels, blocks, buttons and the webinar strip */
-  --jade-1: #033328; --jade-2: #02261e; --jade-3: #011810;
+  --jade-1: #063a16; --jade-2: #03280e; --jade-3: #011806;
+  /* The brand's green stone (from the banner design); used for every green panel, block, strip and button */
+  --green-stone: url('/textures/green-stone.webp') 50% 50% / cover no-repeat;
   --forest: #033d30;
   --forest-deep: #022a21;
   --turquoise: #075b60;
@@ -58,7 +60,7 @@
   --on-accent: #ffffff;
   --brand-line: var(--gold-line);          /* fine illuminated line */
   --on-dark-accent: var(--gold-light);     /* headings/links on dark surfaces */
-  --btn-c1: #04402f; --btn-c2: var(--jade-1); --btn-c3: var(--jade-2);
+  --btn-c1: #0a4a1d; --btn-c2: var(--jade-1); --btn-c3: var(--jade-2);
   --btn-edge: rgba(220, 192, 120, 0.55);
 
   --error: #a3262a;
@@ -192,6 +194,7 @@ ul, ol { margin: 0; padding: 0; }
   color: var(--white); border: 1px solid var(--block-edge);
   background: var(--gloss-soft), var(--stone), linear-gradient(155deg, var(--block-c1), var(--block-c2));
   box-shadow: var(--shadow-dark); }
+.block--dark:not(.block--onyx, .block--purple) { background: var(--gloss-soft), var(--green-stone), var(--jade-3); }
 .block--dark h2, .block--dark h3 { color: var(--white); }
 .block--dark p, .block--dark li { color: rgba(255, 255, 255, 0.9); }
 .block--dark a:not(.btn) { color: var(--gold-light); }
@@ -227,6 +230,7 @@ ul, ol { margin: 0; padding: 0; }
 .btn--light { --btn-fg: var(--forest); background: var(--gloss-white); border-color: rgba(255, 255, 255, 0.7); }
 [data-brand='tenderiq'] .btn--light { --btn-fg: var(--royal-deep); }
 .btn--light:hover { --btn-fg: var(--onyx); background: #ffffff; filter: none; }
+[data-brand='majesty'] .btn:not(.btn--secondary):not(.btn--light) { background: var(--gloss), url('/textures/green-stone.webp') 50% 45% / 100% auto no-repeat, var(--jade-2); }
 .btn--gold { --btn-fg: var(--onyx); background: var(--gloss), var(--gold-metal); border-color: rgba(255, 240, 200, 0.6); }
 .btn--gold:hover { --btn-fg: var(--onyx); }
 .btn[disabled], .btn[aria-disabled='true'] { opacity: 0.6; cursor: progress; transform: none; filter: none; }
@@ -252,7 +256,7 @@ ul, ol { margin: 0; padding: 0; }
   border-radius: calc(var(--r-block) + 10px); border: 1px solid rgba(220, 192, 120, 0.4);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 2px 4px rgba(10, 14, 12, 0.12), 0 40px 70px -40px rgba(10, 14, 12, 0.65);
 }
-.surface--emerald > .container { background: var(--gloss-soft), var(--stone), linear-gradient(165deg, var(--jade-1) 0%, var(--jade-2) 50%, var(--jade-3) 100%); }
+.surface--emerald > .container { background: var(--gloss-soft), var(--green-stone), var(--jade-3); }
 .surface--purple > .container { border-color: rgba(199, 148, 14, 0.45); background: radial-gradient(90% 70% at 50% -12%, rgba(240, 190, 250, 0.14), rgba(240, 190, 250, 0) 62%), var(--gloss-soft), radial-gradient(60% 60% at 88% 18%, rgba(150, 30, 160, 0.35), rgba(150, 30, 160, 0) 70%), linear-gradient(165deg, var(--royal) 0%, var(--royal-deep) 45%, var(--royal-night) 100%); }
 .surface--onyx > .container { background: var(--gloss-soft), var(--stone), linear-gradient(180deg, #1a1b1a 0%, #0d0e0d 100%); }
 .surface--emerald.section, .surface--purple.section, .surface--onyx.section { padding-block: calc(var(--section) * 0.5); }
@@ -332,7 +336,7 @@ ul, ol { margin: 0; padding: 0; }
 @media (min-width: 1241px) { .nav__panel { display: flex; align-items: center; gap: clamp(28px, 3vw, 48px); } }
 
 /* Thin announcement strip under the menu (scrolls gently; static for reduced motion) */
-.announce { position: relative; overflow: hidden; height: 32px; background: var(--gloss), var(--stone), linear-gradient(90deg, var(--jade-3), var(--jade-1) 50%, var(--jade-3)); border-top: 1px solid rgba(220, 192, 120, 0.35); }
+.announce { position: relative; overflow: hidden; height: 32px; background: var(--gloss), url('/textures/green-stone.webp') 50% 45% / 100% auto no-repeat, var(--jade-3); border-top: 1px solid rgba(220, 192, 120, 0.35); }
 .announce__link { display: flex; align-items: center; height: 100%; color: #f3ead2; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.04em; white-space: nowrap; }
 .announce__link:hover { color: #ffffff; text-decoration: none; }
 .announce__link:hover strong { text-decoration: underline; }
@@ -968,3 +972,43 @@ ul, ol { margin: 0; padding: 0; }
 .docviz__state--ok { color: var(--royal); font-weight: 600; }
 .docviz__state--gap { color: #a53b26; font-weight: 600; }
 .docviz__next { margin-top: var(--s-4); padding: 10px 12px; border-radius: 10px; font-size: var(--t-xs); line-height: 1.5; color: var(--ink-base); background: rgba(199, 148, 14, 0.12); border: 1px solid rgba(199, 148, 14, 0.35); }
+
+/* ---------- Majesty Method banner (coded from the brand banner design, 2835 x 1417 artboard) ----------
+   Every position is a percentage of the artboard, so the desktop banner matches the design at any width.
+   Up to 700px wide the pieces are rearranged into a taller layout so nothing becomes tiny on a phone. */
+.mm-hero { padding-block: clamp(14px, 2.4vw, 32px) clamp(28px, 4vw, 48px); }
+.mm-banner {
+  container-type: inline-size; position: relative; isolation: isolate; overflow: hidden;
+  aspect-ratio: 2835 / 1417; border-radius: calc(var(--r-block) + 10px);
+  background: url('/textures/green-stone.webp') 50% 50% / 100% auto no-repeat, #043532;
+  border: 1px solid rgba(220, 192, 120, 0.4);
+  box-shadow: 0 2px 4px rgba(10, 14, 12, 0.12), 0 40px 70px -40px rgba(10, 14, 12, 0.65);
+}
+.mm-banner > * { position: absolute; margin: 0; }
+.mm-banner__arc { left: 0; top: 16.04%; width: 42.69%; height: 85.38%; background: #9bc081; border-top-right-radius: 100% 100%; }
+.mm-banner__chevrons { left: -5.33%; top: 78.97%; width: 10.65%; height: 7.13%; }
+.mm-banner__slashes { left: 83.6%; top: 76.5%; width: 11.43%; height: 3.25%; }
+.mm-banner__bar { left: 19.05%; top: 80.45%; width: 77.72%; height: 9.57%; background: #eeba2b; }
+.mm-banner__photo { left: 0; top: 13.22%; width: 36.34%; height: auto; z-index: 1; }
+.mm-banner__logo { left: 40.48%; top: 19.83%; width: 51.73%; height: auto; }
+.mm-banner__tag {
+  z-index: 2; left: 36.34%; right: 10%; top: 80.45%; height: 9.57%;
+  display: flex; align-items: center; justify-content: center; gap: 0.28em;
+  font: 300 2.65cqw/1 var(--font); letter-spacing: -0.01em; text-transform: uppercase; color: #fffaf0; white-space: nowrap;
+}
+.mm-banner__tag em { font-style: italic; font-weight: 800; color: #043532; letter-spacing: -0.005em; }
+.mm-hero__actions { justify-content: center; margin-top: clamp(20px, 3vw, 32px); }
+@media (max-width: 700px) {
+  .mm-banner__logo { left: 11%; top: 3%; width: 78%; }
+  .mm-banner__slashes { left: auto; right: 6%; top: 35%; width: 30%; height: 3%; }
+  .mm-banner__bar { left: 0; top: 39.5%; width: 94%; height: 8%; }
+  .mm-banner__tag { left: 0; right: 6%; top: 39.5%; height: 8%; font-size: 6cqw; }
+  .mm-banner__arc { top: 51%; width: 76%; height: 57%; }
+  .mm-banner__chevrons { left: -10%; top: 86%; width: 20%; height: 6%; }
+  .mm-banner__photo { top: auto; bottom: 0; width: 56%; }
+}
+@media (max-width: 700px) {
+  .mm-banner { aspect-ratio: 3 / 4; background-size: cover; }
+  .mm-hero .container { width: calc(100% - 2 * var(--gutter)); }
+  .mm-hero__actions .btn { flex: 1 1 100%; }
+}

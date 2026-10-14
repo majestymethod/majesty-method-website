@@ -9,8 +9,7 @@ import { organizationLd } from '@/lib/structured-data';
 
 type Cta = { label: string; href: string };
 interface Home {
-  hero: { kicker: string; headline: string; body: string; primary: Cta; secondary: Cta };
-  founder: { image: ImageRef | null; caption: string };
+  hero: { headline: string; tagline: string; taglineEmphasis: string; primary: Cta; secondary: Cta };
   who: { title: string; image: ImageRef | null; items: { title: string; body: string }[] };
   philosophy: { title: string; intro: string; principles: { title: string; body: string }[] };
   paths: { title: string; intro: string; pillars: { title: string; body: string }[]; items: { title: string; body: string; ctaLabel: string; href: string }[]; tenderiq: { title: string; body: string; ctaLabel: string } };
@@ -28,25 +27,28 @@ export default async function MajestyHome() {
   const cols = (n: number) => (n % 3 === 0 ? 'grid--3' : n % 4 === 0 ? 'grid--4' : 'grid--2');
   return (
     <>
-      <section className="split-hero surface--emerald hero-lit" aria-labelledby="mm-hero-title">
-        <div className="container split-hero__grid">
-          <div>
-            {c.hero.kicker && <p className="kicker">{c.hero.kicker}</p>}
-            <h1 id="mm-hero-title" style={{ marginTop: 'var(--s-3)' }}>{c.hero.headline}</h1>
-            <p className="lead">{c.hero.body}</p>
-            <div className="btn-row">
-              {c.hero.primary.label && <Link className="btn" href={c.hero.primary.href}>{c.hero.primary.label}</Link>}
-              {c.hero.secondary.label && <Link className="btn btn--secondary" href={c.hero.secondary.href}>{c.hero.secondary.label}</Link>}
-            </div>
+      <section className="mm-hero" aria-labelledby="mm-hero-title">
+        <div className="container">
+          <div className="mm-banner">
+            <h1 id="mm-hero-title" className="visually-hidden">{c.hero.headline}</h1>
+            <span className="mm-banner__arc" aria-hidden="true" />
+            <svg className="mm-banner__chevrons" viewBox="-151 1119 302 101" aria-hidden="true" focusable="false">
+              <path fill="none" stroke="#fffaf0" strokeWidth="2.9" d="M-150 1121.7l37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6M-150 1158.1l37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6M-150 1194.5l37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6 37.6 22.6 37.6-22.6" />
+            </svg>
+            <svg className="mm-banner__slashes" viewBox="2370 1084 324 46" aria-hidden="true" focusable="false">
+              <path fill="none" stroke="#fffaf0" strokeWidth="2.9" d="M2371.9 1128l42.5-42.5M2418.1 1128l42.5-42.5M2464.3 1128l42.5-42.5M2510.5 1128l42.5-42.5M2556.7 1128l42.5-42.5M2602.9 1128l42.5-42.5M2649.1 1128l42.5-42.5" />
+            </svg>
+            <span className="mm-banner__bar" aria-hidden="true" />
+            <img className="mm-banner__photo" src="/brand/mm-hero-photo-1086.webp" srcSet="/brand/mm-hero-photo-560.webp 560w, /brand/mm-hero-photo-1086.webp 1086w" sizes="(max-width: 700px) 70vw, 36vw" width={1086} height={1297} alt="Adelade Nyarirangwe, founder of Majesty Method, in an emerald suit on the phone, carrying a stack of folders" fetchPriority="high" />
+            <img className="mm-banner__logo" src="/brand/mm-hero-logo-1225.webp" srcSet="/brand/mm-hero-logo-640.webp 640w, /brand/mm-hero-logo-1225.webp 1225w" sizes="(max-width: 700px) 86vw, 52vw" width={1225} height={646} alt="Majesty Method" fetchPriority="high" />
+            {(c.hero.tagline || c.hero.taglineEmphasis) && (
+              <p className="mm-banner__tag">{c.hero.tagline} {c.hero.taglineEmphasis && <em>{c.hero.taglineEmphasis}</em>}</p>
+            )}
           </div>
-          {c.founder.image && (
-            <figure style={{ margin: 0 }}>
-              <div className="media split-hero__media">
-                <Picture image={c.founder.image} sizes="(max-width: 860px) 100vw, 45vw" priority />
-              </div>
-              {c.founder.caption && <figcaption className="founder-caption">{c.founder.caption}</figcaption>}
-            </figure>
-          )}
+          <div className="btn-row mm-hero__actions">
+            {c.hero.primary.label && <Link className="btn" href={c.hero.primary.href}>{c.hero.primary.label}</Link>}
+            {c.hero.secondary.label && <Link className="btn btn--secondary" href={c.hero.secondary.href}>{c.hero.secondary.label}</Link>}
+          </div>
         </div>
       </section>
 
