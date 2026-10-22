@@ -20,6 +20,25 @@ function deepEqual(a: unknown, b: unknown): boolean {
  * are moved to the new default copy. Pages the owner has edited are left untouched (use "Reset to default" in the
  * editor to adopt the new copy on those).
  */
+/** Names Typeform in the privacy notice's list of service providers (registration forms now run on Typeform).
+ *  Only adds the line where the notice still has the original Google line and doesn't mention Typeform yet. */
+function addTypeformToPrivacy(db: Database.Database) {
+  const google = '- **Google (Google Sheets and Google Workspace)** — Bootcamp registrations are copied to a Google Sheet used by our team. Google may store data outside South Africa.';
+  const line = '- **Typeform** — our Founder Marketing Bootcamp and Friday session registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.';
+  for (const r of db.prepare("SELECT key, draft, published FROM content WHERE key LIKE 'legal_%'").all() as { key: string; draft: string; published: string | null }[]) {
+    const fix = (raw: string | null) => {
+      if (!raw || raw.includes('Typeform') || !raw.includes(JSON.stringify(google).slice(1, -1))) return raw;
+      return raw.replace(JSON.stringify(google).slice(1, -1), JSON.stringify(google + '\n' + line).slice(1, -1))
+        .replace('Some providers, including Google, may store', 'Some providers, including Google and Typeform, may store');
+    };
+    const d2 = fix(r.draft), p2 = fix(r.published);
+    if (d2 !== r.draft || p2 !== r.published) {
+      db.prepare('UPDATE content SET draft = ?, published = ? WHERE key = ?').run(d2, p2, r.key);
+      console.log(`[seed] ${r.key}: added Typeform to the service providers`);
+    }
+  }
+}
+
 /** Swaps the original people photos for their cut-out versions, only where the page still uses the original photo. */
 function useCutouts(db: Database.Database) {
   const swaps: [string, string[], string, string][] = [
@@ -115,6 +134,7 @@ export function ensureSeeded(db: Database.Database) {
   refreshUnchangedDocs(db, ts);
   applyRenames(db);
   useCutouts(db);
+  addTypeformToPrivacy(db);
 
   // Content patches for sites that already exist: fill in photos that were still empty placeholders.
   // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.

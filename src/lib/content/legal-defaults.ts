@@ -62,12 +62,13 @@ We do not sell personal information. We share it only with service providers (op
 
 - **Website hosting provider** — stores the website and its database. [CONFIRM: hosting provider and server location]
 - **Google (Google Sheets and Google Workspace)** — Bootcamp registrations are copied to a Google Sheet used by our team. Google may store data outside South Africa.
+- **Typeform** — our Founder Marketing Bootcamp and Friday session registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.
 - **Email delivery provider** — sends confirmations and notifications, if enabled. [CONFIRM: email provider]
 - **Analytics provider** — only if analytics is enabled and you consent to analytics cookies. [CONFIRM if used]
 
 ## Cross-border transfers
 
-Some providers, including Google, may store or process information outside South Africa. Where this happens, we rely on providers that are subject to laws, binding corporate rules or agreements that give a level of protection substantially similar to POPIA, as required by section 72. [LEGAL REVIEW: confirm transfer basis for each provider]
+Some providers, including Google and Typeform, may store or process information outside South Africa. Where this happens, we rely on providers that are subject to laws, binding corporate rules or agreements that give a level of protection substantially similar to POPIA, as required by section 72. [LEGAL REVIEW: confirm transfer basis for each provider]
 
 ## How long we keep it
 

@@ -5,6 +5,8 @@ import { pageMetadata } from '@/lib/seo';
 import { Facts, Faqs } from '@/components/PageHero';
 import { Picture } from '@/components/Picture';
 import { Popout, isCutout } from '@/components/Popout';
+import { TypeformEmbed } from '@/components/TypeformEmbed';
+import { typeformId } from '@/lib/typeform';
 import { SiteForm } from '@/components/forms/SiteForm';
 import { ContactStrip } from '@/components/ContactStrip';
 import { JsonLd } from '@/components/JsonLd';
@@ -17,7 +19,7 @@ interface Bootcamp {
   image: ImageRef | null; headline: string; intro: string; value: string; facts: { label: string; value: string }[];
   problem: Block; vision: Block; modulesTitle: string; modules: Block[]; modulesNote: string;
   audience: Block; format: Block; start: { title: string; steps: Block[] }; closing: Block;
-  register: Block; faqs: { q: string; a: string }[];
+  register: Block & { typeform?: string }; faqs: { q: string; a: string }[];
   seo: { title: string; description: string };
 }
 
@@ -139,7 +141,11 @@ export default async function BootcampPage() {
             <h2 id="register-title" className="h2--sm">{c.register.title}</h2>
             <p className="muted">{c.register.body}</p>
           </div>
-          <SiteForm formKey="bootcamp" />
+          {typeformId(c.register.typeform) ? (
+            <TypeformEmbed formId={typeformId(c.register.typeform)} title="Founder Marketing Bootcamp registration form" />
+          ) : (
+            <SiteForm formKey="bootcamp" />
+          )}
         </div>
       </section>
 

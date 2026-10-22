@@ -24,6 +24,28 @@ def check(name, cond, detail=''):
 def db():
     return sqlite3.connect(DATA / 'site.db')
 
+FIX = Path(__file__).parent / 'fixtures'
+TF_JS = (FIX / 'typeform-embed.js').read_text()
+TF_CSS = (FIX / 'typeform-widget.css').read_text()
+
+async def typeform_offline(context):
+    # The sandbox can't reach Typeform, so serve Typeform's own embed script locally and a stand-in form page.
+    async def embed(route):
+        js = route.request.url.endswith('.js')
+        await route.fulfill(status=200, content_type='application/javascript' if js else 'text/css', body=TF_JS if js else TF_CSS)
+    await context.route('https://embed.typeform.com/**', embed)
+    await context.route('https://form.typeform.com/**', lambda r: r.fulfill(status=200, content_type='text/html', body='<html><body>Typeform stand-in</body></html>'))
+
+def set_typeform(key, value):
+    # Switch a page between its Typeform and the built-in form (used to keep testing the built-in fallback).
+    c = db()
+    for col in ('draft', 'published'):
+        raw = c.execute(f'select {col} from content where key=?', (key,)).fetchone()
+        if not raw or not raw[0]: continue
+        doc = json.loads(raw[0]); doc.setdefault('register', {})['typeform'] = value
+        c.execute(f'update content set {col}=? where key=?', (json.dumps(doc), key))
+    c.commit(); c.close()
+
 PAGES = ['/', '/majesty-method', '/majesty-method/bootcamp', '/majesty-method/webinars', '/majesty-method/acceleration',
          '/majesty-method/courses', '/majesty-method/resources', '/tenderiq', '/contact', '/legal/privacy', '/legal/cookies',
          '/legal/terms', '/legal/paia']
@@ -48,12 +70,17 @@ async def submit_and_wait(page, form):
 async def main():
     async with async_playwright() as p:
         browser = await p.chromium.launch()
+        _new_context = browser.new_context
+        async def new_context(**kw):
+            c = await _new_context(**kw); await typeform_offline(c); return c
+        browser.new_context = new_context
 
         # ---------------------------------------------------------------- Routes, overflow, console, a11y
         ctx = await browser.new_context()
         page = await ctx.new_page()
         errors = []
-        page.on('console', lambda m: errors.append(m.text) if m.type == 'error' else None)
+        # Typeform's frame asks for camera/microphone; the site's policy blocks them on purpose, which Chrome reports as a warning.
+        page.on('console', lambda m: errors.append(m.text) if m.type == 'error' and 'Potential permissions policy violation' not in m.text else None)
         page.on('pageerror', lambda e: errors.append(str(e)))
         for w in WIDTHS:
             await page.set_viewport_size({'width': w, 'height': 900})
@@ -270,7 +297,25 @@ async def main():
         r = await page.request.get(BASE + '/llms.txt')
         check('llms.txt served', r.ok and 'TenderIQ' in await r.text())
 
-        # ---------------------------------------------------------------- Bootcamp form
+        # ---------------------------------------------------------------- Typeform registration forms
+        for path, fid, title in [('/majesty-method/bootcamp', 'TAsDQ7fO', 'Founder Marketing Bootcamp registration form'),
+                                 ('/majesty-method/webinars', 'gioQxZnS', 'Founder Marketing Sessions registration form')]:
+            await page.goto(BASE + path)
+            fr = page.locator(f'iframe[src*="form.typeform.com/to/{fid}"]')
+            await fr.first.wait_for(timeout=10000)
+            check(f'{path}: Typeform {fid} embedded with a descriptive title', await fr.count() == 1 and await fr.get_attribute('title') == title)
+            check(f'{path}: Typeform is tall enough to use', (await fr.bounding_box())['height'] >= 500)
+            check(f'{path}: link to open the Typeform in a new tab', await page.locator(f'a[href="https://form.typeform.com/to/{fid}"]').count() == 1)
+            check(f'{path}: built-in registration form replaced', await page.locator('form.form').count() == 0)
+        csp = (await page.request.get(BASE + '/majesty-method/bootcamp')).headers.get('content-security-policy', '')
+        check('CSP allows Typeform script and frame only where needed', 'https://embed.typeform.com' in csp and 'frame-src https://form.typeform.com' in csp)
+        priv = await (await page.request.get(BASE + '/legal/privacy')).text()
+        check('privacy notice names Typeform as a service provider', 'Typeform' in priv)
+
+        # Built-in form is still available as the fallback when no Typeform link is set
+        set_typeform('bootcamp', ''); set_typeform('webinars_page', '')
+
+        # ---------------------------------------------------------------- Bootcamp form (built-in fallback)
         await page.goto(BASE + '/majesty-method/bootcamp')
         form = page.locator('form.form').first
         await page.wait_for_timeout(2700)
@@ -460,6 +505,7 @@ async def main():
         ctxrow = json.loads(db().execute("select context from submissions where form_key='webinar' order by created_at desc limit 1").fetchone()[0])
         check('webinar registration linked to the session', ctxrow.get('webinarId') == wid)
         await ap.request.delete(BASE + f'/api/admin/item/{wid}', headers={'Origin': BASE})
+        set_typeform('bootcamp', 'https://form.typeform.com/to/TAsDQ7fO'); set_typeform('webinars_page', 'https://form.typeform.com/to/gioQxZnS')
 
         # Gated resource
         pdf = b'%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF'

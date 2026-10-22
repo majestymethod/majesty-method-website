@@ -188,3 +188,18 @@ The page background stays white stone everywhere. Colour lives in contained, rou
 - Tokens (colours, light, shadows, radii, motion) are at the top of `src/app/globals.css`; section colours are
   applied with `.surface--emerald`, `.surface--purple` or `.surface--onyx` on a `<section>` (the colour goes on
   its inner panel, never the page).
+
+## Registration forms on Typeform (October 2026)
+
+The Founder Marketing Bootcamp and the Friday sessions (The Founder Marketing Sessions) now use Typeform for registrations:
+
+- Bootcamp: https://form.typeform.com/to/TAsDQ7fO (Editor → Bootcamp → Registration section → "Typeform registration form")
+- Friday sessions: https://form.typeform.com/to/gioQxZnS (Editor → Founder Marketing Sessions → Registration form)
+
+Paste a different Typeform link in those fields to swap the form. Clear the field to go back to the site's built-in form
+(which saves to the database and Google Sheet). Answers given in Typeform go to Typeform, not to the site's database
+or Google Sheet; connect Typeform to Google Sheets inside Typeform if you want them in a sheet.
+
+The page loads Typeform's script from embed.typeform.com and the form from form.typeform.com; both are allowed in the
+Content-Security-Policy in next.config.mjs. A "Form not showing? Open the form in a new tab" link is always shown under
+the form. The privacy notice lists Typeform as a service provider (added automatically to existing sites at start-up).

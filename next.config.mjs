@@ -5,11 +5,13 @@ const isProd = process.env.NODE_ENV === 'production';
 // AND the visitor consents. The CSP permits the domains so the consented script can load.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com" + (isProd ? '' : " 'unsafe-eval'"),
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://embed.typeform.com" + (isProd ? '' : " 'unsafe-eval'"),
+  "style-src 'self' 'unsafe-inline' https://embed.typeform.com",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://embed.typeform.com",
+  // Registration forms are Typeform embeds (Bootcamp and Friday sessions)
+  "frame-src https://form.typeform.com",
   "font-src 'self'",
-  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
+  "connect-src 'self' https://api.typeform.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

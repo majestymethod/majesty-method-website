@@ -378,7 +378,7 @@ export const DOCS: DocDef[] = [
       ] },
       { key: 'register', label: 'Registration section', type: 'group', fields: [
         { key: 'title', label: 'Heading', type: 'text' },
-        { key: 'body', label: 'Text', type: 'textarea' },
+        { key: 'body', label: 'Text', type: 'textarea' },        { key: 'typeform', label: 'Typeform registration form (paste the form link, e.g. https://form.typeform.com/to/AbC123). Leave empty to use the built-in form instead.', type: 'text' },
       ] },
       { key: 'faqs', label: 'Frequently asked questions', type: 'list', itemLabelKey: 'q', fields: [
         { key: 'q', label: 'Question', type: 'text' },
@@ -431,6 +431,7 @@ export const DOCS: DocDef[] = [
         body: 'You started your business to build something valuable — not to spend every hour switching between jobs to keep everything alive. Join the Founder Marketing Bootcamp and build a marketing function that works with the realities of running your business, not against them.',
       },
       register: {
+        typeform: 'https://form.typeform.com/to/TAsDQ7fO',
         title: 'Register for the Bootcamp',
         body: 'Complete the form and we’ll share the details of the next free Friday session. Registering doesn’t commit you to pay or confirm a place.',
       },
@@ -476,6 +477,11 @@ export const DOCS: DocDef[] = [
       { key: 'resourcesNote', label: 'Free resources note', type: 'textarea' },
       { key: 'emptyTitle', label: 'No sessions scheduled — heading', type: 'text' },
       { key: 'emptyBody', label: 'No sessions scheduled — text', type: 'textarea' },
+      { key: 'register', label: 'Registration form', type: 'group', fields: [
+        { key: 'typeform', label: 'Typeform registration form (paste the form link, e.g. https://form.typeform.com/to/AbC123). Leave empty to use the built-in form instead.', type: 'text' },
+        { key: 'title', label: 'Heading (shown when sessions are listed)', type: 'text' },
+        { key: 'body', label: 'Text (shown when sessions are listed)', type: 'textarea' },
+      ] },
       seo('', ''),
     ],
     defaults: {
@@ -507,6 +513,7 @@ export const DOCS: DocDef[] = [
       resourcesNote: 'Everyone who joins a session gets access to free Majesty Method digital resources.',
       emptyTitle: 'The next sessions are being scheduled',
       emptyBody: 'Leave your details and we’ll let you know when registration opens.',
+      register: { typeform: 'https://form.typeform.com/to/gioQxZnS', title: 'Register for a Friday session', body: '' },
       seo: seoDefault('The Founder Marketing Sessions | Free Friday Webinars | Majesty Method', 'Free Friday sessions for South African founders on founder-led marketing, positioning, AI automation and turning marketing into revenue.'),
     },
   },
