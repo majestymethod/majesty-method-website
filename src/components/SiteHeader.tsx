@@ -79,7 +79,7 @@ export function SiteHeader({ brand, homeHref, logoSrc, logoAlt, name, links, cta
       </div>
       {announcement && (
         <div className="announce">
-          <Link href={announcement.href || '/majesty-method/webinars'} className="announce__link">
+          <Link href={announcement.href || '/majesty-method/webinars#register-form'} className="announce__link">
             {/* Screen readers get the message once; the scrolling copy is decorative */}
             <span className="visually-hidden">{announcement.text} {announcement.linkLabel}</span>
             <span className="announce__track" aria-hidden="true">

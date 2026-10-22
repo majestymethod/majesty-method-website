@@ -125,7 +125,7 @@
 @font-face { font-family: 'Poppins Fallback'; src: local('Arial'), local('Helvetica Neue'), local('Helvetica'), local('Liberation Sans'); size-adjust: 112.5%; ascent-override: 93.3%; descent-override: 31.1%; line-gap-override: 8.9%; }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 116px; }
 body {
   margin: 0;
   background: var(--soft-white);

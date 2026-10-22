@@ -39,7 +39,7 @@ export default async function WebinarsPage() {
       <MediaHero crumb={{ href: '/majesty-method', label: 'Majesty Method' }} kicker={c.kicker} title={c.title} lead={c.tagline} image={c.image} portrait>
         {c.intro && <p className="hero-question">{c.intro}</p>}
         <div className="btn-row" style={{ marginTop: 'var(--s-6)' }}>
-          <Link className="btn" href="#upcoming">Register for a session</Link>
+          <Link className="btn" href="#register-form">Register for a session</Link>
           <Link className="btn btn--secondary" href="#explore">What we’ll explore</Link>
         </div>
       </MediaHero>
@@ -78,7 +78,7 @@ export default async function WebinarsPage() {
           </div>
 
           {upcoming.length > 0 && (
-              <ul className="listing">
+              <ul className="listing" id={tf ? undefined : 'register-form'}>
                 {upcoming.map((w) => {
                   const f = formatSast(w.start!);
                   return (
@@ -126,7 +126,7 @@ export default async function WebinarsPage() {
               <TypeformEmbed formId={tf} title="Founder Marketing Sessions registration form" />
             </div>
           ) : upcoming.length === 0 && (
-            <div className="form-section">
+            <div id="register-form" className="form-section">
               <div className="empty">
                 <h3 style={{ fontSize: 'var(--t-xl)' }}>{c.emptyTitle}</h3>
                 <p>{c.emptyBody}</p>
@@ -155,7 +155,7 @@ export default async function WebinarsPage() {
             <span className="rule-gold" aria-hidden="true" />
             <h2 id="closing-title">{c.closing.title}</h2>
             <p className="lead">{c.closing.body}</p>
-            <div className="btn-row" style={{ justifyContent: 'center' }}><Link className="btn" href="#upcoming">Register for a session</Link></div>
+            <div className="btn-row" style={{ justifyContent: 'center' }}><Link className="btn" href="#register-form">Register for a session</Link></div>
           </div>
         </section>
       )}

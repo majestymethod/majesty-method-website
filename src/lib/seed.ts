@@ -20,6 +20,37 @@ function deepEqual(a: unknown, b: unknown): boolean {
  * are moved to the new default copy. Pages the owner has edited are left untouched (use "Reset to default" in the
  * editor to adopt the new copy on those).
  */
+/** Points "register / join a session" links straight at the registration form on the Friday sessions page.
+ *  Only changes links that still go to the top of that page, so links the owner changed elsewhere are left alone. */
+function linkRegisterButtonsToForm(db: Database.Database) {
+  const targets: [string, string[][]][] = [
+    ['settings', [['announcement', 'href']]],
+    ['mm_home', [['hero', 'secondary', 'href'], ['finalCta', 'secondary', 'href']]],
+  ];
+  const sel = db.prepare('SELECT draft, published FROM content WHERE key = ?');
+  for (const [key, paths] of targets) {
+    const row = sel.get(key) as { draft: string; published: string | null } | undefined;
+    if (!row) continue;
+    const fix = (raw: string | null) => {
+      if (!raw) return raw;
+      const doc = JSON.parse(raw);
+      let changed = false;
+      for (const at of paths) {
+        let node = doc;
+        for (const k of at.slice(0, -1)) node = node?.[k];
+        const last = at[at.length - 1];
+        if (node && node[last] === '/majesty-method/webinars') { node[last] = '/majesty-method/webinars#register-form'; changed = true; }
+      }
+      return changed ? JSON.stringify(doc) : raw;
+    };
+    const d2 = fix(row.draft), p2 = fix(row.published);
+    if (d2 !== row.draft || p2 !== row.published) {
+      db.prepare('UPDATE content SET draft = ?, published = ? WHERE key = ?').run(d2, p2, key);
+      console.log(`[seed] ${key}: register links now go straight to the form`);
+    }
+  }
+}
+
 /** Names Typeform in the privacy notice's list of service providers (registration forms now run on Typeform).
  *  Only adds the line where the notice still has the original Google line and doesn't mention Typeform yet. */
 function addTypeformToPrivacy(db: Database.Database) {
@@ -135,6 +166,7 @@ export function ensureSeeded(db: Database.Database) {
   applyRenames(db);
   useCutouts(db);
   addTypeformToPrivacy(db);
+  linkRegisterButtonsToForm(db);
 
   // Content patches for sites that already exist: fill in photos that were still empty placeholders.
   // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.

@@ -144,7 +144,7 @@ export default async function MajestyHome() {
               <h2 id="webinars-title">{c.webinars.title}</h2>
               <p>{c.webinars.body}</p>
             </div>
-            <Link className="btn btn--light" href="/majesty-method/webinars">{c.webinars.ctaLabel}</Link>
+            <Link className="btn btn--light" href="/majesty-method/webinars#register-form">{c.webinars.ctaLabel}</Link>
           </div>
         </div>
       </section>
