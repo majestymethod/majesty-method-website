@@ -324,7 +324,7 @@ async def main():
         check('TenderIQ offer line: until January 2027', (await page.locator('.pricing__offer').inner_text()).strip() == 'until January 2027')
         check('TenderIQ menu and page link to the demo', await page.locator('.site-header a[href="/tenderiq/demo"]').count() >= 1 and await page.locator('main a[href="/tenderiq/demo"]').count() >= 2)
         await page.goto(BASE + '/tenderiq/demo')
-        check('demo: four steps in the flow, each linking to its section', await page.locator('.tflow li').count() == 4 and all([await page.locator(f'#step-{i}').count() == 1 for i in range(1, 5)]))
+        check('demo: four steps in the flow, each linking to its section', await page.locator('.tsteps > li').count() == 4 and all([await page.locator(f'#step-{i}').count() == 1 for i in range(1, 5)]))
         check('demo: step 1 links to the registration form', await page.locator('#step-1 a[href="/tenderiq#register"]').count() == 1)
         check('demo: says the data is made up', 'Every company, person and tender in this demo is made up' in await page.locator('main').inner_text())
         check('demo: free week shows one eTenders match', await page.locator('#demo-trial article.tcard').count() == 1)

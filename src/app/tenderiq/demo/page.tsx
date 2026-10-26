@@ -11,13 +11,6 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', title: 'TenderIQ demo', url: '/tenderiq/demo', siteName: 'TenderIQ', locale: 'en_ZA', images: [{ url: '/og/tenderiq.jpg', width: 1200, height: 630 }] },
 };
 
-const STEPS = [
-  { n: 1, title: 'Register your interest', body: 'Fill in the short TenderIQ registration form.' },
-  { n: 2, title: 'Send your company profile', body: 'You’ll get an email with a more detailed form for your company information and profile.' },
-  { n: 3, title: 'You’re set!', body: 'Your free tender matches from eTenders arrive by email, with your own dashboard, your free week and a way to subscribe.' },
-  { n: 4, title: 'Subscribe and track', body: 'A longer list of matches by email and on your dashboard, where you track your tenders and applications.' },
-];
-
 export default function TenderIqDemo() {
   return (
     <>
@@ -33,57 +26,28 @@ export default function TenderIqDemo() {
 
       <section className="section section--tight" aria-labelledby="flow-title">
         <div className="container">
-          <h2 id="flow-title" className="visually-hidden">How it works</h2>
-          <ol className="tflow">
-            {STEPS.map((s) => (
-              <li key={s.n}>
-                <a href={`#step-${s.n}`} className="tflow__card">
-                  <span className="tflow__n">Step {s.n}</span>
-                  <strong>{s.title}</strong>
-                  <span>{s.body}</span>
-                </a>
-              </li>
-            ))}
+          <h2 id="flow-title" className="visually-hidden">How TenderIQ works, step by step</h2>
+          <ol className="tsteps">
+            <Step n={1} title="Register your interest">
+              <p>Fill in the short TenderIQ registration form. It takes your contact details and a few questions about your business.</p>
+              <div className="tstep__example tstep__example--cta">
+                <Link className="btn" href="/tenderiq#register">Register your interest</Link>
+                <span className="muted">Opens the registration form on the TenderIQ page.</span>
+              </div>
+            </Step>
+            <Step n={2} title="Send your company profile">
+              <p>You’ll receive an email with a more detailed Google Form. Complete it with your company information, upload your company profile and submit it. This is what TenderIQ matches tenders against.</p>
+              <div className="tstep__example"><WelcomeEmail /></div>
+            </Step>
+            <Step n={3} title="You’re set!">
+              <p>You’ll receive an email with your free tender matches from eTenders, plus your own dashboard with your free week and the option to subscribe. Switch between the email and the dashboard.</p>
+              <div className="tstep__example"><TenderDemo plan="trial" id="demo-trial" /></div>
+            </Step>
+            <Step n={4} title="Subscribe and track your tenders" last>
+              <p>Once you subscribe, TenderIQ searches more platforms, so you get a longer list of tender results by email and on your dashboard. Keep track of each tender, your applications and the documents you need. Mark a tender in the email, then open the dashboard to see it update.</p>
+              <div className="tstep__example"><TenderDemo plan="sub" id="demo-sub" /></div>
+            </Step>
           </ol>
-        </div>
-      </section>
-
-      <section id="step-1" className="section section--tight tstep" aria-labelledby="step-1-title">
-        <div className="container tstep__grid">
-          <StepHead n={1} id="step-1-title" title="Register your interest">
-            Fill in the short TenderIQ registration form. It takes your contact details and a few questions about your business.
-          </StepHead>
-          <div className="tstep__cta">
-            <Link className="btn" href="/tenderiq#register">Register your interest</Link>
-            <p className="muted" style={{ fontSize: 'var(--t-sm)', marginTop: 'var(--s-3)' }}>Opens the registration form on the TenderIQ page.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="step-2" className="section section--tight tstep" aria-labelledby="step-2-title">
-        <div className="container">
-          <StepHead n={2} id="step-2-title" title="Send your company profile">
-            You’ll receive an email with a more detailed Google Form. Complete it with your company information and upload your company profile, then submit it. This is what TenderIQ matches tenders against.
-          </StepHead>
-          <WelcomeEmail />
-        </div>
-      </section>
-
-      <section id="step-3" className="section section--tight tstep" aria-labelledby="step-3-title">
-        <div className="container">
-          <StepHead n={3} id="step-3-title" title="You’re set!">
-            You’ll receive an email with your free tender matches from eTenders, and your own dashboard with your free week and the option to subscribe. Switch between the email and the dashboard below.
-          </StepHead>
-          <TenderDemo plan="trial" id="demo-trial" />
-        </div>
-      </section>
-
-      <section id="step-4" className="section section--tight tstep" aria-labelledby="step-4-title">
-        <div className="container">
-          <StepHead n={4} id="step-4-title" title="Subscribe and track your tenders">
-            Once you subscribe, TenderIQ searches more platforms, so you get a longer list of tender results by email and on your dashboard. Keep track of each tender, your applications and the documents you need. Mark a tender in the email, then open the dashboard to see it update.
-          </StepHead>
-          <TenderDemo plan="sub" id="demo-sub" />
         </div>
       </section>
 
@@ -103,16 +67,17 @@ export default function TenderIqDemo() {
   );
 }
 
-function StepHead({ n, id, title, children }: { n: number; id: string; title: string; children: React.ReactNode }) {
+/** One step of the flow: its number on the connecting line, then the title, the explanation and its link or example. */
+function Step({ n, title, last, children }: { n: number; title: string; last?: boolean; children: React.ReactNode }) {
   return (
-    <div className="tstep__head">
-      <span className="tstep__n" aria-hidden="true">{n}</span>
-      <div>
+    <li id={`step-${n}`} className={`tstep${last ? ' tstep--last' : ''}`} aria-labelledby={`step-${n}-title`}>
+      <div className="tstep__rail" aria-hidden="true"><span className="tstep__n">{n}</span></div>
+      <div className="tstep__content">
         <p className="kicker">Step {n}</p>
-        <h2 id={id} className="h2--sm">{title}</h2>
-        <p className="tstep__body">{children}</p>
+        <h3 id={`step-${n}-title`} className="h2--sm">{title}</h3>
+        <div className="tstep__body">{children}</div>
       </div>
-    </div>
+    </li>
   );
 }
 
