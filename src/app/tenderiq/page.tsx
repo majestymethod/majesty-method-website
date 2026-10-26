@@ -27,7 +27,7 @@ interface Tiq {
   coverage: { kicker: string; title: string; body: string; provinces: string };
   industries: { title: string; intro: string; items: { label: string; description: string; image: ImageRef | null }[]; note: string };
   example: { title: string; disclaimer: string; steps: string };
-  pricing: { kicker: string; title: string; price: string; period: string; summary: string; inclusions: string; note: string; ctaLabel: string };
+  pricing: { kicker: string; title: string; price: string; wasPrice?: string; offer?: string; period: string; summary: string; inclusions: string; note: string; ctaLabel: string };
   join: { title: string; steps: Block[] };
   register: Block & { typeform?: string };
   trust: { title: string; items: string };
@@ -132,6 +132,10 @@ export default async function TenderIqPage() {
           <ol className={`flow${c.how.steps.length === 4 ? ' flow--4' : ''}`}>
             {c.how.steps.map((s) => <li key={s.title} className="block"><h3>{s.title}</h3><p>{s.body}</p></li>)}
           </ol>
+          <div className="demo-cta">
+            <p><strong>Want to see it in action?</strong> Walk through a sample company’s emails and dashboard, step by step.</p>
+            <Link className="btn" href="/tenderiq/demo">Try the TenderIQ demo</Link>
+          </div>
         </div>
       </section>
 
@@ -269,10 +273,15 @@ export default async function TenderIqPage() {
             </div>
             <div className="pricing__card">
               <h3 id="pricing-title">{c.pricing.title}</h3>
-              <p className="pricing__price"><strong>{c.pricing.price}</strong> <span>{c.pricing.period}</span></p>
+              <p className="pricing__price">
+                {c.pricing.wasPrice && <><del className="pricing__was"><span className="visually-hidden">Was </span>{c.pricing.wasPrice}</del>{' '}<span className="visually-hidden">now </span></>}
+                <strong>{c.pricing.price}</strong> <span>{c.pricing.period}</span>
+              </p>
+              {c.pricing.wasPrice && c.pricing.offer && <p className="pricing__offer">{c.pricing.offer}</p>}
               <p className="pricing__summary">{c.pricing.summary}</p>
               <ul className="ticks">{lines(c.pricing.inclusions).map((x) => <li key={x}>{x}</li>)}</ul>
               <Link className="btn" href="#register" style={{ width: '100%', marginTop: 'var(--s-5)' }}>{c.pricing.ctaLabel}</Link>
+              <p className="pricing__demo"><Link href="/tenderiq/demo">See the demo first</Link></p>
               {c.pricing.note && <p className="pricing__note">{c.pricing.note}</p>}
             </div>
           </div>

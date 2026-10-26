@@ -166,6 +166,7 @@ export const DOCS: DocDef[] = [
       tenderiq: [
         { label: 'Why TenderIQ', href: '/tenderiq#why' },
         { label: 'How it works', href: '/tenderiq#how-it-works' },
+        { label: 'Demo', href: '/tenderiq/demo' },
         { label: 'Pricing', href: '/tenderiq#pricing' },
         { label: 'Contact', href: '/contact?brand=tenderiq' },
       ],
@@ -752,7 +753,9 @@ export const DOCS: DocDef[] = [
       { key: 'pricing', label: 'Pricing', type: 'group', fields: [
         { key: 'kicker', label: 'Line above the heading', type: 'text' },
         { key: 'title', label: 'Plan name', type: 'text' },
-        { key: 'price', label: 'Price', type: 'text', help: 'e.g. R2,000' },
+        { key: 'price', label: 'Price', type: 'text', help: 'e.g. R1,500' },
+        { key: 'wasPrice', label: 'Old price, shown crossed out (leave empty for no offer)', type: 'text', help: 'e.g. R2,000' },
+        { key: 'offer', label: 'Offer line under the price (leave empty for no offer)', type: 'text', help: 'e.g. until January 2027' },
         { key: 'period', label: 'Billing period', type: 'text', help: 'e.g. / month' },
         { key: 'summary', label: 'One-line summary', type: 'text' },
         { key: 'inclusions', label: 'What’s included (one per line)', type: 'lines' },
@@ -889,7 +892,9 @@ export const DOCS: DocDef[] = [
       pricing: {
         kicker: 'Pricing',
         title: 'TenderIQ Monthly',
-        price: 'R2,000',
+        price: 'R1,500',
+        wasPrice: 'R2,000',
+        offer: 'until January 2027',
         period: '/ month',
         summary: 'Tailored tender intelligence for your business.',
         inclusions: 'AI-powered company-profile matching\nTender opportunities across all nine provinces\nPersonalised email digests, twice a week\nStructured summaries of tender requirements\nCompany suitability and gap analysis\nSuggested options for addressing capability gaps',

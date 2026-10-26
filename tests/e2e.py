@@ -47,7 +47,7 @@ def set_typeform(key, value):
     c.commit(); c.close()
 
 PAGES = ['/', '/majesty-method', '/majesty-method/bootcamp', '/majesty-method/webinars', '/majesty-method/acceleration',
-         '/majesty-method/courses', '/majesty-method/resources', '/tenderiq', '/contact', '/legal/privacy', '/legal/cookies',
+         '/majesty-method/courses', '/majesty-method/resources', '/tenderiq', '/tenderiq/demo', '/contact', '/legal/privacy', '/legal/cookies',
          '/legal/terms', '/legal/paia']
 WIDTHS = [360, 390, 768, 1024, 1440]
 
@@ -316,6 +316,29 @@ async def main():
         check('CSP allows Typeform script and frame only where needed', 'https://embed.typeform.com' in csp and 'frame-src https://form.typeform.com' in csp)
         priv = await (await page.request.get(BASE + '/legal/privacy')).text()
         check('privacy notice names Typeform for all three registration forms', 'Bootcamp, Friday session and TenderIQ registration forms are provided by Typeform' in priv)
+
+        # ---------------------------------------------------------------- TenderIQ demo and launch price
+        await page.goto(BASE + '/tenderiq')
+        price = ' '.join((await page.locator('.pricing__price').inner_text()).split())
+        check('TenderIQ price shows R2,000 crossed out and R1,500', 'R2,000' in await page.locator('.pricing__price del').inner_text() and 'R1,500' in price, price)
+        check('TenderIQ offer line: until January 2027', (await page.locator('.pricing__offer').inner_text()).strip() == 'until January 2027')
+        check('TenderIQ menu and page link to the demo', await page.locator('.site-header a[href="/tenderiq/demo"]').count() >= 1 and await page.locator('main a[href="/tenderiq/demo"]').count() >= 2)
+        await page.goto(BASE + '/tenderiq/demo')
+        check('demo: four steps in the flow, each linking to its section', await page.locator('.tflow li').count() == 4 and all([await page.locator(f'#step-{i}').count() == 1 for i in range(1, 5)]))
+        check('demo: step 1 links to the registration form', await page.locator('#step-1 a[href="/tenderiq#register"]').count() == 1)
+        check('demo: says the data is made up', 'Every company, person and tender in this demo is made up' in await page.locator('main').inner_text())
+        check('demo: free week shows one eTenders match', await page.locator('#demo-trial article.tcard').count() == 1)
+        check('demo: subscriber email shows six matches', await page.locator('#demo-sub article.tcard').count() == 6)
+        dsub = page.locator('#demo-sub')
+        await dsub.locator('article.tcard', has_text='Refurbishment of six community clinics').get_by_role('button', name='I applied').click()
+        await dsub.get_by_role('button', name='Dashboard').click()
+        drow = dsub.locator('tr', has_text='Refurbishment of six community clinics')
+        check('demo: marking "I applied" in the email updates the dashboard row', await drow.locator('select').input_value() == 'Submitted' and await drow.locator('input[type=date]').input_value() != '')
+        await drow.locator('select').select_option('Awarded')
+        check('demo: dashboard stage can be changed', await drow.locator('select').input_value() == 'Awarded')
+        before = await dsub.locator('.prog').inner_text()
+        await dsub.locator('.chk input').first.click()
+        check('demo: document checklist ticks update the count', await dsub.locator('.prog').inner_text() != before)
 
         # Built-in form is still available as the fallback when no Typeform link is set
         set_typeform('bootcamp', ''); set_typeform('webinars_page', ''); set_typeform('tenderiq', '')

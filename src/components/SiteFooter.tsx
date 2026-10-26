@@ -39,6 +39,7 @@ export function SiteFooter({ brand }: { brand: 'majesty' | 'tenderiq' }) {
               <ul>
                 <li><Link href="/tenderiq#why">Why TenderIQ</Link></li>
                 <li><Link href="/tenderiq#how-it-works">How it works</Link></li>
+                <li><Link href="/tenderiq/demo">Demo</Link></li>
                 <li><Link href="/tenderiq#pricing">Pricing</Link></li>
                 <li><Link href="/tenderiq#register">Join TenderIQ</Link></li>
                 <li><Link href="/majesty-method">Majesty Method</Link></li>

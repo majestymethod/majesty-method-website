@@ -20,6 +20,35 @@ function deepEqual(a: unknown, b: unknown): boolean {
  * are moved to the new default copy. Pages the owner has edited are left untouched (use "Reset to default" in the
  * editor to adopt the new copy on those).
  */
+/** TenderIQ launch offer (R2,000 crossed out, R1,500 until January 2027) and a "Demo" menu item.
+ *  Only changes the price if it is still the original R2,000, and only adds the menu item next to "How it works". */
+function tenderiqOfferAndDemo(db: Database.Database) {
+  const sel = db.prepare('SELECT draft, published FROM content WHERE key = ?');
+  const upd = db.prepare('UPDATE content SET draft = ?, published = ? WHERE key = ?');
+  const patch = (key: string, fix: (doc: Record<string, any>) => boolean, msg: string) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+    const row = sel.get(key) as { draft: string; published: string | null } | undefined;
+    if (!row) return;
+    const run = (raw: string | null) => { if (!raw) return raw; const doc = JSON.parse(raw); return fix(doc) ? JSON.stringify(doc) : raw; };
+    const d2 = run(row.draft), p2 = run(row.published);
+    if (d2 !== row.draft || p2 !== row.published) { upd.run(d2, p2, key); console.log(`[seed] ${key}: ${msg}`); }
+  };
+  patch('tenderiq', (doc) => {
+    const pr = doc?.pricing;
+    if (!pr || 'wasPrice' in pr) return false;
+    if (pr.price === 'R2,000') { pr.price = 'R1,500'; pr.wasPrice = 'R2,000'; pr.offer = 'until January 2027'; }
+    else { pr.wasPrice = ''; pr.offer = ''; } // a price the owner set herself: no crossed-out offer
+    return true;
+  }, 'pricing offer applied');
+  patch('navigation', (doc) => {
+    const items = doc?.tenderiq;
+    if (!Array.isArray(items) || items.some((i: { href?: string }) => i?.href === '/tenderiq/demo')) return false;
+    const at = items.findIndex((i: { href?: string }) => i?.href === '/tenderiq#how-it-works');
+    if (at < 0) return false;
+    items.splice(at + 1, 0, { label: 'Demo', href: '/tenderiq/demo' });
+    return true;
+  }, 'added Demo to the TenderIQ menu');
+}
+
 /** Points "register / join a session" links straight at the registration form on the Friday sessions page.
  *  Only changes links that still go to the top of that page, so links the owner changed elsewhere are left alone. */
 function linkRegisterButtonsToForm(db: Database.Database) {
@@ -170,6 +199,7 @@ export function ensureSeeded(db: Database.Database) {
   useCutouts(db);
   addTypeformToPrivacy(db);
   linkRegisterButtonsToForm(db);
+  tenderiqOfferAndDemo(db);
 
   // Content patches for sites that already exist: fill in photos that were still empty placeholders.
   // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.

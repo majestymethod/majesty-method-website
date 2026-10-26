@@ -7,7 +7,7 @@ const PAGES: [string, string, number][] = [
   ['/', 'entry', 1], ['/majesty-method', 'mm_home', 0.9], ['/majesty-method/bootcamp', 'bootcamp', 0.8],
   ['/majesty-method/acceleration', 'acceleration', 0.8], ['/majesty-method/webinars', 'webinars_page', 0.8],
   ['/majesty-method/courses', 'courses_page', 0.6], ['/majesty-method/resources', 'resources_page', 0.7],
-  ['/tenderiq', 'tenderiq', 0.9], ['/contact', 'contact_page', 0.6], ['/legal/privacy', 'legal_privacy', 0.3],
+  ['/tenderiq', 'tenderiq', 0.9], ['/tenderiq/demo', 'tenderiq', 0.7], ['/contact', 'contact_page', 0.6], ['/legal/privacy', 'legal_privacy', 0.3],
   ['/legal/cookies', 'legal_cookies', 0.2], ['/legal/terms', 'legal_terms', 0.2], ['/legal/paia', 'legal_paia', 0.2],
 ];
 

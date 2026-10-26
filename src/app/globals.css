@@ -954,6 +954,13 @@ ul, ol { margin: 0; padding: 0; }
 .pricing__price { margin-top: var(--s-3); }
 .pricing__price strong { font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; color: #fff; }
 .pricing__price span { color: rgba(255, 255, 255, 0.75); font-size: var(--t-md); }
+.pricing__was { margin-right: 10px; font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem); font-weight: 600; color: rgba(255, 255, 255, 0.6); text-decoration-thickness: 2px; text-decoration-color: var(--tiq-gold, #c7940e); }
+.pricing__offer { display: inline-block; margin-top: 6px; padding: 3px 12px; border-radius: 999px; font-size: var(--t-sm); font-weight: 600; color: #2a0030; background: var(--tiq-gold-light, #f0cd78); }
+.pricing__demo { margin-top: var(--s-3); text-align: center; font-size: var(--t-sm); }
+.pricing__demo a { color: var(--tiq-gold-light, #f0cd78); }
+.demo-cta { display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-6); align-items: center; justify-content: space-between; margin-top: var(--s-8);
+  padding: clamp(18px, 3vw, 28px); border-radius: var(--r-block); background: #ffffff; border: 1px solid rgba(90, 0, 96, 0.16); border-left: 4px solid var(--tiq-gold, #c7940e); box-shadow: 0 14px 30px -24px rgba(31, 0, 53, 0.5); }
+.demo-cta p { margin: 0; max-width: 60ch; }
 .pricing__summary { color: rgba(255, 255, 255, 0.85); margin-bottom: var(--s-5); }
 .pricing__card .ticks li { color: rgba(255, 255, 255, 0.92); font-size: var(--t-sm); }
 .pricing__card .ticks li::before { background: radial-gradient(circle at 35% 30%, #f7da8c, var(--tiq-gold) 70%); }
