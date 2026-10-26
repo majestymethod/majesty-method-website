@@ -219,7 +219,7 @@ async def main():
         await nctx.close()
         # Brand colours: TenderIQ purple, Majesty Method emerald (primary buttons on light sections)
         await page.goto(BASE + '/tenderiq')
-        btn = await page.evaluate("getComputedStyle(document.querySelector('#register .form .btn')).backgroundImage")
+        btn = await page.evaluate("getComputedStyle(document.querySelector('.site-header .btn')).backgroundImage")
         check('TenderIQ primary button is plum', 'rgb(90, 0, 96)' in btn, btn)
         hero = await page.evaluate("getComputedStyle(document.querySelector('.tiq-hero > .container')).backgroundImage")
         check('TenderIQ hero is a rich plum panel', 'rgb(90, 0, 96)' in hero, hero[:120])
@@ -303,7 +303,8 @@ async def main():
 
         # ---------------------------------------------------------------- Typeform registration forms
         for path, fid, title in [('/majesty-method/bootcamp', 'TAsDQ7fO', 'Founder Marketing Bootcamp registration form'),
-                                 ('/majesty-method/webinars', 'gioQxZnS', 'Founder Marketing Sessions registration form')]:
+                                 ('/majesty-method/webinars', 'gioQxZnS', 'Founder Marketing Sessions registration form'),
+                                 ('/tenderiq', 'CqUfKtSO', 'TenderIQ registration form')]:
             await page.goto(BASE + path)
             fr = page.locator(f'iframe[src*="form.typeform.com/to/{fid}"]')
             await fr.first.wait_for(timeout=10000)
@@ -314,10 +315,10 @@ async def main():
         csp = (await page.request.get(BASE + '/majesty-method/bootcamp')).headers.get('content-security-policy', '')
         check('CSP allows Typeform script and frame only where needed', 'https://embed.typeform.com' in csp and 'frame-src https://form.typeform.com' in csp)
         priv = await (await page.request.get(BASE + '/legal/privacy')).text()
-        check('privacy notice names Typeform as a service provider', 'Typeform' in priv)
+        check('privacy notice names Typeform for all three registration forms', 'Bootcamp, Friday session and TenderIQ registration forms are provided by Typeform' in priv)
 
         # Built-in form is still available as the fallback when no Typeform link is set
-        set_typeform('bootcamp', ''); set_typeform('webinars_page', '')
+        set_typeform('bootcamp', ''); set_typeform('webinars_page', ''); set_typeform('tenderiq', '')
 
         # ---------------------------------------------------------------- Bootcamp form (built-in fallback)
         await page.goto(BASE + '/majesty-method/bootcamp')
@@ -509,7 +510,7 @@ async def main():
         ctxrow = json.loads(db().execute("select context from submissions where form_key='webinar' order by created_at desc limit 1").fetchone()[0])
         check('webinar registration linked to the session', ctxrow.get('webinarId') == wid)
         await ap.request.delete(BASE + f'/api/admin/item/{wid}', headers={'Origin': BASE})
-        set_typeform('bootcamp', 'https://form.typeform.com/to/TAsDQ7fO'); set_typeform('webinars_page', 'https://form.typeform.com/to/gioQxZnS')
+        set_typeform('bootcamp', 'https://form.typeform.com/to/TAsDQ7fO'); set_typeform('webinars_page', 'https://form.typeform.com/to/gioQxZnS'); set_typeform('tenderiq', 'https://form.typeform.com/to/CqUfKtSO')
 
         # Gated resource
         pdf = b'%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF'

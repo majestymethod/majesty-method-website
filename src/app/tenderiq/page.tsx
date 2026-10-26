@@ -5,6 +5,8 @@ import { pageMetadata } from '@/lib/seo';
 import { Picture } from '@/components/Picture';
 import { Faqs } from '@/components/PageHero';
 import { SiteForm } from '@/components/forms/SiteForm';
+import { TypeformEmbed } from '@/components/TypeformEmbed';
+import { typeformId } from '@/lib/typeform';
 import { ContactStrip } from '@/components/ContactStrip';
 import { JsonLd } from '@/components/JsonLd';
 import { lines } from '@/components/Lines';
@@ -27,7 +29,7 @@ interface Tiq {
   example: { title: string; disclaimer: string; steps: string };
   pricing: { kicker: string; title: string; price: string; period: string; summary: string; inclusions: string; note: string; ctaLabel: string };
   join: { title: string; steps: Block[] };
-  register: Block;
+  register: Block & { typeform?: string };
   trust: { title: string; items: string };
   faqs: { q: string; a: string }[];
   closing: Block & { ctaLabel: string };
@@ -283,7 +285,11 @@ export default async function TenderIqPage() {
             <h2 id="register-title" className="h2--sm">{c.register.title}</h2>
             <p className="muted">{c.register.body}</p>
           </div>
-          <SiteForm formKey="tenderiq" />
+          {typeformId(c.register.typeform) ? (
+            <TypeformEmbed formId={typeformId(c.register.typeform)} title="TenderIQ registration form" />
+          ) : (
+            <SiteForm formKey="tenderiq" />
+          )}
         </div>
       </section>
 

@@ -55,10 +55,13 @@ function linkRegisterButtonsToForm(db: Database.Database) {
  *  Only adds the line where the notice still has the original Google line and doesn't mention Typeform yet. */
 function addTypeformToPrivacy(db: Database.Database) {
   const google = '- **Google (Google Sheets and Google Workspace)** — Bootcamp registrations are copied to a Google Sheet used by our team. Google may store data outside South Africa.';
-  const line = '- **Typeform** — our Founder Marketing Bootcamp and Friday session registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.';
+  const line = '- **Typeform** — our Founder Marketing Bootcamp, Friday session and TenderIQ registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.';
+  const oldLine = '- **Typeform** — our Founder Marketing Bootcamp and Friday session registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.';
   for (const r of db.prepare("SELECT key, draft, published FROM content WHERE key LIKE 'legal_%'").all() as { key: string; draft: string; published: string | null }[]) {
     const fix = (raw: string | null) => {
-      if (!raw || raw.includes('Typeform') || !raw.includes(JSON.stringify(google).slice(1, -1))) return raw;
+      if (!raw) return raw;
+      if (raw.includes(JSON.stringify(oldLine).slice(1, -1))) return raw.replace(JSON.stringify(oldLine).slice(1, -1), JSON.stringify(line).slice(1, -1));
+      if (raw.includes('Typeform') || !raw.includes(JSON.stringify(google).slice(1, -1))) return raw;
       return raw.replace(JSON.stringify(google).slice(1, -1), JSON.stringify(google + '\n' + line).slice(1, -1))
         .replace('Some providers, including Google, may store', 'Some providers, including Google and Typeform, may store');
     };

@@ -767,6 +767,7 @@ export const DOCS: DocDef[] = [
         ] },
       ] },
       { key: 'register', label: 'Registration form section', type: 'group', fields: [
+        { key: 'typeform', label: 'Typeform registration form (paste the form link, e.g. https://form.typeform.com/to/AbC123). Leave empty to use the built-in form instead.', type: 'text' },
         { key: 'title', label: 'Heading', type: 'text' },
         { key: 'body', label: 'Text', type: 'textarea' },
       ] },
@@ -905,6 +906,7 @@ export const DOCS: DocDef[] = [
         ],
       },
       register: {
+        typeform: 'https://form.typeform.com/to/CqUfKtSO',
         title: 'Start here',
         body: 'Tell us about your business and how you tender today. The TenderIQ team will contact you about the next steps.',
       },

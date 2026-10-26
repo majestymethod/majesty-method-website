@@ -62,7 +62,7 @@ We do not sell personal information. We share it only with service providers (op
 
 - **Website hosting provider** — stores the website and its database. [CONFIRM: hosting provider and server location]
 - **Google (Google Sheets and Google Workspace)** — Bootcamp registrations are copied to a Google Sheet used by our team. Google may store data outside South Africa.
-- **Typeform** — our Founder Marketing Bootcamp and Friday session registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.
+- **Typeform** — our Founder Marketing Bootcamp, Friday session and TenderIQ registration forms are provided by Typeform, which receives the answers you enter in those forms. Typeform may store data outside South Africa.
 - **Email delivery provider** — sends confirmations and notifications, if enabled. [CONFIRM: email provider]
 - **Analytics provider** — only if analytics is enabled and you consent to analytics cookies. [CONFIRM if used]
 
