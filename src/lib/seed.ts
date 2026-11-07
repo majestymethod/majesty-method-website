@@ -49,6 +49,28 @@ function tenderiqOfferAndDemo(db: Database.Database) {
   }, 'added Demo to the TenderIQ menu');
 }
 
+/** Switches the announcement banner from the Friday webinars to the AI for Business Workshop.
+ *  Only changes the announcement when it still has the original Friday sessions text. */
+function promoteAiWorkshop(db: Database.Database) {
+  const OLD_TEXT = 'The Founder Marketing Sessions — free, every Friday. Smarter marketing, stronger brands, better business outcomes.';
+  const row = (db.prepare("SELECT draft, published FROM content WHERE key = 'settings'").get()) as { draft: string; published: string | null } | undefined;
+  if (!row) return;
+  const fix = (raw: string | null) => {
+    if (!raw) return raw;
+    const doc = JSON.parse(raw);
+    if (doc?.announcement?.text !== OLD_TEXT) return raw;
+    doc.announcement.text = 'AI for Business Workshop — Learn to use AI practically in your business. Limited spots, R250.';
+    doc.announcement.linkLabel = 'Register now';
+    doc.announcement.href = 'https://claude.ai/artifact/B2yB6CJUSEuyiBv3YDmkCX';
+    return JSON.stringify(doc);
+  };
+  const d2 = fix(row.draft), p2 = fix(row.published);
+  if (d2 !== row.draft || p2 !== row.published) {
+    db.prepare("UPDATE content SET draft = ?, published = ? WHERE key = 'settings'").run(d2, p2);
+    console.log('[seed] settings: announcement updated to the AI for Business Workshop');
+  }
+}
+
 /** Points "register / join a session" links straight at the registration form on the Friday sessions page.
  *  Only changes links that still go to the top of that page, so links the owner changed elsewhere are left alone. */
 function linkRegisterButtonsToForm(db: Database.Database) {
@@ -200,6 +222,7 @@ export function ensureSeeded(db: Database.Database) {
   addTypeformToPrivacy(db);
   linkRegisterButtonsToForm(db);
   tenderiqOfferAndDemo(db);
+  promoteAiWorkshop(db);
 
   // Content patches for sites that already exist: fill in photos that were still empty placeholders.
   // Only touches values that are still exactly the old default, so the owner's own edits are never overwritten.

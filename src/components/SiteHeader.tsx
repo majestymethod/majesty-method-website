@@ -77,22 +77,28 @@ export function SiteHeader({ brand, homeHref, logoSrc, logoAlt, name, links, cta
           </div>
         </nav>
       </div>
-      {announcement && (
-        <div className="announce">
-          <Link href={announcement.href || '/majesty-method/webinars#register-form'} className="announce__link">
-            {/* Screen readers get the message once; the scrolling copy is decorative */}
-            <span className="visually-hidden">{announcement.text} {announcement.linkLabel}</span>
-            <span className="announce__track" aria-hidden="true">
-              {[0, 1].map((i) => (
-                <span className="announce__item" key={i}>
-                  <span className="announce__dot" />
-                  {announcement.text} <strong>{announcement.linkLabel} →</strong>
-                </span>
-              ))}
-            </span>
-          </Link>
-        </div>
-      )}
+      {announcement && (() => {
+        const href = announcement.href || '/majesty-method/webinars#register-form';
+        const isExternal = href.startsWith('http');
+        const Anchor = isExternal ? 'a' : Link;
+        const extra = isExternal ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {};
+        return (
+          <div className="announce">
+            <Anchor href={href} className="announce__link" {...extra}>
+              {/* Screen readers get the message once; the scrolling copy is decorative */}
+              <span className="visually-hidden">{announcement.text} {announcement.linkLabel}</span>
+              <span className="announce__track" aria-hidden="true">
+                {[0, 1].map((i) => (
+                  <span className="announce__item" key={i}>
+                    <span className="announce__dot" />
+                    {announcement.text} <strong>{announcement.linkLabel} →</strong>
+                  </span>
+                ))}
+              </span>
+            </Anchor>
+          </div>
+        );
+      })()}
     </header>
   );
 }
