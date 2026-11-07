@@ -184,31 +184,29 @@ export function HouseEntrance({ heading, cue, choicePrompt, returnLabel, majesty
       <h1 id="hx-heading" className="visually-hidden">{heading}</h1>
       <a href="#hx-paths" className="skip-link" onClick={(e) => { e.preventDefault(); open(true); }}>Skip to the two destinations</a>
 
-      {/* ---------------- Outside ---------------- */}
+      {/* ---------------- Outside – marble building ---------------- */}
       <div className="hx-ext" aria-hidden={!closed}>
-        <div className="hx-stage hx-stage--ext">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="hx-marble" src="/house/marble-1672.webp" srcSet="/house/marble-640.webp 640w, /house/marble-1100.webp 1100w, /house/marble-1672.webp 1672w"
+          sizes="max(100vw, 200svh)" alt="" fetchPriority="high" decoding="async" />
+        <div className="hx-marble-overlay" />
+        <div className="hx-marble-content">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hx-ext__base" src="/house/ext-1672.webp" srcSet="/house/ext-1100.webp 1100w, /house/ext-1672.webp 1672w"
-            sizes="max(100vw, 178svh)" width={L.width} height={L.height} alt="" fetchPriority="high" decoding="async" />
-          <div ref={aperture} className="hx-aperture" style={extBox(L.door)}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hx-door hx-door--l" src="/house/door-l.webp" alt="" style={within(L.doorL, L.door)} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="hx-door hx-door--r" src="/house/door-r.webp" alt="" style={within(L.doorR, L.door)} />
-            {/* The doors carry the artwork's own "Tap to enter", so tapping them opens the entrance too. */}
-            <span className="hx-door-hit" onClick={() => open()} aria-hidden="true" />
-          </div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hx-ribbon hx-ribbon--l" src="/house/ribbon-l.webp" alt="" style={extBox(L.ribbonL)} />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hx-ribbon hx-ribbon--r" src="/house/ribbon-r.webp" alt="" style={extBox(L.ribbonR)} />
-          <span className="hx-seal-glow" style={extBox({ x: L.seal.cx - L.seal.r - 14, y: L.seal.cy - L.seal.r - 14, w: (L.seal.r + 14) * 2, h: (L.seal.r + 14) * 2 })} aria-hidden="true" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hx-seal" src="/house/seal.webp" alt="" style={extBox(L.sealBox)} />
-          <button ref={ribbonBtn} type="button" className="hx-ribbon-btn" style={extBox(RIBBON_HIT)}
-            onClick={() => open()} tabIndex={closed ? 0 : -1}
-            aria-label={`${cue}: open the ribbon and step inside to choose Majesty Method or TenderIQ`} />
+          <img className="hx-marble-logo" src="/brand/mm-hero-logo-1225.webp" srcSet="/brand/mm-hero-logo-640.webp 640w, /brand/mm-hero-logo-1225.webp 1225w" sizes="clamp(200px, 55vw, 420px)" width={1225} height={646} alt="Majesty Method" />
+          <span className="hx-marble-welcome">Welcome to Majesty Method</span>
         </div>
+        <div className="hx-ribbon-bar" aria-hidden="true">
+          <span className="hx-ribbon-line hx-ribbon-line--l" />
+          <span className="hx-seal-glow" />
+          <span className="hx-seal-disc">M</span>
+          <span className="hx-ribbon-line hx-ribbon-line--r" />
+        </div>
+        <div ref={aperture} className="hx-aperture" />
+        <button ref={ribbonBtn} type="button" className="hx-ribbon-open"
+          onClick={() => open()} tabIndex={closed ? 0 : -1}
+          aria-label={`${cue}: open the ribbon and step inside to choose Majesty Method or TenderIQ`}>
+          <span className="hx-marble-cue">{cue}</span>
+        </button>
       </div>
 
       {/* ---------------- Inside ---------------- */}

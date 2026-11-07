@@ -16,15 +16,9 @@ export default function AiWorkshopPage() {
   return (
     <>
       <section className="split-hero surface--emerald hero-lit" aria-labelledby="workshop-title">
-        <div className="container" style={{ paddingBlock: 'clamp(48px, 8vw, 96px)' }}>
-          <p className="crumb"><Link href="/majesty-method">Majesty Method</Link></p>
+        <div className="container" style={{ paddingBlock: 'clamp(48px, 8vw, 80px)', maxWidth: '640px' }}>
           <h1 id="workshop-title" style={{ fontSize: 'var(--t-2xl)' }}>AI for Business Workshop</h1>
-          <p className="lead">Learn to use AI practically in your business — from strategy to daily operations.</p>
-          <ul className="ticks" style={{ marginTop: 'var(--s-5)' }}>
-            <li>Hands-on, practical session for founders and teams</li>
-            <li>Walk away with AI tools you can use immediately</li>
-            <li>Limited spots available</li>
-          </ul>
+          <p className="lead">Learn to use AI practically in your business.</p>
           <div className="btn-row" style={{ marginTop: 'var(--s-5)' }}>
             <Link className="btn" href="#register">Register now — R250</Link>
           </div>

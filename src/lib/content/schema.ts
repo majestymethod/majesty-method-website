@@ -277,7 +277,7 @@ export const DOCS: DocDef[] = [
       },
       who: {
         title: 'Who we help',
-        image: { id: 'seed-who-cutout', alt: 'A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders' },
+        image: { id: 'seed-who-cutout', alt: 'A businesswoman in an emerald green satin suit holding a phone' },
         items: [
           { title: 'Founders doing their own marketing', body: 'You want a clear plan instead of guessing what to post next.' },
           { title: 'Small businesses ready to grow', body: 'You have customers and want a dependable way to find more.' },
