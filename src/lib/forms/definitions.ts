@@ -51,7 +51,7 @@ export interface FormDef {
   routing?: string;
 }
 
-export type FormKey = 'bootcamp' | 'webinar' | 'acceleration' | 'tenderiq' | 'contact' | 'resource';
+export type FormKey = 'bootcamp' | 'webinar' | 'acceleration' | 'tenderiq' | 'contact' | 'resource' | 'workshop';
 
 const PRIVACY_LABEL = 'I have read the privacy notice and agree to my information being used to respond to this request.';
 
@@ -186,6 +186,28 @@ export const DEFAULT_FORMS: Record<FormKey, FormDef> = {
     fields: [
       { key: 'name', label: 'Full name', type: 'text', required: true, enabled: true, locked: true, autocomplete: 'name', maxLength: 120 },
       { key: 'email', label: 'Email address', type: 'email', required: true, enabled: true, locked: true, autocomplete: 'email', maxLength: 200 },
+    ],
+  },
+
+  workshop: {
+    ...base,
+    key: 'workshop', brand: 'majesty',
+    title: 'AI for Business Workshop registration',
+    description: 'Registration for the AI for Business Workshop (R250).',
+    submitLabel: 'Register for the Workshop',
+    successTitle: 'You’re registered!',
+    successMessage: 'Complete your payment below to secure your seat.',
+    acknowledgementSubject: 'Your AI for Business Workshop registration',
+    acknowledgementBody: 'Hi {{name}},\n\nThank you for registering for the AI for Business Workshop.\n\nTo secure your seat, please make a payment of R250 to:\n\nBank: FNB / RMB\nAccount holder: Majesty Method\nAccount number: 63228551338\nBranch code: 25065\nReference: Your business name\n\nOnce paid, send your proof of payment to admin@majestymethod.com with your business name as the reference.\n\nMajesty Method',
+    sheets: { enabled: true, sheetName: 'Registrations', timestampColumn: 'Timestamp', respondentEmailColumn: 'Email' },
+    fields: [
+      { key: 'name', label: 'Full name', type: 'text', required: true, enabled: true, locked: true, autocomplete: 'name', maxLength: 120, sheetColumn: 'Name' },
+      { key: 'phone', label: 'Phone number', type: 'tel', required: true, enabled: true, autocomplete: 'tel', maxLength: 30, placeholder: '+27', sheetColumn: 'Phone' },
+      { key: 'email', label: 'Email address', type: 'email', required: true, enabled: true, locked: true, autocomplete: 'email', maxLength: 200, sheetColumn: 'Email' },
+      { key: 'businessName', label: 'Business name', type: 'text', required: true, enabled: true, autocomplete: 'organization', maxLength: 200, sheetColumn: 'Business Name' },
+      { key: 'businessDescription', label: 'Business description', type: 'textarea', required: true, enabled: true, maxLength: 1000, help: 'A sentence or two about what your business does.', sheetColumn: 'Business Description' },
+      { key: 'registered', label: 'Is your business registered?', type: 'radio', required: true, enabled: true, options: ['Yes', 'No'], sheetColumn: 'Business Registered' },
+      { key: 'employees', label: 'Number of employees', type: 'select', required: true, enabled: true, options: ['Just me', '2–5', '6–10', '11–50', '51–200', '200+'], sheetColumn: 'Number of Employees' },
     ],
   },
 };

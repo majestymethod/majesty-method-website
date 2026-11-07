@@ -10,7 +10,7 @@ import { syncSubmission } from '../integrations/sheets';
 import { emailConfigured, fillTemplate, sendEmail } from '../integrations/email';
 import { getFile } from '../media';
 
-const FORM_KEYS: FormKey[] = ['bootcamp', 'webinar', 'acceleration', 'tenderiq', 'contact', 'resource'];
+const FORM_KEYS: FormKey[] = ['bootcamp', 'webinar', 'acceleration', 'tenderiq', 'contact', 'resource', 'workshop'];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export interface SubmitResult {

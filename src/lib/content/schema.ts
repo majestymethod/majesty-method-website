@@ -118,7 +118,7 @@ export const DOCS: DocDef[] = [
       tenderiqEmail: 'admin@majestymethod.com',
       informationOfficer: { name: '[INFORMATION OFFICER NAME]', email: '[PRIVACY CONTACT EMAIL]', phone: '' },
       socials: [],
-      announcement: { enabled: true, text: 'AI for Business Workshop — Learn to use AI practically in your business. Limited spots, R250.', linkLabel: 'Register now', href: 'https://claude.ai/artifact/B2yB6CJUSEuyiBv3YDmkCX' },
+      announcement: { enabled: true, text: 'AI for Business Workshop — Learn to use AI practically in your business. Limited spots, R250.', linkLabel: 'Register now', href: '/majesty-method/ai-workshop' },
       bookingUrl: '',
       marketingConsentWording: 'Send me occasional emails from Majesty Method about webinars, free resources and programmes. I can unsubscribe at any time.',
       tenderiqConsentWording: 'Send me occasional TenderIQ product updates by email. I can unsubscribe at any time.',

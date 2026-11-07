@@ -6,7 +6,7 @@ import { DEFAULT_FORMS, type FormKey } from '@/lib/forms/definitions';
 
 const where: Record<FormKey, string> = {
   bootcamp: '/majesty-method/bootcamp', webinar: '/majesty-method/webinars', acceleration: '/majesty-method/acceleration',
-  tenderiq: '/tenderiq', contact: '/contact', resource: '/majesty-method/resources',
+  tenderiq: '/tenderiq', contact: '/contact', resource: '/majesty-method/resources', workshop: '/majesty-method/ai-workshop',
 };
 
 export default async function Forms() {

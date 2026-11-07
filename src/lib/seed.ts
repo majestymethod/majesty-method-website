@@ -50,19 +50,31 @@ function tenderiqOfferAndDemo(db: Database.Database) {
 }
 
 /** Switches the announcement banner from the Friday webinars to the AI for Business Workshop.
- *  Only changes the announcement when it still has the original Friday sessions text. */
+ *  Matches either the original Friday sessions text or the artifact URL from the first deploy,
+ *  and points both to the internal workshop page. */
 function promoteAiWorkshop(db: Database.Database) {
   const OLD_TEXT = 'The Founder Marketing Sessions — free, every Friday. Smarter marketing, stronger brands, better business outcomes.';
+  const WORKSHOP_TEXT = 'AI for Business Workshop — Learn to use AI practically in your business. Limited spots, R250.';
+  const ARTIFACT_URL = 'https://claude.ai/artifact/B2yB6CJUSEuyiBv3YDmkCX';
+  const INTERNAL_URL = '/majesty-method/ai-workshop';
   const row = (db.prepare("SELECT draft, published FROM content WHERE key = 'settings'").get()) as { draft: string; published: string | null } | undefined;
   if (!row) return;
   const fix = (raw: string | null) => {
     if (!raw) return raw;
     const doc = JSON.parse(raw);
-    if (doc?.announcement?.text !== OLD_TEXT) return raw;
-    doc.announcement.text = 'AI for Business Workshop — Learn to use AI practically in your business. Limited spots, R250.';
-    doc.announcement.linkLabel = 'Register now';
-    doc.announcement.href = 'https://claude.ai/artifact/B2yB6CJUSEuyiBv3YDmkCX';
-    return JSON.stringify(doc);
+    // Case 1: still has the old Friday webinar text — replace everything
+    if (doc?.announcement?.text === OLD_TEXT) {
+      doc.announcement.text = WORKSHOP_TEXT;
+      doc.announcement.linkLabel = 'Register now';
+      doc.announcement.href = INTERNAL_URL;
+      return JSON.stringify(doc);
+    }
+    // Case 2: already has workshop text but still points to the artifact URL — fix the href
+    if (doc?.announcement?.href === ARTIFACT_URL) {
+      doc.announcement.href = INTERNAL_URL;
+      return JSON.stringify(doc);
+    }
+    return raw;
   };
   const d2 = fix(row.draft), p2 = fix(row.published);
   if (d2 !== row.draft || p2 !== row.published) {
