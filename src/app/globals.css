@@ -815,7 +815,7 @@ ul, ol { margin: 0; padding: 0; }
 /* ---------- Workshop payment card ---------- */
 .workshop-payment-wrap { display: none; margin-top: var(--s-5); }
 .workshop-register:has(.form-success) .workshop-payment-wrap { display: block; }
-.payment-card { position: relative; overflow: hidden; border-radius: var(--r-block); background: var(--gloss-white); border: 1px solid var(--line); box-shadow: var(--shadow-lift); padding: clamp(20px, 4vw, 48px); }
+.payment-card { position: relative; overflow: hidden; border-radius: var(--r-block); background: var(--gloss-white); border: 1px solid var(--line); box-shadow: var(--shadow-lift); padding: clamp(20px, 4vw, 48px); color: #1a1a1a; }
 .payment-card::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, var(--gold, #c9a84c), var(--accent, #0d5c3f)); }
 .payment-card h3 { font-size: var(--t-lg); color: var(--accent-deep); margin-bottom: var(--s-2); }
 .payment-card__amount { font-size: var(--t-2xl); font-weight: 700; color: var(--accent-deep); margin-bottom: var(--s-5); }
