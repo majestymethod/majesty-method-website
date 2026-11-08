@@ -144,6 +144,9 @@ function useCutouts(db: Database.Database) {
     ['webinars_page', ['image'], 'seed-webinars', 'seed-webinars-cutout'],
     ['resources_page', ['image'], 'seed-resources', 'seed-resources-cutout'],
   ];
+  // Also swap the webinars band image on the MM home page to the new portrait
+  swaps.push(['mm_home', ['webinars', 'image'], 'seed-webinars-cutout', 'seed-webinars-cutout-new']);
+  swaps.push(['mm_home', ['webinars', 'image'], 'seed-webinar-band', 'seed-webinars-cutout-new']);
   const sel = db.prepare('SELECT draft, published FROM content WHERE key = ?');
   const upd = db.prepare('UPDATE content SET draft = ?, published = ? WHERE key = ?');
   for (const [key, at, from, to] of swaps) {

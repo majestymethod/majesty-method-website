@@ -201,7 +201,7 @@ export const DOCS: DocDef[] = [
       choicePrompt: 'Choose your path',
       returnLabel: 'Back to the entrance',
       majesty: { label: 'MAJESTY METHOD', description: 'Founders’ Solutions' },
-      tenderiq: { label: 'TENDERIQ', description: 'Tender Opportunities & Intelligence' },
+      tenderiq: { label: 'TENDERIQ', description: 'Tender Intelligence' },
       seo: seoDefault('Majesty Method & TenderIQ | Marketing and Tenders, South Africa', 'Majesty Method helps South African founders with marketing strategy, AI implementation and training. TenderIQ helps businesses find and assess tender opportunities.'),
     },
   },
@@ -315,7 +315,7 @@ export const DOCS: DocDef[] = [
       },
       webinars: {
         title: 'The Founder Marketing Sessions',
-        image: { id: 'seed-webinar-band', alt: 'Someone relaxing with their feet up in red heels, a laptop on their lap' },
+        image: { id: 'seed-webinars-cutout-new', alt: 'Adelade Nyarirangwe, founder of Majesty Method, in an emerald green satin suit' },
         body: 'Free, every Friday. Smarter marketing, stronger brands and better business outcomes — practical sessions on positioning, founder-led marketing, AI automation and turning attention into revenue.',
         ctaLabel: 'Join the next session',
       },

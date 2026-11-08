@@ -3,7 +3,8 @@ import { Picture } from './Picture';
 
 /** True when the image is a cut-out (background removed). Cut-outs are shown "popping out" of their box. */
 export function isCutout(image: ImageRef | null | undefined) {
-  return !!image?.id && image.id.endsWith('-cutout');
+  if (!image?.id) return false;
+  return image.id.endsWith('-cutout') || image.id.includes('-cutout-');
 }
 
 /**

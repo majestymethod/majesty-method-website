@@ -21,7 +21,7 @@ export default async function EntryPage() {
   const s = getSettings();
   return (
     <div className="entry" data-brand="majesty">
-      <link rel="preload" as="image" href="/house/marble-1672.webp" imageSrcSet="/house/marble-640.webp 640w, /house/marble-1100.webp 1100w, /house/marble-1672.webp 1672w" imageSizes="max(100vw, 200svh)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/house/entrance-d-1672.webp" imageSrcSet="/house/entrance-d-640.webp 640w, /house/entrance-d-1100.webp 1100w, /house/entrance-d-1672.webp 1672w" imageSizes="max(100vw, 200svh)" fetchPriority="high" />
       <main>
         <HouseEntrance heading={c.headline} cue={c.cue} choicePrompt={c.choicePrompt} returnLabel={c.returnLabel} majesty={c.majesty} tenderiq={c.tenderiq} />
       </main>

@@ -184,28 +184,41 @@ export function HouseEntrance({ heading, cue, choicePrompt, returnLabel, majesty
       <h1 id="hx-heading" className="visually-hidden">{heading}</h1>
       <a href="#hx-paths" className="skip-link" onClick={(e) => { e.preventDefault(); open(true); }}>Skip to the two destinations</a>
 
-      {/* ---------------- Outside – marble building ---------------- */}
+      {/* ---------------- Outside – new entrance building ---------------- */}
       <div className="hx-ext" aria-hidden={!closed}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hx-marble" src="/house/marble-1672.webp" srcSet="/house/marble-640.webp 640w, /house/marble-1100.webp 1100w, /house/marble-1672.webp 1672w"
-          sizes="max(100vw, 200svh)" alt="" fetchPriority="high" decoding="async" />
-        <div className="hx-marble-overlay" />
-        <div className="hx-marble-content">
+        {/* Clean building background — ribbon/seal removed; CSS overlays cover the reconstruction */}
+        <picture>
+          <source media="(max-aspect-ratio: 3/4)"
+            srcSet="/house/entrance-m-480.webp 480w, /house/entrance-m-720.webp 720w, /house/entrance-m-941.webp 941w"
+            sizes="max(100vw, 56svh)" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hx-marble-logo" src="/brand/mm-hero-logo-1225.webp" srcSet="/brand/mm-hero-logo-640.webp 640w, /brand/mm-hero-logo-1225.webp 1225w" sizes="clamp(200px, 55vw, 420px)" width={1225} height={646} alt="Majesty Method" />
-          <span className="hx-marble-welcome">Welcome to Majesty Method</span>
+          <img className="hx-building" src="/house/entrance-d-1672.webp"
+            srcSet="/house/entrance-d-640.webp 640w, /house/entrance-d-1100.webp 1100w, /house/entrance-d-1672.webp 1672w"
+            sizes="max(100vw, 200svh)" alt="" fetchPriority="high" decoding="async" />
+        </picture>
+        <div className="hx-building-overlay" />
+
+        {/* Emerald satin ribbon — splits into left/right halves for the opening animation */}
+        <div className="hx-ribbon" aria-hidden="true">
+          <span className="hx-ribbon-half hx-ribbon-half--l" />
+          <span className="hx-ribbon-half hx-ribbon-half--r" />
         </div>
-        <div className="hx-ribbon-bar" aria-hidden="true">
-          <span className="hx-ribbon-line hx-ribbon-line--l" />
-          <span className="hx-seal-glow" />
-          <span className="hx-seal-disc">M</span>
-          <span className="hx-ribbon-line hx-ribbon-line--r" />
-        </div>
+
+        {/* Gold MM seal — interactive, glows and lifts */}
+        <span className="hx-seal-glow" aria-hidden="true" />
+        <span className="hx-seal-disc" aria-hidden="true">MM</span>
+
+        {/* "PRESS TO ENTER" plaque */}
+        <span className="hx-cta-plaque" aria-hidden="true">{cue}</span>
+
+        {/* Invisible doorway measure for clip-path animation */}
         <div ref={aperture} className="hx-aperture" />
+
+        {/* Full-screen click target */}
         <button ref={ribbonBtn} type="button" className="hx-ribbon-open"
           onClick={() => open()} tabIndex={closed ? 0 : -1}
           aria-label={`${cue}: open the ribbon and step inside to choose Majesty Method or TenderIQ`}>
-          <span className="hx-marble-cue">{cue}</span>
+          <span className="visually-hidden">{cue}</span>
         </button>
       </div>
 

@@ -420,6 +420,31 @@
     "alt": "A businesswoman in an emerald suit on the phone, juggling a stack of overflowing folders"
   },
   {
+    "id": "seed-webinars-cutout-new",
+    "original_name": "webinars-cutout-new.png",
+    "mime": "image/webp",
+    "width": 1024,
+    "height": 1280,
+    "variants": [
+      {
+        "w": 480,
+        "h": 600,
+        "file": "seed-webinars-cutout-new-480.webp"
+      },
+      {
+        "w": 800,
+        "h": 1000,
+        "file": "seed-webinars-cutout-new-800.webp"
+      },
+      {
+        "w": 1024,
+        "h": 1280,
+        "file": "seed-webinars-cutout-new-1024.webp"
+      }
+    ],
+    "alt": "Adelade Nyarirangwe, founder of Majesty Method, in an emerald green satin suit"
+  },
+  {
     "id": "seed-resources",
     "original_name": "resources-break-the-internet.jpg",
     "mime": "image/webp",
